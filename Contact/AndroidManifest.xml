@@ -14,20 +14,21 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.jiec.contact.LoginPhoneActivity"
-            android:label="@string/app_name" >
+            android:name="com.jiec.contact.MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.jiec.contact.MainActivity" />
-        <activity android:name="com.jiec.contact.MyContactActivity" />
-        <activity android:name="com.jiec.contact.MyRecordActivity" />
-        <activity android:name="com.jiec.contact.MyJobActivity" />
-        <activity android:name="com.jiec.contact.SettingActivity" />
-        <activity android:name="com.jiec.contact.LoginUIDActivity" />
+        <!--  <activity android:name="com.jiec.contact.MainActivity" android:screenOrientation="portrait"/>-->
+        <activity android:name="com.jiec.contact.MyContactActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.jiec.contact.MyRecordActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.jiec.contact.MyJobActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.jiec.contact.SettingActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.jiec.contact.LoginUIDActivity" android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

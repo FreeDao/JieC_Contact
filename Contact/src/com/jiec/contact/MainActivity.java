@@ -5,7 +5,6 @@ import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.Window;
 import android.widget.TabHost;
 
@@ -35,13 +34,6 @@ public class MainActivity extends TabActivity {
         Intent settingIntent = new Intent();
         settingIntent.setClass(this, SettingActivity.class);
         tabHost.addTab(tabHost.newTabSpec("设置").setIndicator("设置").setContent(settingIntent));
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
     }
 
 }
