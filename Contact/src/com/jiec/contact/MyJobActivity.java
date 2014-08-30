@@ -18,7 +18,7 @@ public class MyJobActivity extends ListActivity {
     }
 
     private String[] mStrings = {
-            "12306", "10086", "13800138000", "10000"
+            "任务1", "任务2", "任务3", "任务4"
     };
 
 }

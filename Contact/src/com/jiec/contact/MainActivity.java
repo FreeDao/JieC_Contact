@@ -1,6 +1,8 @@
 
 package com.jiec.contact;
 
+import com.jiec.contact.socket.ContactSocket;
+
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -34,6 +36,13 @@ public class MainActivity extends TabActivity {
         Intent settingIntent = new Intent();
         settingIntent.setClass(this, SettingActivity.class);
         tabHost.addTab(tabHost.newTabSpec("设置").setIndicator("设置").setContent(settingIntent));
+
+    }
+    
+    @Override
+    protected void onDestroy() {
+    	ContactSocket.getInstance().closeSocket();
+    	super.onDestroy();
     }
 
 }
