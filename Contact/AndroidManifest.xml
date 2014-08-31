@@ -11,6 +11,9 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <uses-permission android:name = "android.permission.DISABLE_KEYGUARD"/>
     <uses-permission android:name = "android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />  
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" /> 
 
     <application
         android:name="com.jiec.contact.MyApplication"
@@ -19,8 +22,9 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.jiec.contact.LoginPhoneActivity"
+            android:name="com.jiec.contact.MainActivity"
             android:label="@string/app_name"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,12 +32,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.jiec.contact.MainActivity" android:screenOrientation="portrait"/>
-        <activity android:name="com.jiec.contact.MyContactActivity" android:screenOrientation="portrait"/>
-        <activity android:name="com.jiec.contact.MyRecordActivity" android:screenOrientation="portrait"/>
-        <activity android:name="com.jiec.contact.MyJobActivity" android:screenOrientation="portrait"/>
-        <activity android:name="com.jiec.contact.SettingActivity" android:screenOrientation="portrait"/>
-        <activity android:name="com.jiec.contact.LoginUIDActivity" android:screenOrientation="portrait"/>
+        <!--<activity android:name="com.jiec.contact.MainActivity" android:screenOrientation="portrait"/>-->
+        <activity android:name="com.jiec.contact.MyContactActivity" 
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.jiec.contact.MyRecordActivity" 
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.jiec.contact.MyJobActivity" 
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.jiec.contact.SettingActivity" 
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.jiec.contact.LoginUIDActivity" 
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.jiec.contact.ContactDetailActivity" 
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
+        
+        <receiver android:name="com.jiec.contact.core.AppReceiver" >
+			<intent-filter>   
+            	<action android:name="android.intent.action.PHONE_STATE"/>   
+    			<action android:name="android.intent.action.NEW_OUTGOING_CALL" />   
+        	</intent-filter> 
+        </receiver>
     </application>
 
 </manifest>

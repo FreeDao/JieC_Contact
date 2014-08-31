@@ -13,14 +13,17 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.jiec.contact.model.Message;
 import com.jiec.contact.model.Protocal;
 import com.jiec.contact.socket.ContactSocket;
 import com.jiec.contact.socket.ContactSocket.RespondListener;
+import com.jiec.utils.ToastUtil;
 
 public class LoginPhoneActivity extends Activity {
 
+	private EditText mPasswdEditText = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -31,16 +34,24 @@ public class LoginPhoneActivity extends Activity {
         
         mHandler.postDelayed(mDisableHomeKeyRunnable,200);
 
+        mPasswdEditText = (EditText)findViewById(R.id.editText1);
+        
         Button loginBtn = (Button) findViewById(R.id.login_btn);
         loginBtn.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
+            	if (mPasswdEditText.getText().toString().length() < 1) {
+            		ToastUtil.showMsg("密码不能为空");
+            		return;
+            	}
+            	
                 // TODO Auto-generated method stub
             	String str = "{seq:" + (ContactSocket.sSeq++) + 
             			",cmd:" + Protocal.CMD_LOGIN_REQUEST + 
-            			",userId:" + "\"123456\"" + 
-            			",passwd:" + "\"123456\"" + "}";
+            			",phoneNum:" + "\"123456\"" + 
+            			",passwd:" + "\"" + mPasswdEditText.getText().toString().trim() +  "\"" + 
+            			"}";
             	JSONObject object = null;
 				try {
 					object = new JSONObject(str);
@@ -48,7 +59,7 @@ public class LoginPhoneActivity extends Activity {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-            	
+				ContactSocket.getInstance().connect();
             	ContactSocket.getInstance().send(
             		object, new RespondListener() {
 							

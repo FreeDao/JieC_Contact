@@ -4,6 +4,8 @@ package com.jiec.contact;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ExpandableListView;
@@ -12,6 +14,7 @@ import android.widget.Toast;
 
 import com.jiec.contact.widget.SuperTreeViewAdapter;
 import com.jiec.contact.widget.TreeViewAdapter;
+import com.jiec.utils.ToastUtil;
 
 public class MyContactActivity extends Activity {
 
@@ -49,7 +52,7 @@ public class MyContactActivity extends Activity {
 
         expandableListView = (ExpandableListView) findViewById(R.id.expandablelistview);
         adapter = new TreeViewAdapter(this, 38);
-        superAdapter = new SuperTreeViewAdapter(this, stvClickEvent);
+        superAdapter = new SuperTreeViewAdapter(this, null);
 
         adapter.removeAll();
         adapter.notifyDataSetChanged();
@@ -74,23 +77,15 @@ public class MyContactActivity extends Activity {
                     int childPosition, long id) {
                 // TODO Auto-generated method stub
                 String str = "parent_id = " + groupPosition + " child_id = " + childPosition;
-                Toast.makeText(MyContactActivity.this, str, Toast.LENGTH_SHORT).show();
+                
+                ToastUtil.showMsg(str);
+                Intent intent = new Intent(
+                		MyContactActivity.this, ContactDetailActivity.class);//Intent.ACTION_CALL, Uri.parse("tel:" + 10086));  
+                startActivity(intent);
                 return false;
             }
         });
 
     }
-
-    OnChildClickListener stvClickEvent = new OnChildClickListener() {
-
-        @Override
-        public boolean onChildClick(ExpandableListView parent, View v, int groupPosition,
-                int childPosition, long id) {
-            // TODO Auto-generated method stub
-            String msg = "parent_id = " + groupPosition + " child_id = " + childPosition;
-            Toast.makeText(MyContactActivity.this, msg, Toast.LENGTH_SHORT).show();
-            return false;
-        }
-    };
 
 }

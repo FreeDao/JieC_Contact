@@ -16,6 +16,7 @@ import android.util.Log;
 import com.jiec.contact.model.Message;
 import com.jiec.contact.model.Protocal;
 import com.jiec.contact.model.User;
+import com.jiec.utils.ToastUtil;
 
 public class ContactSocket {
 	
@@ -26,7 +27,12 @@ public class ContactSocket {
 
 	private static ContactSocket sIntance = null;
 	
-	private Socket mSocket = null;
+	private static String SERVER_IP = "192.168.0.103";
+	//private static String SERVER_IP = "114.215.153.4";
+	
+	private static int SERVER_PORT = 9999;
+	
+	private static Socket sSocket = null;
 	
 	private boolean mConnected = false;
 	
@@ -34,28 +40,15 @@ public class ContactSocket {
 	
 	public static int sSeq = 0;
 	
+	
 	private ContactSocket() {
-		try {
-			mSocket=new Socket("192.168.0.103",9999);
-			
-			if (mSocket.isConnected()) {
-				mConnected = true;
-			}
-			mThread.start();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		} 
-		
-		
-		
-		System.out.println("connect success");
+	
 	}
 	
 	public void send(JSONObject object, RespondListener listener) {
 		try {
 			Log.i("test", object.toString());
-			ObjectOutputStream oos=new ObjectOutputStream(mSocket.getOutputStream());
+			ObjectOutputStream oos=new ObjectOutputStream(sSocket.getOutputStream());
 			oos.writeObject(object.toString());
 			
 			if (listener != null) {
@@ -77,14 +70,32 @@ public class ContactSocket {
 		return sIntance;
 	}
 	
+	public void connect() {
+		try {
+			sSocket=new Socket(SERVER_IP, SERVER_PORT);
+			
+			if (sSocket.isConnected()) {
+				mConnected = true;
+			}
+			mThread.start();
+
+		} catch (Exception e) {
+			ToastUtil.showMsg("本地网络出现问题或者服务器中断，请确定本地网络！如果本地正常请联系负责人");
+			e.printStackTrace();
+		} 
+	}
+	
 	public Socket getSocket() {
-		return mSocket;
+		return sSocket;
 	}
 	
 	public void closeSocket() {
-		if (mSocket != null) {
+		mConnected = false;
+		if (sSocket != null) {
 			try {
-				mSocket.close();
+				sSocket.close();
+				sSocket = null;
+				sIntance = null;
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -95,27 +106,32 @@ public class ContactSocket {
 		
 		public void run()
 		{
-			while(ContactSocket.this.mConnected)
+			while(mConnected)
 			{
 				//不停的读取从服务器端发来的消息
-				try {
-					
-					ObjectInputStream ois=new ObjectInputStream(
-							ContactSocket.this.mSocket.getInputStream());
-					String o = (String)ois.readObject();
-					JSONObject jo = new JSONObject(o);
-					
-					for(Entry<Integer, RespondListener> entry:mListeners.entrySet()){ 
-						if (jo.getInt("seq") == entry.getKey()) {
-							entry.getValue().onSuccess(entry.getKey(), jo);
-							mListeners.remove(entry);
+				try {						
+					if (sSocket == null || sSocket.isClosed()) {
+						return;
+					} else {
+						ObjectInputStream ois=new ObjectInputStream(
+								sSocket.getInputStream());
+						String o = (String)ois.readObject();
+						JSONObject jo = new JSONObject(o);
+						
+						for(Entry<Integer, RespondListener> entry:mListeners.entrySet()){ 
+							if (jo.getInt("seq") == entry.getKey()) {
+								entry.getValue().onSuccess(entry.getKey(), jo);
+								mListeners.remove(entry);
+							}
 						}
-					} 
+					}
+					
+					Thread.sleep(100);
 					
 				} catch (Exception e) {
 					e.printStackTrace();
 					// TODO: handle exception
-				}
+				} 
 			}
 		}
 	});
