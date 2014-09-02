@@ -10,6 +10,7 @@ import java.net.Socket;
 
 import net.sf.json.JSONObject;
 
+import com.jiec.contact.db.LoginHelper;
 import com.jiec.contact.model.Protocal;
 public class ContactServer {
 	
@@ -34,18 +35,21 @@ public class ContactServer {
 				JSONObject object = JSONObject.fromObject(msg);
 				
 				ObjectOutputStream oos=new ObjectOutputStream(s.getOutputStream());
-				if(object.getInt("cmd") == Protocal.CMD_LOGIN_REQUEST && 
-						object.getString("passwd").equals("123456"))
+				
+				if(object.getInt("cmd") == Protocal.CMD_LOGIN_REQUEST)
 				{
-					System.out.println("reply user : " + object.getString("phoneNum"));
-					//返回一个成功登陆的信息报
-					JSONObject objectReply = new JSONObject();
-					objectReply.put("seq", object.getInt("seq"));
-					oos.writeObject(objectReply.toString());
-					
-				}else{
-					//关闭Socket
-					s.close();		
+					if (LoginHelper.checkLoginPhone(object.getString("phoneNum"), 
+							object.getString("passwd"))) {
+						System.out.println("reply user : " + object.getString("phoneNum"));
+						//返回一个成功登陆的信息报
+						JSONObject objectReply = new JSONObject();
+						objectReply.put("seq", object.getInt("seq"));
+						oos.writeObject(objectReply.toString());
+					}else{
+						//关闭Socket
+						s.close();		
+					}
+								
 				}		
 			}	
 			

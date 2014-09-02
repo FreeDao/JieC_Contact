@@ -7,23 +7,27 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
-import com.jiec.contact.model.Message;
 import com.jiec.contact.model.Protocal;
 import com.jiec.contact.socket.ContactSocket;
 import com.jiec.contact.socket.ContactSocket.RespondListener;
+import com.jiec.utils.LockLayer;
+import com.jiec.utils.SIMCardInfo;
 import com.jiec.utils.ToastUtil;
 
 public class LoginPhoneActivity extends Activity {
 
 	private EditText mPasswdEditText = null;
+	
+	private String mPhoneStr = null;
+	
+	private TextView mPhoneTV = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -31,10 +35,15 @@ public class LoginPhoneActivity extends Activity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login_phone);
+        mPhoneStr = new SIMCardInfo(this).getNativePhoneNumber();
+        if (mPhoneStr.startsWith("+86")) {
+        	mPhoneStr = mPhoneStr.substring(3);
+        }
         
-        mHandler.postDelayed(mDisableHomeKeyRunnable,200);
+        mPhoneTV = (TextView) findViewById(R.id.textView1);
+        mPhoneTV.setText(mPhoneTV.getText() + mPhoneStr);
 
-        mPasswdEditText = (EditText)findViewById(R.id.editText1);
+        mPasswdEditText = (EditText) findViewById(R.id.editText1);
         
         Button loginBtn = (Button) findViewById(R.id.login_btn);
         loginBtn.setOnClickListener(new OnClickListener() {
@@ -49,7 +58,7 @@ public class LoginPhoneActivity extends Activity {
                 // TODO Auto-generated method stub
             	String str = "{seq:" + (ContactSocket.sSeq++) + 
             			",cmd:" + Protocal.CMD_LOGIN_REQUEST + 
-            			",phoneNum:" + "\"123456\"" + 
+            			",phoneNum:" + "\"" + mPhoneStr + "\"" + 
             			",passwd:" + "\"" + mPasswdEditText.getText().toString().trim() +  "\"" + 
             			"}";
             	JSONObject object = null;
@@ -77,39 +86,6 @@ public class LoginPhoneActivity extends Activity {
 					}
 				});
             }
-        });
-        
-        
-    }
-    
-    Runnable mDisableHomeKeyRunnable = new Runnable() {
-
-    	@Override
-    	public void run() {
-    		disableHomeKey();
-
-    	}
-    };
-
-    Handler mHandler = new Handler();
-
-    public void disableHomeKey() {
-    	this.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
-    }
-    
-    @Override
-    public boolean dispatchKeyEvent(KeyEvent event) {
-    	int keyCode = event.getKeyCode();
-    	if(keyCode == KeyEvent.KEYCODE_BACK) { //监控/拦截/屏蔽返回键
-            
-            return true;
-        } else if(keyCode == KeyEvent.KEYCODE_MENU) {
-            //监控/拦截菜单键
-        	return true;
-        } else if(keyCode == KeyEvent.KEYCODE_HOME) {
-        	return true;
-            //由于Home键为系统键，此处不能捕获，需要重写onAttachedToWindow()
-        }
-    	return super.dispatchKeyEvent(event);
+        }); 
     }
 }

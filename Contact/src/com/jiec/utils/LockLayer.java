@@ -21,7 +21,7 @@ public class LockLayer {
 	        mLockViewLayoutParams = new LayoutParams();  
 	        mLockViewLayoutParams.width = LayoutParams.MATCH_PARENT;  
 	        mLockViewLayoutParams.height = LayoutParams.MATCH_PARENT;  
-	        mLockViewLayoutParams.alpha = 85;
+	        mLockViewLayoutParams.alpha = 90;
 	        //实现关键  
 	        mLockViewLayoutParams.type = LayoutParams.TYPE_SYSTEM_ERROR;  
 	        //apktool value，这个值具体是哪个变量还请网友帮忙  

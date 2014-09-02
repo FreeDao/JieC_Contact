@@ -20,9 +20,7 @@ public class LoginUIDActivity extends Activity {
         super.onCreate(savedInstanceState);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        
         setContentView(R.layout.activity_login_user_id);
-        mHandler.postDelayed(mDisableHomeKeyRunnable,200);
 
         Button loginBtn = (Button) findViewById(R.id.login_btn);
         loginBtn.setOnClickListener(new OnClickListener() {
@@ -34,21 +32,6 @@ public class LoginUIDActivity extends Activity {
                 finish();
             }
         });
-    }
-    
-    Runnable mDisableHomeKeyRunnable = new Runnable() {
-
-    	@Override
-    	public void run() {
-    		disableHomeKey();
-
-    	}
-    };
-
-    Handler mHandler = new Handler();
-
-    public void disableHomeKey() {
-    	this.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
-    }
+    }  
 
 }
