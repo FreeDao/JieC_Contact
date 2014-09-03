@@ -32,7 +32,7 @@
                     android:src="@drawable/ic_launcher" >
                 </ImageButton>
 
-                <EditText
+                <TextView
                     android:id="@+id/username"
                     android:layout_width="140dp"
                     android:layout_height="wrap_content"
@@ -42,10 +42,10 @@
                     android:scrollbars="vertical" >
 
                     <requestFocus />
-                </EditText>
+                </TextView>
 
             </LinearLayout>
-
+            
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -56,85 +56,180 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:text="号码1:"
-                    android:textSize="20dp" />
-
-                <EditText
-                    android:id="@+id/mobilephone"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="top"
-                    android:phoneNumber="true"
-                    android:scrollbars="vertical" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:text="号码2:"
-                    android:textSize="20dp" />
-
-                <EditText
-                    android:id="@+id/officephone"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="top"
-                    android:phoneNumber="true"
-                    android:scrollbars="vertical" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:text="号码3:"
-                    android:textSize="20dp" />
-
-                <EditText
-                    android:id="@+id/familyphone"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="top"
-                    android:phoneNumber="true"
-                    android:scrollbars="vertical" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:text="公司  :"
-                    android:textSize="20dp" />
+                    android:text="公司编号  : "
+                    android:textSize="15dp" />
 
                 <EditText
                     android:id="@+id/position"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="top"
+                    android:text="20140903"
                     android:scrollbars="vertical" />
             </LinearLayout>
 
+            <RelativeLayout
+                android:id="@+id/rl_phone_1"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal" >
 
+                <TextView
+                    android:id="@+id/tv_phone_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_centerVertical="true"
+                    android:text="办公号码1:"
+                    android:textSize="15dp" />
 
+                <EditText
+                    android:id="@+id/tv_phone_num_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top"
+                    android:layout_toRightOf="@+id/tv_phone_1"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_phone_2"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/tv_phone_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_centerVertical="true"
+                    android:text="办公号码2:"
+                    android:textSize="15dp" />
+
+                <EditText
+                    android:id="@+id/tv_phone_num_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top"
+                    android:layout_toRightOf="@+id/tv_phone_2"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_phone_3"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/tv_phone_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:text="办公号码3:"
+                    android:textSize="15dp" />
+
+                <EditText
+                    android:id="@+id/tv_phone_num_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top"
+                    android:layout_toRightOf="@+id/tv_phone_3"/>
+
+            </RelativeLayout>
+            
+            <RelativeLayout
+                android:id="@+id/rl_yd_phone_1"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/tv_yd_phone_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:text="移动号码1:"
+                    android:textSize="15dp" />
+
+                <EditText
+                    android:id="@+id/tv_yd_phone_num_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top"
+                    android:layout_toRightOf="@+id/tv_yd_phone_1"/>
+
+            </RelativeLayout>
+            
+            <RelativeLayout
+                android:id="@+id/rl_yd_phone_2"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/tv_yd_phone_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_centerVertical="true"
+                    android:text="移动号码2:"
+                    android:textSize="15dp" />
+
+                <EditText
+                    android:id="@+id/tv_yd_phone_num_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top"
+                    android:layout_toRightOf="@+id/tv_yd_phone_2"/>
+
+            </RelativeLayout>
+            
+            <RelativeLayout
+                android:id="@+id/rl_yd_phone_3"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/tv_yd_phone_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:text="移动号码3:"
+                    android:textSize="15dp" />
+
+                <EditText
+                    android:id="@+id/tv_yd_phone_num_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top"
+                    android:layout_toRightOf="@+id/tv_yd_phone_3"/>
+                
+            </RelativeLayout>
+            
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -145,12 +240,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:text="地址  :"
-                    android:textSize="20dp" />
+                    android:text="qq             :"
+                    android:textSize="15dp" />
 
                 <EditText
                     android:id="@+id/address"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="top"
                     android:scrollbars="vertical" />
@@ -168,12 +263,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:text="邮箱  :"
-                    android:textSize="20dp" />
+                    android:text="email        :"
+                    android:textSize="15dp" />
 
                 <EditText
                     android:id="@+id/email"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="top"
                     android:scrollbars="vertical" />
@@ -190,12 +285,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:text="备注  :"
-                    android:textSize="20dp" />
+                    android:text="数据录入  :"
+                    android:textSize="15dp" />
 
                 <EditText
                     android:id="@+id/remark"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:gravity="top"
                     android:scrollbars="vertical" />
@@ -212,19 +307,18 @@
             android:id="@+id/btn_save"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_weight="1"
             android:text="保存" />
-
 
         <Button
             android:id="@+id/btn_back"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_weight="1"
             android:text="返回" />
     </LinearLayout>
 

@@ -6,20 +6,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.Window;
 import android.widget.TabHost;
 import android.widget.Toast;
 
-import com.jiec.contact.socket.ContactSocket;
-
 public class MainActivity extends TabActivity {
 
-	private long mExitTime = 0;
+    private long mExitTime = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        // this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         TabHost tabHost = getTabHost();
         LayoutInflater.from(this).inflate(R.layout.main, tabHost.getTabContentView(), true);
@@ -41,28 +39,21 @@ public class MainActivity extends TabActivity {
         tabHost.addTab(tabHost.newTabSpec("设置").setIndicator("设置").setContent(settingIntent));
 
     }
-    
+
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
-    	if (event.getKeyCode() == KeyEvent.KEYCODE_BACK
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK
                 && event.getAction() == KeyEvent.ACTION_DOWN) {
-        	if ((System.currentTimeMillis() - mExitTime) > 2000) {
+            if ((System.currentTimeMillis() - mExitTime) > 2000) {
                 Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show();
                 mExitTime = System.currentTimeMillis();
             } else {
-            	ContactSocket.getInstance().closeSocket();
-        		finish();
+                finish();
             }
-        	
-        	return true;
-    	}
-    	return super.dispatchKeyEvent(event);
-    }
-    
-    @Override
-    protected void onDestroy() {
-    	
-    	super.onDestroy();
+
+            return true;
+        }
+        return super.dispatchKeyEvent(event);
     }
 
 }
