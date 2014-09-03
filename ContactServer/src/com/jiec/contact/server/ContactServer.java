@@ -9,6 +9,7 @@ import java.net.Socket;
 
 import net.sf.json.JSONObject;
 
+import com.jiec.contact.db.ContactHelper;
 import com.jiec.contact.db.LoginHelper;
 import com.jiec.contact.model.Protocal;
 
@@ -17,7 +18,7 @@ public class ContactServer {
     public ContactServer() {
         ServerSocket ss = null;
         try {
-            System.out.println("server start˿port 9999");
+            System.out.println("server start  port 9999");
             ss = new ServerSocket(9999);
             while (true) {
                 Socket s = ss.accept();
@@ -25,48 +26,55 @@ public class ContactServer {
                 ObjectInputStream ois = new ObjectInputStream(s.getInputStream());
                 String msg = (String) ois.readObject();
 
-                System.out.println("recieve msg = " + msg);
+                System.out.println("request msg = " + msg);
 
-                JSONObject object = JSONObject.fromObject(msg);
+                JSONObject requestObject = JSONObject.fromObject(msg);
 
                 ObjectOutputStream oos = new ObjectOutputStream(s.getOutputStream());
+                
+                int cmd = requestObject.getInt("cmd");
 
-                if (object.getInt("cmd") == Protocal.CMD_LOGIN_REQUEST) {
-                    if (LoginHelper.checkLoginPhone(object.getString("phoneNum"),
-                            object.getString("passwd"))) {
-                        System.out.println("reply phone : " + object.getString("phoneNum"));
+                if (cmd == Protocal.CMD_LOGIN_REQUEST) {
+                    if (LoginHelper.checkLoginPhone(requestObject.getString("phoneNum"),
+                            requestObject.getString("passwd"))) {
 
                         JSONObject objectReply = new JSONObject();
-                        objectReply.put("seq", object.getInt("seq"));
+                        objectReply.put("seq", requestObject.getInt("seq"));
                         objectReply.put("result", 1);
                         oos.writeObject(objectReply.toString());
                     } else {
 
                         JSONObject objectReply = new JSONObject();
-                        objectReply.put("seq", object.getInt("seq"));
+                        objectReply.put("seq", requestObject.getInt("seq"));
                         objectReply.put("result", -1);
                         oos.writeObject(objectReply.toString());
-                        s.close();
                     }
 
-                } else if (object.getInt("cmd") == Protocal.CMD_LOGIN_USER_REQUEST) {
-                    if (LoginHelper.checkLoginUser(object.getString("user_id"),
-                            object.getString("user_passwd"))) {
-                        System.out.println("reply user : " + object.getString("user_id"));
+                } else if (cmd == Protocal.CMD_LOGIN_USER_REQUEST) {
+                    if (LoginHelper.checkLoginUser(requestObject.getString("user_id"),
+                            requestObject.getString("user_passwd"))) {
 
                         JSONObject objectReply = new JSONObject();
-                        objectReply.put("seq", object.getInt("seq"));
+                        objectReply.put("seq", requestObject.getInt("seq"));
                         objectReply.put("result", 1);
                         oos.writeObject(objectReply.toString());
                     } else {
 
                         JSONObject objectReply = new JSONObject();
-                        objectReply.put("seq", object.getInt("seq"));
+                        objectReply.put("seq", requestObject.getInt("seq"));
                         objectReply.put("result", -1);
                         oos.writeObject(objectReply.toString());
-                        s.close();
+                        
                     }
+                } else if (cmd == Protocal.CMD_GET_CONTACT) {
+                	JSONObject objectReply = new JSONObject();
+                    objectReply.put("seq", requestObject.getInt("seq"));
+                    objectReply.put("result", 1);
+                    objectReply.put("contacts", ContactHelper.getContact(requestObject.getString("user_id")));
+                    oos.writeObject(objectReply.toString());
                 }
+                
+                s.close();
             }
 
         } catch (Exception e) {

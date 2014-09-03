@@ -52,7 +52,7 @@ public class LoginUIDActivity extends Activity {
                     return;
                 }
 
-                String str = "{seq:" + (ContactSocket.sSeq++) + ",cmd:"
+                String str = "{seq:" + (ContactSocket.getSeq()) + ",cmd:"
                         + Protocal.CMD_LOGIN_USER_REQUEST + ",user_id:" + "\"" + mUserId.getText()
                         + "\"" + ",user_passwd:" + "\"" + mUserPasswd.getText() + "\"" + "}";
                 JSONObject object = null;

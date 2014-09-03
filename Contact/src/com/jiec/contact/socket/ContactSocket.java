@@ -26,8 +26,8 @@ public class ContactSocket {
 
     private static ContactSocket sIntance = null;
 
-    // private static String SERVER_IP = "192.168.0.103";
-    private static String SERVER_IP = "192.168.1.138";
+     private static String SERVER_IP = "192.168.0.103";
+    //private static String SERVER_IP = "192.168.1.138";
 
     // private static String SERVER_IP = "114.215.153.4";
 
@@ -40,7 +40,11 @@ public class ContactSocket {
     @SuppressLint("UseSparseArrays")
     private Map<Integer, RespondListener> mListeners = new HashMap<Integer, RespondListener>();
 
-    public static int sSeq = 0;
+    private static int sSeq = 0;
+    
+    public static int getSeq() {
+    	return sSeq++;
+    }
 
     private ContactSocket() {
 

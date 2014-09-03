@@ -62,7 +62,7 @@ public class LoginPhoneActivity extends Activity {
                 }
 
                 // TODO Auto-generated method stub
-                String str = "{seq:" + (ContactSocket.sSeq++) + ",cmd:"
+                String str = "{seq:" + (ContactSocket.getSeq()) + ",cmd:"
                         + Protocal.CMD_LOGIN_REQUEST + ",phoneNum:" + "\"" + mPhoneStr + "\""
                         + ",passwd:" + "\"" + mPasswdEditText.getText().toString().trim() + "\""
                         + "}";

@@ -12,6 +12,7 @@ import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.Toast;
 
+import com.jiec.contact.model.ContactModel;
 import com.jiec.contact.widget.SuperTreeViewAdapter;
 import com.jiec.contact.widget.TreeViewAdapter;
 import com.jiec.utils.ToastUtil;
@@ -49,6 +50,14 @@ public class MyContactActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
+        
+        new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				ContactModel.getInstance().getContacts();
+			}
+		}).start();
 
         expandableListView = (ExpandableListView) findViewById(R.id.expandablelistview);
         adapter = new TreeViewAdapter(this, 38);
