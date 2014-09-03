@@ -80,9 +80,9 @@ public class LoginPhoneActivity extends Activity {
 					}
 					
 					@Override
-					public void onFailed(int cmd, JSONObject object) {
+					public void onFailed(int cmd, String reason) {
 						// TODO Auto-generated method stub
-						
+						ToastUtil.showMsg(reason);
 					}
 				});
             }

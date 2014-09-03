@@ -40,17 +40,39 @@ public class ContactServer {
 				{
 					if (LoginHelper.checkLoginPhone(object.getString("phoneNum"), 
 							object.getString("passwd"))) {
-						System.out.println("reply user : " + object.getString("phoneNum"));
+						System.out.println("reply phone : " + object.getString("phoneNum"));
 						//返回一个成功登陆的信息报
 						JSONObject objectReply = new JSONObject();
 						objectReply.put("seq", object.getInt("seq"));
+						objectReply.put("result", 1);
 						oos.writeObject(objectReply.toString());
 					}else{
 						//关闭Socket
+						JSONObject objectReply = new JSONObject();
+						objectReply.put("seq", object.getInt("seq"));
+						objectReply.put("result", -1);
+						oos.writeObject(objectReply.toString());
 						s.close();		
 					}
 								
-				}		
+				} else if (object.getInt("cmd") == Protocal.CMD_LOGIN_USER_REQUEST) {
+					if (LoginHelper.checkLoginUser(object.getString("user_id"), 
+							object.getString("user_passwd"))) {
+						System.out.println("reply user : " + object.getString("user_id"));
+						//返回一个成功登陆的信息报
+						JSONObject objectReply = new JSONObject();
+						objectReply.put("seq", object.getInt("seq"));
+						objectReply.put("result", 1);
+						oos.writeObject(objectReply.toString());
+					}else{
+						//关闭Socket
+						JSONObject objectReply = new JSONObject();
+						objectReply.put("seq", object.getInt("seq"));
+						objectReply.put("result", -1);
+						oos.writeObject(objectReply.toString());
+						s.close();		
+					}
+				}
 			}	
 			
 			

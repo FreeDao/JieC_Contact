@@ -22,7 +22,7 @@ public class ContactSocket {
 	
 	public interface RespondListener {
 		public void onSuccess(int cmd, JSONObject object);
-		public void onFailed(int cmd, JSONObject object);
+		public void onFailed(int cmd, String reason);
 	}
 
 	private static ContactSocket sIntance = null;
@@ -120,7 +120,11 @@ public class ContactSocket {
 						
 						for(Entry<Integer, RespondListener> entry:mListeners.entrySet()){ 
 							if (jo.getInt("seq") == entry.getKey()) {
-								entry.getValue().onSuccess(entry.getKey(), jo);
+								if (jo.getInt("result") == 1) {
+									entry.getValue().onSuccess(entry.getKey(), jo);
+								} else {
+									entry.getValue().onFailed(entry.getKey(), "密码错误");
+								}
 								mListeners.remove(entry);
 							}
 						}

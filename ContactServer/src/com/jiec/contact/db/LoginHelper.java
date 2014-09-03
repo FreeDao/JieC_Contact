@@ -14,7 +14,7 @@ public class LoginHelper {
 
     public static boolean checkLoginUser(String userName, String passwd) {
 
-        return checkPasswd("select user_passwd from user_info where user_name=" + userName, passwd);
+        return checkPasswd("select user_passwd from user_info where user_id=" + userName, passwd);
     }
 
     private static boolean checkPasswd(String sql, String passwd) {
