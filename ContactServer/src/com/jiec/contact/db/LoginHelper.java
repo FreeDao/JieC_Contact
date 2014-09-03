@@ -3,13 +3,12 @@ package com.jiec.contact.db;
 
 import java.sql.ResultSet;
 
-import org.apache.commons.logging.Log;
-
 public class LoginHelper {
 
     public static boolean checkLoginPhone(String phoneNum, String passwd) {
 
-        return checkPasswd("SELECT phone_passwd FROM contact.phone_info where phone_num = " + phoneNum, passwd);
+        return checkPasswd("SELECT phone_passwd FROM contact.phone_info where phone_num = "
+                + phoneNum, passwd);
     }
 
     public static boolean checkLoginUser(String userName, String passwd) {
@@ -23,10 +22,10 @@ public class LoginHelper {
 
         try {
             if (rs.next()) {
-            	String dbPasswd = rs.getString(1);
-            	System.out.println("passwd = " + dbPasswd);
-            	
-            	rs.close();
+                String dbPasswd = rs.getString(1);
+                System.out.println("passwd = " + dbPasswd);
+
+                rs.close();
                 sh.close();
 
                 if (passwd.equals(dbPasswd)) {
@@ -35,13 +34,12 @@ public class LoginHelper {
                     return false;
                 }
             }
-            
 
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
-        
+
         return false;
     }
 }

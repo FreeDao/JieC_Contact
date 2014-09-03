@@ -28,18 +28,15 @@ public class SqlHelper {
 
     private static final String DRIVER_STR = "com.mysql.jdbc.Driver";
 
-    private static final String SQL_URL = "jdbc:mysql://114.215.153.4:3306/contact?"
-            + "user=root&password=woshiwbjso&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true";
+    private static final String SQL_URL = "jdbc:mysql://114.215.153.4:3306/contact";
 
     public SqlHelper() {
 
         try {
-        	Class.forName("com.mysql.jdbc.Driver");     //加载MYSQL JDBC驱动程序   
-        	mConnection = (Connection) DriverManager.getConnection(
-  			      "jdbc:mysql://114.215.153.4:3306/contact","root","woshiwbjso");
-  			           //连接URL为   jdbc:mysql//服务器地址/数据库名  ，后面的2个参数分别是登陆用户名和密码
-  		  System.out.println("Success connect Mysql server!");
-  		  
+            Class.forName(DRIVER_STR);
+            mConnection = (Connection) DriverManager.getConnection(SQL_URL, "root", "woshiwbjso");
+            System.out.println("Success connect Mysql server!");
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -62,10 +59,10 @@ public class SqlHelper {
     public ResultSet queryExecute(String sql) {
 
         try {
-            
-        	Statement st=mConnection.createStatement(); 
-        	System.out.println("sql = " + sql);
-			mResultSet=st.executeQuery(sql);
+
+            Statement st = mConnection.createStatement();
+            System.out.println("sql = " + sql);
+            mResultSet = st.executeQuery(sql);
 
         } catch (SQLException e) {
             e.printStackTrace();
