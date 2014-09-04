@@ -1,6 +1,7 @@
 
 package com.jiec.contact.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Company {
@@ -18,6 +19,7 @@ public class Company {
         super();
         this.id = id;
         this.name = name;
+        contacts = new ArrayList<Contact>();
     }
 
     public Company(String id, String name, List<Contact> contacts) {
@@ -25,6 +27,7 @@ public class Company {
         this.id = id;
         this.name = name;
         this.contacts = contacts;
+        contacts = new ArrayList<Contact>();
     }
 
     public String getId() {

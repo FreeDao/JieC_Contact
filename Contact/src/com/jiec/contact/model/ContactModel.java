@@ -66,8 +66,9 @@ public class ContactModel {
 
             @Override
             public void onSuccess(int cmd, JSONObject object) {
-
                 try {
+                	object = object.getJSONObject("contacts");
+                	
                     LogUtil.e("onsuccess data = " + object.toString());
                     JSONArray companyArray = object.getJSONArray("data");
 
@@ -78,7 +79,8 @@ public class ContactModel {
                         LogUtil.e("company = " + companyObject.toString());
 
                         Company company = new Company(companyObject.getString("company_id"),
-                                companyObject.getString("company_id"));
+                                companyObject.getString("company_name"));
+                        
                         JSONArray contactArray = companyObject.getJSONArray("company_contacts");
 
                         for (int j = 0; j < contactArray.length(); j++) {

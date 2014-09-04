@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/widget205"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -34,17 +34,27 @@
 
                 <TextView
                     android:id="@+id/username"
-                    android:layout_width="140dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="姓名"
+                    android:layout_toRightOf="@id/image_button"
+                    android:hint="姓名: "
+                    android:textSize="18sp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="40dp"
+                    android:scrollbars="vertical" />
+                    
+				<TextView
+                    android:id="@+id/tv_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/username"
+                    android:layout_alignBaseline="@id/username"
+                    android:textSize="18sp"
                     android:scrollbars="vertical" >
-
-                    <requestFocus />
+                    
                 </TextView>
 
-            </LinearLayout>
+            </RelativeLayout>
             
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -56,11 +66,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:text="公司编号  : 20140903"
+                    android:text="公司编号  : "
                     android:textSize="15dp" />
 
                 <TextView
-                    android:id="@+id/position"
+                    android:id="@+id/tv_company_id"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:gravity="top"
@@ -89,21 +99,22 @@
                     android:id="@+id/tv_phone_num_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:gravity="top"
                     android:layout_toRightOf="@+id/tv_phone_1"/>
                 
                 <ImageButton 
-                    android:id="@+id/ib_phone_call_1"
+                    android:id="@+id/ib_phone_chat_1"
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
                     android:src="@android:drawable/sym_action_chat"/>
                 
                 <ImageButton 
-                    android:id="@+id/ib_phone_chat_1"
+                    android:id="@+id/ib_phone_call_1"
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
-                    android:layout_toLeftOf="@+id/ib_phone_call_1"
+                    android:layout_toLeftOf="@+id/ib_phone_chat_1"
                     android:layout_marginRight="10dp"
                     android:src="@android:drawable/sym_action_call"/>
             </RelativeLayout>
@@ -130,21 +141,22 @@
                     android:id="@+id/tv_phone_num_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:gravity="top"
                     android:layout_toRightOf="@+id/tv_phone_2"/>
                 
                 <ImageButton 
-                    android:id="@+id/ib_phone_call_2"
+                    android:id="@+id/ib_phone_chat_2"
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
                     android:src="@android:drawable/sym_action_chat"/>
                 
                 <ImageButton 
-                    android:id="@+id/ib_phone_chat_2"
+                    android:id="@+id/ib_phone_call_2"
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
-                    android:layout_toLeftOf="@+id/ib_phone_call_2"
+                    android:layout_toLeftOf="@+id/ib_phone_chat_2"
                     android:layout_marginRight="10dp"
                     android:src="@android:drawable/sym_action_call"/>
             </RelativeLayout>
@@ -171,21 +183,22 @@
                     android:id="@+id/tv_phone_num_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:gravity="top"
                     android:layout_toRightOf="@+id/tv_phone_3"/>
                 
                 <ImageButton 
-                    android:id="@+id/ib_phone_call_3"
+                    android:id="@+id/ib_phone_chat_3"
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
                     android:src="@android:drawable/sym_action_chat"/>
                 
                 <ImageButton 
-                    android:id="@+id/ib_phone_chat_3"
+                    android:id="@+id/ib_phone_call_3"
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
-                    android:layout_toLeftOf="@+id/ib_phone_call_3"
+                    android:layout_toLeftOf="@+id/ib_phone_chat_3"
                     android:layout_marginRight="10dp"
                     android:src="@android:drawable/sym_action_call"/>
             </RelativeLayout>
@@ -212,21 +225,22 @@
                     android:id="@+id/tv_yd_phone_num_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:gravity="top"
                     android:layout_toRightOf="@+id/tv_yd_phone_1"/>
                 
                 <ImageButton 
-                    android:id="@+id/ib_yd_phone_call_1"
+                    android:id="@+id/ib_yd_phone_chat_1"
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
                     android:src="@android:drawable/sym_action_chat"/>
                 
                 <ImageButton 
-                    android:id="@+id/ib_yd_phone_chat_1"
+                    android:id="@+id/ib_yd_phone_call_1"
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
-                    android:layout_toLeftOf="@+id/ib_yd_phone_call_1"
+                    android:layout_toLeftOf="@+id/ib_yd_phone_chat_1"
                     android:layout_marginRight="10dp"
                     android:src="@android:drawable/sym_action_call"/>
             </RelativeLayout>
@@ -253,21 +267,22 @@
                     android:id="@+id/tv_yd_phone_num_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:gravity="top"
                     android:layout_toRightOf="@+id/tv_yd_phone_2"/>
                 
                 <ImageButton 
-                    android:id="@+id/ib_yd_phone_call_2"
+                    android:id="@+id/ib_yd_phone_chat_2"
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
                     android:src="@android:drawable/sym_action_chat"/>
                 
                 <ImageButton 
-                    android:id="@+id/ib_yd_phone_chat_2"
+                    android:id="@+id/ib_yd_phone_call_2"
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
-                    android:layout_toLeftOf="@+id/ib_yd_phone_call_2"
+                    android:layout_toLeftOf="@+id/ib_yd_phone_chat_2"
                     android:layout_marginRight="10dp"
                     android:src="@android:drawable/sym_action_call"/>
             </RelativeLayout>
@@ -294,21 +309,22 @@
                     android:id="@+id/tv_yd_phone_num_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:gravity="top"
                     android:layout_toRightOf="@+id/tv_yd_phone_3"/>
                 
                 <ImageButton 
-                    android:id="@+id/ib_yd_phone_call_3"
+                    android:id="@+id/ib_yd_phone_chat_3"
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
                     android:src="@android:drawable/sym_action_chat"/>
                 
                 <ImageButton 
-                    android:id="@+id/ib_yd_phone_chat_3"
+                    android:id="@+id/ib_yd_phone_call_3"
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
-                    android:layout_toLeftOf="@+id/ib_yd_phone_call_3"
+                    android:layout_toLeftOf="@+id/ib_yd_phone_chat_3"
                     android:layout_marginRight="10dp"
                     android:src="@android:drawable/sym_action_call"/>
             </RelativeLayout>
@@ -323,13 +339,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:text="qq             :"
+                    android:text="QQ :"
                     android:textSize="15dp" />
 
                 <TextView
-                    android:id="@+id/address"
+                    android:id="@+id/tv_qq"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:gravity="top"
                     android:scrollbars="vertical" />
             </LinearLayout>
@@ -346,11 +363,53 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:text="email        :"
+                    android:text="email1 :"
                     android:textSize="15dp" />
 
                 <TextView
-                    android:id="@+id/email"
+                    android:id="@+id/tv_email_1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top"
+                    android:scrollbars="vertical" />
+            </LinearLayout>
+            
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:text="email2 :"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/tv_email_2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top"
+                    android:scrollbars="vertical" />
+            </LinearLayout>
+            
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:text="email3 :"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/tv_email_3"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:gravity="top"
@@ -372,9 +431,30 @@
                     android:textSize="15dp" />
 
                 <TextView
-                    android:id="@+id/remark"
+                    android:id="@+id/tv_edit_user"
                     android:layout_width="fill_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="top"
+                    android:scrollbars="vertical" />
+            </LinearLayout>
+            
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:text="最后录入时间  :"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/tv_last_time"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
                     android:gravity="top"
                     android:scrollbars="vertical" />
             </LinearLayout>

@@ -7,6 +7,8 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
@@ -52,6 +54,8 @@ public class MyContactActivity extends Activity implements ContactChangeListener
                     int childPosition, long id) {
 
                 Intent intent = new Intent(MyContactActivity.this, ContactDetailActivity.class);
+                intent.putExtra("contact", 
+                		mContacts.get(groupPosition).getContacts().get(childPosition));
                 startActivity(intent);
                 return false;
             }
@@ -93,7 +97,13 @@ public class MyContactActivity extends Activity implements ContactChangeListener
     public void onDataChanged() {
         LogUtil.e("contactActivity onDataChanged");
         mContacts = ContactModel.getInstance().getContacts();
-        updateView();
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+			
+			@Override
+			public void run() {
+				updateView();
+			}
+		});
     }
 
 }

@@ -24,7 +24,7 @@ public class ToastUtil {
                 case MSG_SHOW_MESSAGE:
                     String text = (String) msg.obj;
                     Context context = MyApplication.getContext();
-                    Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, text, Toast.LENGTH_LONG).show();
                     break;
             }
         };

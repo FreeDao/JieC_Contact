@@ -20,6 +20,7 @@ public class ContactHelper {
 
         try {
             String lastCompanyId = "";
+            String lastCompanyName = "";
             JSONObject perContact = null;
             JSONArray contactArray = new JSONArray();
             JSONArray companyArray = new JSONArray();
@@ -28,13 +29,14 @@ public class ContactHelper {
 
                 if (!rs.getString(1).equals(lastCompanyId)) {
                     if (perContact != null) {
-                        JSONObject object = new JSONObject();
-                        object.put("company_id", lastCompanyId);
-                        object.put("company_contacts", companyArray);
-                        contactArray.add(object);
+                    	addCompanyToContacts(lastCompanyId, lastCompanyName, 
+                    			contactArray, companyArray);
                     }
                     companyArray = new JSONArray();
                 }
+                
+                lastCompanyId = rs.getString(1);
+                lastCompanyName = rs.getString(2);
 
                 perContact = new JSONObject();
                 perContact.put("contact_id", rs.getString(3));
@@ -56,15 +58,11 @@ public class ContactHelper {
 
                 companyArray.add(perContact);
 
-                lastCompanyId = rs.getString(1);
-
             }
 
             if (companyArray.size() > 0) {
-                JSONObject object = new JSONObject();
-                object.put("company_id", lastCompanyId);
-                object.put("company_contacts", companyArray);
-                contactArray.add(object);
+            	addCompanyToContacts(lastCompanyId, lastCompanyName, 
+            			contactArray, companyArray);
             }
 
             contactsObject.put("data", contactArray);
@@ -79,6 +77,14 @@ public class ContactHelper {
         }
 
         return contactsObject;
+    }
+    
+    private static void addCompanyToContacts(String id, String name, JSONArray contactArray, JSONArray array) {
+    	 JSONObject object = new JSONObject();
+         object.put("company_id", id);
+         object.put("company_name", name);
+         object.put("company_contacts", array);
+         contactArray.add(object);
     }
 
 }

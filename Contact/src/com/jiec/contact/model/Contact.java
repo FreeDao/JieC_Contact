@@ -1,6 +1,11 @@
 package com.jiec.contact.model;
 
-public class Contact {
+import android.annotation.SuppressLint;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+@SuppressLint("ParcelCreator")
+public class Contact implements Parcelable {
 	int id = 0;
 	String name = "";
 	String bgdh_1 = "";
@@ -18,10 +23,6 @@ public class Contact {
 	String own_user_id = "";
 	String edit_user_id = "";
 	String last_edit_time = "";
-	
-	public Contact() {
-		
-	}
 
 	public int getId() {
 		return id;
@@ -158,6 +159,63 @@ public class Contact {
 	public void setLast_edit_time(String last_edit_time) {
 		this.last_edit_time = last_edit_time;
 	}
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel parcel, int flag) {
+		parcel.writeInt(id);
+		parcel.writeString(name);
+		parcel.writeString(bgdh_1);
+		parcel.writeString(bgdh_2);
+		parcel.writeString(bgdh_3);
+		parcel.writeString(yddh_1);
+		parcel.writeString(yddh_2);
+		parcel.writeString(yddh_3);
+		parcel.writeString(company_id);
+		parcel.writeString(qq);
+		parcel.writeString(msn);
+		parcel.writeString(email_1);
+		parcel.writeString(email_2);
+		parcel.writeString(email_3);
+		parcel.writeString(own_user_id);
+		parcel.writeString(edit_user_id);
+		parcel.writeString(last_edit_time);
+	}
 	
-	
+	public static final Parcelable.Creator<Contact> CREATOR = new Creator<Contact>() {
+
+		@Override
+		public Contact createFromParcel(Parcel parcel) {
+			Contact contact = new Contact();
+			contact.id = parcel.readInt();
+			contact.name = parcel.readString();
+			contact.bgdh_1 = parcel.readString();
+			contact.bgdh_2 = parcel.readString();
+			contact.bgdh_3 = parcel.readString();
+			contact.yddh_1 = parcel.readString();
+			contact.yddh_2 = parcel.readString();
+			contact.yddh_3 = parcel.readString();
+			contact.company_id = parcel.readString();
+			contact.qq = parcel.readString();
+			contact.msn = parcel.readString();
+			contact.email_1 = parcel.readString();
+			contact.email_2 = parcel.readString();
+			contact.email_3 = parcel.readString();
+			contact.own_user_id = parcel.readString();
+			contact.edit_user_id = parcel.readString();
+			contact.last_edit_time = parcel.readString();
+
+			return contact;
+		}
+
+		@Override
+		public Contact[] newArray(int arg0) {
+			// TODO Auto-generated method stub
+			return new Contact[arg0];
+		}
+	};
 }

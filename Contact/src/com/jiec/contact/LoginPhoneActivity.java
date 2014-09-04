@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.KeyEvent;
@@ -41,17 +42,34 @@ public class LoginPhoneActivity extends Activity {
         setContentView(R.layout.activity_login_phone);
         lockKey();
 
-        mPhoneStr = new SIMCardInfo(this).getNativePhoneNumber();
-        if (mPhoneStr.startsWith("+86")) {
-            mPhoneStr = mPhoneStr.substring(3);
-        }
-
-        mPhoneTV = (TextView) findViewById(R.id.textView1);
-        mPhoneTV.setText(mPhoneTV.getText() + mPhoneStr);
+        
 
         mPasswdEditText = (EditText) findViewById(R.id.editText1);
 
         Button loginBtn = (Button) findViewById(R.id.login_btn);
+
+        mPhoneStr = new SIMCardInfo(this).getNativePhoneNumber();
+        mPhoneStr = "13670707173";
+        
+        if (mPhoneStr == null) {
+        	mPhoneStr = "";
+        	loginBtn.setClickable(false);
+        	loginBtn.setEnabled(false);
+        	mPasswdEditText.setEnabled(false);
+        	mPasswdEditText.setClickable(false);
+        	
+        	TextView error_tv = (TextView) findViewById(R.id.error_tv);
+        	error_tv.setTextColor(Color.RED);
+        	error_tv.setText("检测不到SIM卡，请关机插上SIM卡或者检查SIM，确认无误再开机使用");
+        	ToastUtil.showMsg("检测不到SIM卡，请关机插上SIM卡或者检查SIM，确认无误再开机使用");
+        }
+        if (mPhoneStr.startsWith("+86")) {
+            mPhoneStr = mPhoneStr.substring(3);
+        }
+        
+        mPhoneTV = (TextView) findViewById(R.id.textView1);
+        mPhoneTV.setText(mPhoneTV.getText() + mPhoneStr);
+        
         loginBtn.setOnClickListener(new OnClickListener() {
 
             @Override
