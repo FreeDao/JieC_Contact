@@ -5,13 +5,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import org.json.JSONObject;
 
-import android.annotation.SuppressLint;
 import android.util.Log;
 
 import com.jiec.utils.ToastUtil;
@@ -24,61 +20,52 @@ public class ContactSocket {
         public void onFailed(int cmd, String reason);
     }
 
-    private static ContactSocket sIntance = null;
-
-     private static String SERVER_IP = "192.168.0.103";
-    //private static String SERVER_IP = "192.168.1.138";
+    // private static String SERVER_IP = "192.168.0.103";
+    private static String SERVER_IP = "192.168.1.138";
 
     // private static String SERVER_IP = "114.215.153.4";
 
     private static int SERVER_PORT = 9999;
 
-    private static Socket sSocket = null;
+    private Socket mSocket = null;
 
     private boolean mConnected = false;
 
-    @SuppressLint("UseSparseArrays")
-    private Map<Integer, RespondListener> mListeners = new HashMap<Integer, RespondListener>();
+    private RespondListener mListener = null;
+
+    private int mSeq = 0;
 
     private static int sSeq = 0;
-    
+
     public static int getSeq() {
-    	return sSeq++;
+        return sSeq++;
     }
 
-    private ContactSocket() {
-
+    public ContactSocket() {
+        connect();
     }
 
     public void send(JSONObject object, RespondListener listener) {
         try {
             Log.i("test", object.toString());
-            ObjectOutputStream oos = new ObjectOutputStream(sSocket.getOutputStream());
+            ObjectOutputStream oos = new ObjectOutputStream(mSocket.getOutputStream());
             oos.writeObject(object.toString());
 
-            if (listener != null) {
-                mListeners.put(object.getInt("seq"), listener);
-            }
+            mSeq = object.getInt("seq");
+
+            mListener = listener;
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
-    public static ContactSocket getInstance() {
-        if (sIntance == null) {
-            sIntance = new ContactSocket();
-            sIntance.connect();
-        }
-
-        return sIntance;
-    }
-
     public void connect() {
         try {
-            sSocket = new Socket(SERVER_IP, SERVER_PORT);
+            mSocket = new Socket(SERVER_IP, SERVER_PORT);
 
-            if (sSocket.isConnected()) {
+            if (mSocket.isConnected()) {
                 mConnected = true;
             }
             mThread.start();
@@ -90,16 +77,15 @@ public class ContactSocket {
     }
 
     public Socket getSocket() {
-        return sSocket;
+        return mSocket;
     }
 
     public void closeSocket() {
         mConnected = false;
-        if (sSocket != null) {
+        if (mSocket != null) {
             try {
-                sSocket.close();
-                sSocket = null;
-                sIntance = null;
+                mSocket.close();
+                mSocket = null;
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -112,21 +98,21 @@ public class ContactSocket {
             while (mConnected) {
                 // 不停的读取从服务器端发来的消息
                 try {
-                    if (sSocket == null || sSocket.isClosed()) {
+                    if (mSocket == null || mSocket.isClosed()) {
+                        closeSocket();
                         return;
                     } else {
-                        ObjectInputStream ois = new ObjectInputStream(sSocket.getInputStream());
+                        ObjectInputStream ois = new ObjectInputStream(mSocket.getInputStream());
                         String o = (String) ois.readObject();
                         JSONObject jo = new JSONObject(o);
 
-                        for (Entry<Integer, RespondListener> entry : mListeners.entrySet()) {
-                            if (jo.getInt("seq") == entry.getKey()) {
+                        if (mListener != null) {
+                            if (jo.getInt("seq") == mSeq) {
                                 if (jo.getInt("result") == 1) {
-                                    entry.getValue().onSuccess(entry.getKey(), jo);
+                                    mListener.onSuccess(mSeq, jo.getJSONObject("contacts"));
                                 } else {
-                                    entry.getValue().onFailed(entry.getKey(), "密码错误");
+                                    mListener.onFailed(mSeq, "密码错误");
                                 }
-                                mListeners.remove(entry);
                             }
                         }
 
@@ -136,8 +122,7 @@ public class ContactSocket {
                     Thread.sleep(100);
 
                 } catch (Exception e) {
-                    e.printStackTrace();
-                    // TODO: handle exception
+                    // e.printStackTrace();
                 }
             }
         }

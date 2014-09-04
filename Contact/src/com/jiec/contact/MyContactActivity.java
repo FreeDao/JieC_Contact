@@ -1,98 +1,99 @@
 
 package com.jiec.contact;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
-import android.widget.Toast;
 
+import com.jiec.contact.model.Company;
 import com.jiec.contact.model.ContactModel;
+import com.jiec.contact.model.ContactModel.ContactChangeListener;
 import com.jiec.contact.widget.SuperTreeViewAdapter;
 import com.jiec.contact.widget.TreeViewAdapter;
-import com.jiec.utils.ToastUtil;
+import com.jiec.utils.LogUtil;
 
-public class MyContactActivity extends Activity {
+public class MyContactActivity extends Activity implements ContactChangeListener {
 
-    ExpandableListView expandableListView;
+    ExpandableListView mExpandableListView;
 
-    TreeViewAdapter adapter;
+    TreeViewAdapter mAdapter;
 
-    SuperTreeViewAdapter superAdapter;
+    SuperTreeViewAdapter mSuperAdapter;
 
-    public String[] groups = {
-            "A公司", "B公司", "C公司", "D公司", "E公司", "F公司"
-    };
-
-    public String[][] childs = {
-            {
-                    "A", "AA", "AAA", "AAAA", "AAAAA"
-            }, {
-                    "B", "BB", "BBB", "BBBB", "BBBBB"
-            }, {
-                    "B", "BB", "BBB", "BBBB", "BBBBB"
-            }, {
-                    "B", "BB", "BBB", "BBBB", "BBBBB"
-            }, {
-                    "B", "BB", "BBB", "BBBB", "BBBBB"
-            }, {
-                    "B", "BB", "BBB", "BBBB", "BBBBB"
-            }
-    };
+    private List<Company> mContacts = null;
 
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
-        
-        new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				ContactModel.getInstance().getContacts();
-			}
-		}).start();
 
-        expandableListView = (ExpandableListView) findViewById(R.id.expandablelistview);
-        adapter = new TreeViewAdapter(this, 38);
-        superAdapter = new SuperTreeViewAdapter(this, null);
+        mContacts = new ArrayList<Company>();
+        ContactModel.getInstance().setChangeListener(this);
 
-        adapter.removeAll();
-        adapter.notifyDataSetChanged();
-        superAdapter.RemoveAll();
-        superAdapter.notifyDataSetChanged();
+        mExpandableListView = (ExpandableListView) findViewById(R.id.expandablelistview);
 
-        List<TreeViewAdapter.TreeNode> treeNode = adapter.getTreeNode();
-        for (int i = 0; i < groups.length; i++) {
-            TreeViewAdapter.TreeNode node = new TreeViewAdapter.TreeNode();
-            node.parent = groups[i];
-            for (int j = 0; j < childs[i].length; j++) {
-                node.childs.add(childs[i][j]);
-            }
-            treeNode.add(node);
-        }
-        adapter.updateTreeNode(treeNode);
-        expandableListView.setAdapter(adapter);
-        expandableListView.setOnChildClickListener(new OnChildClickListener() {
+        mAdapter = new TreeViewAdapter(this, 38);
+        mSuperAdapter = new SuperTreeViewAdapter(this, null);
+
+        updateView();
+
+        mExpandableListView.setAdapter(mAdapter);
+        mExpandableListView.setOnChildClickListener(new OnChildClickListener() {
 
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition,
                     int childPosition, long id) {
-                // TODO Auto-generated method stub
-                
-                Intent intent = new Intent(
-                		MyContactActivity.this, ContactDetailActivity.class);//Intent.ACTION_CALL, Uri.parse("tel:" + 10086));  
+
+                Intent intent = new Intent(MyContactActivity.this, ContactDetailActivity.class);
                 startActivity(intent);
                 return false;
             }
         });
 
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                ContactModel.getInstance().getContacts();
+            }
+        }).start();
+
+    }
+
+    private void updateView() {
+        mAdapter.removeAll();
+        mAdapter.notifyDataSetChanged();
+        mSuperAdapter.RemoveAll();
+        mSuperAdapter.notifyDataSetChanged();
+
+        List<TreeViewAdapter.TreeNode> treeNode = mAdapter.getTreeNode();
+        for (int i = 0; i < mContacts.size(); i++) {
+            TreeViewAdapter.TreeNode node = new TreeViewAdapter.TreeNode();
+
+            node.parent = mContacts.get(i).getName();
+
+            for (int j = 0; j < mContacts.get(i).getContacts().size(); j++) {
+
+                node.childs.add(mContacts.get(i).getContacts().get(j).getName());
+            }
+            treeNode.add(node);
+        }
+        mAdapter.updateTreeNode(treeNode);
+        LogUtil.e("updateView");
+    }
+
+    @Override
+    public void onDataChanged() {
+        LogUtil.e("contactActivity onDataChanged");
+        mContacts = ContactModel.getInstance().getContacts();
+        updateView();
     }
 
 }

@@ -74,7 +74,7 @@ public class LoginPhoneActivity extends Activity {
                     e.printStackTrace();
                 }
 
-                ContactSocket.getInstance().send(object, new RespondListener() {
+                new ContactSocket().send(object, new RespondListener() {
 
                     @Override
                     public void onSuccess(int cmd, JSONObject object) {
