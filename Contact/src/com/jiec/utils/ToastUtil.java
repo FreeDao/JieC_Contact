@@ -1,12 +1,12 @@
 
 package com.jiec.utils;
 
-import com.jiec.contact.MyApplication;
-
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.widget.Toast;
+
+import com.jiec.contact.MyApplication;
 
 /**
  * 描述:显示提示信息
@@ -24,7 +24,7 @@ public class ToastUtil {
                 case MSG_SHOW_MESSAGE:
                     String text = (String) msg.obj;
                     Context context = MyApplication.getContext();
-                    Toast.makeText(context, text, Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
                     break;
             }
         };

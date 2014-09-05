@@ -4,6 +4,15 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
+    <Button 
+        android:id="@+id/btn_new_contact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:text="新建联系人"
+        />"
+    
     <ExpandableListView
         android:id="@+id/expandablelistview"
         android:layout_width="fill_parent"

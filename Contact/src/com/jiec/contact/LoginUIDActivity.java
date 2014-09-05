@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.jiec.contact.model.Protocal;
+import com.jiec.contact.model.UserModel;
 import com.jiec.contact.socket.ContactSocket;
 import com.jiec.contact.socket.ContactSocket.RespondListener;
 import com.jiec.utils.ToastUtil;
@@ -68,6 +69,7 @@ public class LoginUIDActivity extends Activity {
                     @Override
                     public void onSuccess(int cmd, JSONObject object) {
                         ToastUtil.showMsg("登陆成功！");
+                        UserModel.getInstance().setUserId(mUserId.getText().toString().trim());
                         startActivity(new Intent(LoginUIDActivity.this, MainActivity.class));
                         finish();
                     }

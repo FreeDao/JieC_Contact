@@ -1,6 +1,8 @@
 
 package com.jiec.contact;
 
+import com.jiec.contact.model.ContactModel;
+
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -48,6 +50,7 @@ public class MainActivity extends TabActivity {
                 Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show();
                 mExitTime = System.currentTimeMillis();
             } else {
+            	ContactModel.getInstance().finish();
                 finish();
             }
 

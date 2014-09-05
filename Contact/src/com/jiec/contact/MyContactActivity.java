@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 
@@ -19,6 +21,7 @@ import com.jiec.contact.model.ContactModel.ContactChangeListener;
 import com.jiec.contact.widget.SuperTreeViewAdapter;
 import com.jiec.contact.widget.TreeViewAdapter;
 import com.jiec.utils.LogUtil;
+import com.jiec.utils.ToastUtil;
 
 public class MyContactActivity extends Activity implements ContactChangeListener {
 
@@ -29,6 +32,14 @@ public class MyContactActivity extends Activity implements ContactChangeListener
     SuperTreeViewAdapter mSuperAdapter;
 
     private List<Company> mContacts = null;
+
+    public static final int REQUEST_NEW_CONTACT = 10000;
+
+    public static final int RESULT_CANCEL_CONTACT = 20000;
+
+    public static final int RESULT_SAVE_CONTACT = 20001;
+
+    public static final String NEW_REQUEST_KEY = "NEW_REQUEST_KEY";
 
     /** Called when the activity is first created. */
     @Override
@@ -44,6 +55,17 @@ public class MyContactActivity extends Activity implements ContactChangeListener
         mAdapter = new TreeViewAdapter(this, 38);
         mSuperAdapter = new SuperTreeViewAdapter(this, null);
 
+        Button btnNewContact = (Button) findViewById(R.id.btn_new_contact);
+        btnNewContact.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                Intent intent = new Intent(MyContactActivity.this, ContactEditActivity.class);
+                intent.putExtra(NEW_REQUEST_KEY, REQUEST_NEW_CONTACT);
+                startActivityForResult(intent, REQUEST_NEW_CONTACT);
+            }
+        });
+
         updateView();
 
         mExpandableListView.setAdapter(mAdapter);
@@ -54,8 +76,8 @@ public class MyContactActivity extends Activity implements ContactChangeListener
                     int childPosition, long id) {
 
                 Intent intent = new Intent(MyContactActivity.this, ContactDetailActivity.class);
-                intent.putExtra("contact", 
-                		mContacts.get(groupPosition).getContacts().get(childPosition));
+                intent.putExtra("contact",
+                        mContacts.get(groupPosition).getContacts().get(childPosition));
                 startActivity(intent);
                 return false;
             }
@@ -98,12 +120,26 @@ public class MyContactActivity extends Activity implements ContactChangeListener
         LogUtil.e("contactActivity onDataChanged");
         mContacts = ContactModel.getInstance().getContacts();
         new Handler(Looper.getMainLooper()).post(new Runnable() {
-			
-			@Override
-			public void run() {
-				updateView();
-			}
-		});
+
+            @Override
+            public void run() {
+                updateView();
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_NEW_CONTACT) {
+            if (resultCode == RESULT_CANCEL_CONTACT) {
+                ToastUtil.showMsg("new contact contact");
+            } else {
+                ToastUtil.showMsg("new contact save");
+            }
+        }
     }
 
 }

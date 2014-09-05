@@ -52,9 +52,13 @@ public class ContactModel {
         return mContacts;
     }
 
+    public void finish() {
+        mContacts.clear();
+    }
+
     private void requestContactData() {
         String str = "{seq:" + (ContactSocket.getSeq()) + ",cmd:" + Protocal.CMD_GET_CONTACT
-                + ",user_id:" + "\"" + 1000 + "\"" + "}";
+                + ",user_id:" + "\"" + UserModel.getInstance().getUserId() + "\"" + "}";
         JSONObject object = null;
         try {
             object = new JSONObject(str);
@@ -67,8 +71,8 @@ public class ContactModel {
             @Override
             public void onSuccess(int cmd, JSONObject object) {
                 try {
-                	object = object.getJSONObject("contacts");
-                	
+                    object = object.getJSONObject("contacts");
+
                     LogUtil.e("onsuccess data = " + object.toString());
                     JSONArray companyArray = object.getJSONArray("data");
 
@@ -80,7 +84,7 @@ public class ContactModel {
 
                         Company company = new Company(companyObject.getString("company_id"),
                                 companyObject.getString("company_name"));
-                        
+
                         JSONArray contactArray = companyObject.getJSONArray("company_contacts");
 
                         for (int j = 0; j < contactArray.length(); j++) {
