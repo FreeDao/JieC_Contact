@@ -148,7 +148,7 @@ public class ContactHelper {
         ResultSet rs = sh.queryExecute(sql);
         try {
             if (rs.next()) {
-                replayObject.put("contact_id", rs.getString(1));
+                replayObject.put("contact_id", rs.getInt(1));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -157,46 +157,27 @@ public class ContactHelper {
     }
 
     public static void udpateContact(JSONObject object, JSONObject replayObject) {
-        UPDATE `contact`.`contact_detail` SET `contact_bgdh_1`='10086' WHERE `contact_id`='9';
-        String sql = "update contact_detail set contact_name = '" 
-                + object.getString("contact_name")
-                + "', contact_bgdh_1 = '"
-                + object.getString("contact_bgdh_1")
-                + "', contact_bgdh_1 = '"
-                + object.getString("contact_bgdh_2")
-                + "', '"
-                + object.getString("contact_bgdh_3")
-                + "', '"
-                + object.getString("contact_yddh_1")
-                + "', '"
-                + object.getString("contact_yddh_2")
-                + "', '"
-                + object.getString("contact_yddh_3")
-                + "', '"
-                + object.getString("contact_company_id")
-                + "', '"
-                + object.getString("contact_qq")
-                + "', '"
-                + object.getString("contact_email_1")
-                + "', '"
-                + object.getString("contact_email_2")
-                + "', '"
-                + object.getString("contact_email_3")
-                + "', '"
-                + object.getString("contact_own_id")
-                + "', '" + object.getString("contact_last_edit_time") + "');";
-
-                , , contact_bgdh_2, contact_bgdh_3,"
-                + "contact_yddh_1, contact_yddh_2, contact_yddh_3, contact_company_id, contact_qq, "
-                + "contact_email_1, contact_email_2, contact_email_3, contact_own_id, contact_last_edit_time) "
-                + "value('"
-               
-                + "', '"
-                
-                        SqlHelper sh = new SqlHelper();
+        String sql = "UPDATE contact_detail SET contact_name = '"
+                + object.getString("contact_name") + "', contact_bgdh_1 = '"
+                + object.getString("contact_bgdh_1") + "', contact_bgdh_2 = '"
+                + object.getString("contact_bgdh_2") + "', contact_bgdh_3 = '"
+                + object.getString("contact_bgdh_3") + "', contact_yddh_1 = '"
+                + object.getString("contact_yddh_1") + "', contact_yddh_2 = '"
+                + object.getString("contact_yddh_2") + "', contact_yddh_3 = '"
+                + object.getString("contact_yddh_3") + "', contact_company_id = '"
+                + object.getString("contact_company_id") + "', contact_qq = '"
+                + object.getString("contact_qq") + "', contact_email_1 = '"
+                + object.getString("contact_email_1") + "', contact_email_2 = '"
+                + object.getString("contact_email_2") + "', contact_email_3 = '"
+                + object.getString("contact_email_3") + "', contact_last_edit_time = '"
+                + object.getString("contact_last_edit_time") + "' WHERE contact_id = "
+                + object.getInt("contact_id") + ";";
+        System.out.println(sql);
+        SqlHelper sh = new SqlHelper();
 
         if (sh.upExecute(sql)) {
             replayObject.put("result", 1);
+            replayObject.put("contact", object);
         } else {
             replayObject.put("result", -1);
             return;

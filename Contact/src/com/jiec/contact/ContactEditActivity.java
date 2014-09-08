@@ -3,6 +3,7 @@ package com.jiec.contact;
 
 import java.text.SimpleDateFormat;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
@@ -14,6 +15,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.jiec.contact.model.Contact;
 import com.jiec.contact.model.ContactModel;
 import com.jiec.contact.model.UserModel;
 import com.jiec.contact.widget.CompanyListDialog;
@@ -35,6 +37,8 @@ public class ContactEditActivity extends Activity {
 
     private boolean mIsNewContact = false;
 
+    private Contact mContact = null;
+
     @SuppressLint("SimpleDateFormat")
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,13 +49,6 @@ public class ContactEditActivity extends Activity {
         String flag = intent.getStringExtra(MyContactActivity.NEW_REQUEST_KEY);
 
         mLastEditText = (EditText) findViewById(R.id.et_last_edit_time);
-
-        if (flag.equals(MyContactActivity.NEW_REQUEST_KEY)) {
-            mIsNewContact = true;
-            SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            String date = sDateFormat.format(new java.util.Date());
-            mLastEditText.setText(date);
-        }
 
         mOwnEditText = (EditText) findViewById(R.id.et_edit_user);
         mOwnEditText.setText(UserModel.getInstance().getUserId());
@@ -88,6 +85,29 @@ public class ContactEditActivity extends Activity {
         mEmail_2EditText = (EditText) findViewById(R.id.et_email2);
         mEmail_3EditText = (EditText) findViewById(R.id.et_email3);
 
+        if (flag != null && flag.equals(MyContactActivity.NEW_REQUEST_KEY)) {
+            mIsNewContact = true;
+            SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String date = sDateFormat.format(new java.util.Date());
+            mLastEditText.setText(date);
+        } else {
+            mContact = getIntent().getParcelableExtra("contact");
+            mNameEditText.setText(mContact.getName());
+            mCompanyEditText.setText(mContact.getCompany_id());
+            mCompanyId = mContact.getCompany_id();
+            mBG_1EditText.setText(mContact.getBgdh_1());
+            mBG_2EditText.setText(mContact.getBgdh_2());
+            mBG_3EditText.setText(mContact.getBgdh_3());
+            mYD_1EditText.setText(mContact.getYddh_1());
+            mYD_2EditText.setText(mContact.getYddh_2());
+            mYD_3EditText.setText(mContact.getYddh_3());
+            mQQEditText.setText(mContact.getQq());
+            mEmail_1EditText.setText(mContact.getEmail_1());
+            mEmail_2EditText.setText(mContact.getEmail_2());
+            mEmail_3EditText.setText(mContact.getEmail_3());
+            mLastEditText.setText(mContact.getLast_edit_time());
+        }
+
         mBtnSave = (Button) findViewById(R.id.btn_save);
         mBtnSave.setOnClickListener(new OnClickListener() {
 
@@ -101,28 +121,37 @@ public class ContactEditActivity extends Activity {
                     ToastUtil.showMsg("请选择公司名称");
                     return;
                 }
+
+                JSONObject contact = new JSONObject();
+                try {
+                    contact.put("contact_name", mNameEditText.getText().toString());
+                    contact.put("contact_bgdh_1", mBG_1EditText.getText().toString());
+                    contact.put("contact_bgdh_2", mBG_2EditText.getText().toString());
+                    contact.put("contact_bgdh_3", mBG_3EditText.getText().toString());
+                    contact.put("contact_yddh_1", mYD_1EditText.getText().toString());
+                    contact.put("contact_yddh_2", mYD_2EditText.getText().toString());
+                    contact.put("contact_yddh_3", mYD_3EditText.getText().toString());
+                    contact.put("contact_company_id", mCompanyId);
+                    contact.put("contact_company_name", mCompanyName);
+                    contact.put("contact_qq", mQQEditText.getText().toString());
+                    contact.put("contact_email_1", mEmail_1EditText.getText().toString());
+                    contact.put("contact_email_2", mEmail_2EditText.getText().toString());
+                    contact.put("contact_email_3", mEmail_3EditText.getText().toString());
+                    contact.put("contact_own_id", mOwnEditText.getText().toString());
+                    contact.put("contact_last_edit_time", mLastEditText.getText().toString());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 if (mIsNewContact) {
-                    JSONObject contact = new JSONObject();
+                    ContactModel.getInstance().insertNewContact(contact);
+                } else {
                     try {
-                        contact.put("contact_name", mNameEditText.getText().toString());
-                        contact.put("contact_bgdh_1", mBG_1EditText.getText().toString());
-                        contact.put("contact_bgdh_2", mBG_2EditText.getText().toString());
-                        contact.put("contact_bgdh_3", mBG_3EditText.getText().toString());
-                        contact.put("contact_yddh_1", mYD_1EditText.getText().toString());
-                        contact.put("contact_yddh_2", mYD_2EditText.getText().toString());
-                        contact.put("contact_yddh_3", mYD_3EditText.getText().toString());
-                        contact.put("contact_company_id", mCompanyId);
-                        contact.put("contact_company_name", mCompanyName);
-                        contact.put("contact_qq", mQQEditText.getText().toString());
-                        contact.put("contact_email_1", mEmail_1EditText.getText().toString());
-                        contact.put("contact_email_2", mEmail_2EditText.getText().toString());
-                        contact.put("contact_email_3", mEmail_3EditText.getText().toString());
-                        contact.put("contact_own_id", mOwnEditText.getText().toString());
-                        contact.put("contact_last_edit_time", mLastEditText.getText().toString());
-                    } catch (Exception e) {
+                        contact.put("contact_id", mContact.getId());
+                    } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    ContactModel.getInstance().insertNewContact(contact);
+                    ContactModel.getInstance().updateContact(contact);
                 }
                 finish();
             }

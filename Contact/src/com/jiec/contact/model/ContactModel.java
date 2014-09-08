@@ -27,14 +27,21 @@ public class ContactModel {
 
     private List<Company> mContacts = null;
 
-    private ContactChangeListener mChangeListener = null;
+    private List<ContactChangeListener> mChangeListeners = new ArrayList<ContactModel.ContactChangeListener>();
 
     private ContactModel() {
         mContacts = new ArrayList<Company>();
     }
 
-    public void setChangeListener(ContactChangeListener changeListener) {
-        this.mChangeListener = changeListener;
+    public void addListener(ContactChangeListener changeListener) {
+        if (!mChangeListeners.contains(changeListener))
+            mChangeListeners.add(changeListener);
+    }
+
+    public void removeListener(ContactChangeListener listener) {
+        if (mChangeListeners.contains(listener)) {
+            mChangeListeners.remove(listener);
+        }
     }
 
     public static ContactModel getInstance() {
@@ -50,6 +57,18 @@ public class ContactModel {
             requestContactData();
         }
         return mContacts;
+    }
+
+    public Contact getContactById(int id) {
+        for (int i = 0; i < mContacts.size(); i++) {
+            for (int j = 0; j < mContacts.get(i).getContacts().size(); j++) {
+                if (id == mContacts.get(i).getContacts().get(j).getId()) {
+                    return mContacts.get(i).getContacts().get(j);
+                }
+            }
+        }
+
+        return null;
     }
 
     public void finish() {
@@ -118,9 +137,8 @@ public class ContactModel {
                     e.printStackTrace();
                 }
 
-                if (mChangeListener != null) {
-                    LogUtil.e("onDataChanged");
-                    mChangeListener.onDataChanged();
+                for (int i = 0; i < mChangeListeners.size(); i++) {
+                    mChangeListeners.get(i).onDataChanged();
                 }
             }
 
@@ -184,8 +202,8 @@ public class ContactModel {
                     e.printStackTrace();
                 }
 
-                if (mChangeListener != null) {
-                    mChangeListener.onDataChanged();
+                for (int i = 0; i < mChangeListeners.size(); i++) {
+                    mChangeListeners.get(i).onDataChanged();
                 }
             }
 
@@ -198,4 +216,83 @@ public class ContactModel {
         return true;
     }
 
+    public boolean updateContact(final JSONObject contact) {
+        JSONObject object = new JSONObject();
+        try {
+            object.put("seq", ContactSocket.getSeq());
+            object.put("cmd", Protocal.CMD_UPDATE_CONTACT);
+            object.put("contact", contact);
+        } catch (JSONException e1) {
+            e1.printStackTrace();
+        }
+
+        new ContactSocket().send(object, new RespondListener() {
+
+            @Override
+            public void onSuccess(int cmd, JSONObject object) {
+                ToastUtil.showMsg("联系人更新成功");
+
+                try {
+                    object = object.getJSONObject("contact");
+                    Contact c = new Contact();
+                    c.id = object.getInt("contact_id");
+                    c.name = object.getString("contact_name");
+                    c.bgdh_1 = object.getString("contact_bgdh_1");
+                    c.bgdh_2 = object.getString("contact_bgdh_2");
+                    c.bgdh_3 = object.getString("contact_bgdh_3");
+                    c.yddh_1 = object.getString("contact_yddh_1");
+                    c.yddh_2 = object.getString("contact_yddh_2");
+                    c.yddh_3 = object.getString("contact_yddh_3");
+                    c.company_id = object.getString("contact_company_id");
+                    c.qq = object.getString("contact_qq");
+                    c.email_1 = object.getString("contact_email_1");
+                    c.email_2 = object.getString("contact_email_2");
+                    c.email_3 = object.getString("contact_email_3");
+                    c.edit_user_id = object.getString("contact_own_id");
+                    c.last_edit_time = object.getString("contact_last_edit_time");
+
+                    boolean companyExist = false;
+                    for (int i = 0; i < mContacts.size(); i++) {
+                        if (mContacts.get(i).getId().equals(c.company_id)) {
+                            companyExist = true;
+                            break;
+                        }
+                    }
+
+                    for (int i = 0; i < mContacts.size(); i++) {
+                        for (int j = 0; j < mContacts.get(i).getContacts().size(); j++) {
+                            if (mContacts.get(i).getContacts().get(j).getId() == c.id) {
+                                if (companyExist) {
+                                    mContacts.get(i).getContacts().remove(j);
+                                    mContacts.get(i).getContacts().add(c);
+                                } else {
+                                    mContacts.remove(i);
+                                    Company company = new Company(object
+                                            .getString("contact_company_id"), object
+                                            .getString("contact_company_name"));
+                                    company.getContacts().add(c);
+                                    mContacts.add(company);
+                                }
+                                break;
+                            }
+                        }
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                for (int i = 0; i < mChangeListeners.size(); i++) {
+                    mChangeListeners.get(i).onDataChanged();
+                }
+            }
+
+            @Override
+            public void onFailed(int cmd, String reason) {
+                ToastUtil.showMsg(reason);
+            }
+        });
+
+        return true;
+    }
 }

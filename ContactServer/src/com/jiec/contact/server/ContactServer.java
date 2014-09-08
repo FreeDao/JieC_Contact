@@ -6,6 +6,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.text.SimpleDateFormat;
 
 import net.sf.json.JSONObject;
 
@@ -32,7 +33,9 @@ public class ContactServer {
                 ois = new ObjectInputStream(s.getInputStream());
                 String msg = (String) ois.readObject();
 
-                LogUtil.d("------------------request msg = " + msg);
+                SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String date = sDateFormat.format(new java.util.Date());
+                LogUtil.d("<<<<" + date + " request:" + msg);
 
                 JSONObject requestObject = JSONObject.fromObject(msg);
 
@@ -47,11 +50,9 @@ public class ContactServer {
                             requestObject.getString("passwd"))) {
 
                         replyObject.put("result", 1);
-                        oos.writeObject(replyObject.toString());
                     } else {
                         replyObject.put("result", -1);
                         replyObject.put("reason", "密码与用户名对应不正确");
-                        oos.writeObject(replyObject.toString());
                     }
 
                 } else if (cmd == Protocal.CMD_LOGIN_USER_REQUEST) {
@@ -59,35 +60,30 @@ public class ContactServer {
                             requestObject.getString("user_passwd"))) {
 
                         replyObject.put("result", 1);
-                        oos.writeObject(replyObject.toString());
                     } else {
-
                         replyObject.put("result", -1);
                         replyObject.put("reason", "密码与用户名对应不正确");
-                        oos.writeObject(replyObject.toString());
-
                     }
                 } else if (cmd == Protocal.CMD_GET_CONTACT) {
                     replyObject.put("result", 1);
                     replyObject.put("contacts",
                             ContactHelper.getContact(requestObject.getString("user_id")));
-                    oos.writeObject(replyObject.toString());
                 } else if (cmd == Protocal.CMD_GET_COMPANYS) {
                     replyObject.put("result", 1);
                     replyObject.put("data", CompanyHelper.getCompanies());
-                    oos.writeObject(replyObject.toString());
                 } else if (cmd == Protocal.CMD_INSERT_NEW_COMPANY) {
-                    JSONObject insertResult = CompanyHelper.insertCompany(requestObject
+                    replyObject = CompanyHelper.insertCompany(requestObject
                             .getString("company_name"));
-                    insertResult.put("seq", requestObject.getInt("seq"));
-                    oos.writeObject(insertResult.toString());
+                    replyObject.put("seq", requestObject.getInt("seq"));
                 } else if (cmd == Protocal.CMD_INSERT_NEW_CONTACT) {
                     ContactHelper
                             .insertContact(requestObject.getJSONObject("contact"), replyObject);
-                    oos.writeObject(replyObject.toString());
                 } else if (cmd == Protocal.CMD_UPDATE_CONTACT) {
-
+                    ContactHelper
+                            .udpateContact(requestObject.getJSONObject("contact"), replyObject);
                 }
+                LogUtil.d(">>>>reply:" + replyObject.toString());
+                oos.writeObject(replyObject.toString());
 
             }
 

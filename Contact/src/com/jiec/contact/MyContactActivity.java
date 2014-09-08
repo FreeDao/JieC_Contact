@@ -41,7 +41,7 @@ public class MyContactActivity extends Activity implements ContactChangeListener
         setContentView(R.layout.activity_contact);
 
         mContacts = new ArrayList<Company>();
-        ContactModel.getInstance().setChangeListener(this);
+        ContactModel.getInstance().addListener(this);
 
         mExpandableListView = (ExpandableListView) findViewById(R.id.expandablelistview);
 
@@ -119,6 +119,13 @@ public class MyContactActivity extends Activity implements ContactChangeListener
                 updateView();
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        // TODO Auto-generated method stub
+        super.onDestroy();
+        ContactModel.getInstance().removeListener(this);
     }
 
 }
