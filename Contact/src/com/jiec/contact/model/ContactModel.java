@@ -131,4 +131,71 @@ public class ContactModel {
             }
         });
     }
+
+    public boolean insertNewContact(final JSONObject contact) {
+        JSONObject object = new JSONObject();
+        try {
+            object.put("seq", ContactSocket.getSeq());
+            object.put("cmd", Protocal.CMD_INSERT_NEW_CONTACT);
+            object.put("contact", contact);
+        } catch (JSONException e1) {
+            e1.printStackTrace();
+        }
+
+        new ContactSocket().send(object, new RespondListener() {
+
+            @Override
+            public void onSuccess(int cmd, JSONObject object) {
+                ToastUtil.showMsg("新建联系人成功");
+
+                try {
+                    Contact c = new Contact();
+                    c.id = object.getInt("contact_id");
+                    LogUtil.e("id = " + c.id);
+                    c.name = contact.getString("contact_name");
+                    c.bgdh_1 = contact.getString("contact_bgdh_1");
+                    c.bgdh_2 = contact.getString("contact_bgdh_2");
+                    c.bgdh_3 = contact.getString("contact_bgdh_3");
+                    c.yddh_1 = contact.getString("contact_yddh_1");
+                    c.yddh_2 = contact.getString("contact_yddh_2");
+                    c.yddh_3 = contact.getString("contact_yddh_3");
+                    c.company_id = contact.getString("contact_company_id");
+                    c.qq = contact.getString("contact_qq");
+                    c.email_1 = contact.getString("contact_email_1");
+                    c.email_2 = contact.getString("contact_email_2");
+                    c.email_3 = contact.getString("contact_email_3");
+                    c.edit_user_id = contact.getString("contact_own_id");
+                    c.last_edit_time = contact.getString("contact_last_edit_time");
+
+                    for (int i = 0; i < mContacts.size(); i++) {
+                        if (mContacts.get(i).getId()
+                                .equals(contact.getString("contact_company_id"))) {
+                            mContacts.get(i).getContacts().add(c);
+                            break;
+                        } else if (i == mContacts.size() - 1) {
+                            Company company = new Company(contact.getString("contact_company_id"),
+                                    contact.getString("contact_company_name"));
+                            company.getContacts().add(c);
+                            mContacts.add(company);
+                        }
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                if (mChangeListener != null) {
+                    mChangeListener.onDataChanged();
+                }
+            }
+
+            @Override
+            public void onFailed(int cmd, String reason) {
+                ToastUtil.showMsg(reason);
+            }
+        });
+
+        return true;
+    }
+
 }

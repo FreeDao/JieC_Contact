@@ -2,9 +2,12 @@
 package com.jiec.contact.db;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+
+import com.jiec.contact.utils.LogUtil;
 
 public class ContactHelper {
     public static JSONObject getContact(String userId) {
@@ -29,12 +32,12 @@ public class ContactHelper {
 
                 if (!rs.getString(1).equals(lastCompanyId)) {
                     if (perContact != null) {
-                    	addCompanyToContacts(lastCompanyId, lastCompanyName, 
-                    			contactArray, companyArray);
+                        addCompanyToContacts(lastCompanyId, lastCompanyName, contactArray,
+                                companyArray);
                     }
                     companyArray = new JSONArray();
                 }
-                
+
                 lastCompanyId = rs.getString(1);
                 lastCompanyName = rs.getString(2);
 
@@ -61,13 +64,12 @@ public class ContactHelper {
             }
 
             if (companyArray.size() > 0) {
-            	addCompanyToContacts(lastCompanyId, lastCompanyName, 
-            			contactArray, companyArray);
+                addCompanyToContacts(lastCompanyId, lastCompanyName, contactArray, companyArray);
             }
 
             contactsObject.put("data", contactArray);
 
-            System.out.println("contact = " + contactsObject.toString());
+            LogUtil.d("contact = " + contactsObject.toString());
 
             rs.close();
             sh.close();
@@ -78,13 +80,126 @@ public class ContactHelper {
 
         return contactsObject;
     }
-    
-    private static void addCompanyToContacts(String id, String name, JSONArray contactArray, JSONArray array) {
-    	 JSONObject object = new JSONObject();
-         object.put("company_id", id);
-         object.put("company_name", name);
-         object.put("company_contacts", array);
-         contactArray.add(object);
+
+    private static void addCompanyToContacts(String id, String name, JSONArray contactArray,
+            JSONArray array) {
+        JSONObject object = new JSONObject();
+        object.put("company_id", id);
+        object.put("company_name", name);
+        object.put("company_contacts", array);
+        contactArray.add(object);
     }
 
+    public static void insertContact(JSONObject object, JSONObject replayObject) {
+        /**
+         * contact_id int auto_increment primary key, contact_name varchar(20)
+         * not null, contact_bgdh_1 varchar(20), contact_bgdh_2 varchar(20),
+         * contact_bgdh_3 varchar(20), contact_yddh_1 varchar(20),
+         * contact_yddh_2 varchar(20), contact_yddh_3 varchar(20),
+         * contact_company_id varchar(8), contact_qq varchar(18), contact_msn
+         * varchar(18), contact_email_1 varchar(28), contact_email_2
+         * varchar(28), contact_email_3 varchar(28), contact_own_id varchar(20),
+         * contact_edit_user_id varchar(20), contact_last_edit_time time
+         */
+
+        String sql = "insert into contact_detail (contact_name, contact_bgdh_1, contact_bgdh_2, contact_bgdh_3,"
+                + "contact_yddh_1, contact_yddh_2, contact_yddh_3, contact_company_id, contact_qq, "
+                + "contact_email_1, contact_email_2, contact_email_3, contact_own_id, contact_last_edit_time) "
+                + "value('"
+                + object.getString("contact_name")
+                + "', '"
+                + object.getString("contact_bgdh_1")
+                + "', '"
+                + object.getString("contact_bgdh_2")
+                + "', '"
+                + object.getString("contact_bgdh_3")
+                + "', '"
+                + object.getString("contact_yddh_1")
+                + "', '"
+                + object.getString("contact_yddh_2")
+                + "', '"
+                + object.getString("contact_yddh_3")
+                + "', '"
+                + object.getString("contact_company_id")
+                + "', '"
+                + object.getString("contact_qq")
+                + "', '"
+                + object.getString("contact_email_1")
+                + "', '"
+                + object.getString("contact_email_2")
+                + "', '"
+                + object.getString("contact_email_3")
+                + "', '"
+                + object.getString("contact_own_id")
+                + "', '" + object.getString("contact_last_edit_time") + "');";
+        SqlHelper sh = new SqlHelper();
+
+        if (sh.upExecute(sql)) {
+            replayObject.put("result", 1);
+        } else {
+            replayObject.put("result", -1);
+            return;
+        }
+
+        sql = "select contact_id from contact_detail where contact_company_id = '"
+                + object.getString("contact_company_id") + "' and contact_name = '"
+                + object.getString("contact_name") + "';";
+
+        ResultSet rs = sh.queryExecute(sql);
+        try {
+            if (rs.next()) {
+                replayObject.put("contact_id", rs.getString(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void udpateContact(JSONObject object, JSONObject replayObject) {
+        UPDATE `contact`.`contact_detail` SET `contact_bgdh_1`='10086' WHERE `contact_id`='9';
+        String sql = "update contact_detail set contact_name = '" 
+                + object.getString("contact_name")
+                + "', contact_bgdh_1 = '"
+                + object.getString("contact_bgdh_1")
+                + "', contact_bgdh_1 = '"
+                + object.getString("contact_bgdh_2")
+                + "', '"
+                + object.getString("contact_bgdh_3")
+                + "', '"
+                + object.getString("contact_yddh_1")
+                + "', '"
+                + object.getString("contact_yddh_2")
+                + "', '"
+                + object.getString("contact_yddh_3")
+                + "', '"
+                + object.getString("contact_company_id")
+                + "', '"
+                + object.getString("contact_qq")
+                + "', '"
+                + object.getString("contact_email_1")
+                + "', '"
+                + object.getString("contact_email_2")
+                + "', '"
+                + object.getString("contact_email_3")
+                + "', '"
+                + object.getString("contact_own_id")
+                + "', '" + object.getString("contact_last_edit_time") + "');";
+
+                , , contact_bgdh_2, contact_bgdh_3,"
+                + "contact_yddh_1, contact_yddh_2, contact_yddh_3, contact_company_id, contact_qq, "
+                + "contact_email_1, contact_email_2, contact_email_3, contact_own_id, contact_last_edit_time) "
+                + "value('"
+               
+                + "', '"
+                
+                        SqlHelper sh = new SqlHelper();
+
+        if (sh.upExecute(sql)) {
+            replayObject.put("result", 1);
+        } else {
+            replayObject.put("result", -1);
+            return;
+        }
+    }
 }

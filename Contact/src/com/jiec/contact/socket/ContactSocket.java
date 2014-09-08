@@ -20,10 +20,11 @@ public class ContactSocket {
         public void onFailed(int cmd, String reason);
     }
 
-     //private static String SERVER_IP = "192.168.0.105";
-    //private static String SERVER_IP = "192.168.1.138";
+    private static String SERVER_IP = "192.168.0.105";
 
-    private static String SERVER_IP = "114.215.153.4";
+    // private static String SERVER_IP = "192.168.1.138";
+
+    // private static String SERVER_IP = "114.215.153.4";
 
     private static int SERVER_PORT = 9999;
 
@@ -54,7 +55,7 @@ public class ContactSocket {
             mSeq = object.getInt("seq");
 
             mListener = listener;
-            
+
             ObjectInputStream ois = new ObjectInputStream(mSocket.getInputStream());
             String o = (String) ois.readObject();
             JSONObject jo = new JSONObject(o);
@@ -64,12 +65,12 @@ public class ContactSocket {
                     if (jo.getInt("result") == 1) {
                         mListener.onSuccess(mSeq, jo);
                     } else {
-                        mListener.onFailed(mSeq, "密码错误");
+                        mListener.onFailed(mSeq, jo.getString("reason"));
                     }
                 }
             }
-            
-            ois.close();             
+
+            ois.close();
             oos.close();
             mSocket.close();
 
@@ -85,7 +86,7 @@ public class ContactSocket {
 
             if (mSocket.isConnected()) {
                 mConnected = true;
-            }        
+            }
 
         } catch (Exception e) {
             ToastUtil.showMsg("本地网络出现问题或者服务器中断，请确定本地网络！如果本地正常请联系负责人");
@@ -132,7 +133,7 @@ public class ContactSocket {
                                 }
                             }
                         }
-                        
+
                         ois.close();
                         closeSocket();
                     }
@@ -140,7 +141,7 @@ public class ContactSocket {
                     Thread.sleep(100);
 
                 } catch (Exception e) {
-                     e.printStackTrace();
+                    e.printStackTrace();
                 }
             }
         }

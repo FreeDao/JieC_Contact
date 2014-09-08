@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import com.jiec.contact.utils.LogUtil;
+
 public class SqlHelper {
 
     final static int SELECT = 0;
@@ -35,7 +37,6 @@ public class SqlHelper {
         try {
             Class.forName(DRIVER_STR);
             mConnection = (Connection) DriverManager.getConnection(SQL_URL, "root", "woshiwbjso");
-            System.out.println("Success connect Mysql server!");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -61,7 +62,6 @@ public class SqlHelper {
         try {
 
             Statement st = mConnection.createStatement();
-            System.out.println("sql = " + sql);
             mResultSet = st.executeQuery(sql);
 
         } catch (SQLException e) {
@@ -70,13 +70,9 @@ public class SqlHelper {
         return mResultSet;
     }
 
-    public boolean upExecute(String sql, String[] parse) {
+    public boolean upExecute(String sql) {
         try {
             mPreparedStatement = mConnection.prepareStatement(sql);
-
-            for (int i = 0; i < parse.length; i++) {
-                mPreparedStatement.setString(i + 1, parse[i]);
-            }
 
             if (mPreparedStatement.executeUpdate() == 1) {
                 return true;

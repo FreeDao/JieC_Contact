@@ -1,8 +1,6 @@
 
 package com.jiec.contact;
 
-import com.jiec.contact.model.ContactModel;
-
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +8,9 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.widget.TabHost;
 import android.widget.Toast;
+
+import com.jiec.contact.model.CompanyModel;
+import com.jiec.contact.model.ContactModel;
 
 public class MainActivity extends TabActivity {
 
@@ -40,6 +41,8 @@ public class MainActivity extends TabActivity {
         settingIntent.setClass(this, SettingActivity.class);
         tabHost.addTab(tabHost.newTabSpec("设置").setIndicator("设置").setContent(settingIntent));
 
+        CompanyModel.getInstance().requestCompanies();
+
     }
 
     @Override
@@ -50,8 +53,9 @@ public class MainActivity extends TabActivity {
                 Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show();
                 mExitTime = System.currentTimeMillis();
             } else {
-            	ContactModel.getInstance().finish();
+                ContactModel.getInstance().finish();
                 finish();
+                android.os.Process.killProcess(android.os.Process.myPid());
             }
 
             return true;

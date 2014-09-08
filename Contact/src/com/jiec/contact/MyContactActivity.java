@@ -21,7 +21,6 @@ import com.jiec.contact.model.ContactModel.ContactChangeListener;
 import com.jiec.contact.widget.SuperTreeViewAdapter;
 import com.jiec.contact.widget.TreeViewAdapter;
 import com.jiec.utils.LogUtil;
-import com.jiec.utils.ToastUtil;
 
 public class MyContactActivity extends Activity implements ContactChangeListener {
 
@@ -32,12 +31,6 @@ public class MyContactActivity extends Activity implements ContactChangeListener
     SuperTreeViewAdapter mSuperAdapter;
 
     private List<Company> mContacts = null;
-
-    public static final int REQUEST_NEW_CONTACT = 10000;
-
-    public static final int RESULT_CANCEL_CONTACT = 20000;
-
-    public static final int RESULT_SAVE_CONTACT = 20001;
 
     public static final String NEW_REQUEST_KEY = "NEW_REQUEST_KEY";
 
@@ -61,8 +54,8 @@ public class MyContactActivity extends Activity implements ContactChangeListener
             @Override
             public void onClick(View arg0) {
                 Intent intent = new Intent(MyContactActivity.this, ContactEditActivity.class);
-                intent.putExtra(NEW_REQUEST_KEY, REQUEST_NEW_CONTACT);
-                startActivityForResult(intent, REQUEST_NEW_CONTACT);
+                intent.putExtra(NEW_REQUEST_KEY, NEW_REQUEST_KEY);
+                startActivity(intent);
             }
         });
 
@@ -126,20 +119,6 @@ public class MyContactActivity extends Activity implements ContactChangeListener
                 updateView();
             }
         });
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // TODO Auto-generated method stub
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == REQUEST_NEW_CONTACT) {
-            if (resultCode == RESULT_CANCEL_CONTACT) {
-                ToastUtil.showMsg("new contact contact");
-            } else {
-                ToastUtil.showMsg("new contact save");
-            }
-        }
     }
 
 }

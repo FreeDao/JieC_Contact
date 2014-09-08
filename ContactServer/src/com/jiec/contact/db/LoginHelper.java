@@ -21,9 +21,8 @@ public class LoginHelper {
         ResultSet rs = sh.queryExecute(sql);
 
         try {
-            if (rs.next()) {
+            if (rs != null && rs.next()) {
                 String dbPasswd = rs.getString(1);
-                System.out.println("passwd = " + dbPasswd);
 
                 rs.close();
                 sh.close();

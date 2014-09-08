@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 public class TreeViewAdapter extends BaseExpandableListAdapter {
 
-    public static final int ItemHeight = 90;
+    public static final int ItemHeight = 70;
 
     public static final int PaddingLeft = 60;
 
