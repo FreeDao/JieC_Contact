@@ -52,7 +52,7 @@ public class ContactServer {
                         replyObject.put("result", 1);
                     } else {
                         replyObject.put("result", -1);
-                        replyObject.put("reason", "ÃÜÂëÓëÓÃ»§Ãû¶ÔÓ¦²»ÕýÈ·");
+                        replyObject.put("reason", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½È·");
                     }
 
                 } else if (cmd == Protocal.CMD_LOGIN_USER_REQUEST) {
@@ -62,7 +62,7 @@ public class ContactServer {
                         replyObject.put("result", 1);
                     } else {
                         replyObject.put("result", -1);
-                        replyObject.put("reason", "ÃÜÂëÓëÓÃ»§Ãû¶ÔÓ¦²»ÕýÈ·");
+                        replyObject.put("reason", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½È·");
                     }
                 } else if (cmd == Protocal.CMD_GET_CONTACT) {
                     replyObject.put("result", 1);
@@ -91,7 +91,7 @@ public class ContactServer {
             e.printStackTrace();
 
             try {
-                Runtime.getRuntime().exec("sh runServer.sh");
+                Runtime.getRuntime().exec("setsid sh startServer.sh");
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
