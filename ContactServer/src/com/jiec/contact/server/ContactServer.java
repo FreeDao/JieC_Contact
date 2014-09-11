@@ -84,7 +84,8 @@ public class ContactServer {
                             .udpateContact(requestObject.getJSONObject("contact"), replyObject);
                 } else if (cmd == Protocal.CMD_GET_RECORD) {
                     replyObject.put("result", 1);
-                    replyObject.put("record", RecordHelper.getRecords());
+                    replyObject.put("data",
+                            RecordHelper.getRecords(requestObject.getString("user_id")));
                 } else if (cmd == Protocal.CMD_DELETE_CONTACT_RECORD) {
                     // replyObject.put("result", RecordHelper.)
                 } else if (cmd == Protocal.CMD_UPDATE_CONTACT_RECORD_INFO) {

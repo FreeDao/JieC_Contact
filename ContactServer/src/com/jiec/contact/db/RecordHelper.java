@@ -7,11 +7,11 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 public class RecordHelper {
-    public static JSONObject getRecords() {
+    public static JSONObject getRecords(String owner) {
         JSONObject object = new JSONObject();
 
         SqlHelper sh = new SqlHelper();
-        String sql = "SELECT * FROM contact_record;";
+        String sql = "SELECT * FROM contact_record WHERE record_owner = '" + owner + "';";
         ResultSet rs = sh.queryExecute(sql);
 
         if (rs == null) {
@@ -27,6 +27,8 @@ public class RecordHelper {
                 o.put("num", rs.getString(3));
                 o.put("time", rs.getString(4));
                 o.put("info", rs.getString(5));
+                o.put("state", rs.getInt(6));
+
                 jsonArray.add(o);
             }
 

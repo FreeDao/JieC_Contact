@@ -12,6 +12,7 @@ import android.os.Looper;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 
@@ -21,8 +22,13 @@ import com.jiec.contact.model.ContactModel.ContactChangeListener;
 import com.jiec.contact.widget.SuperTreeViewAdapter;
 import com.jiec.contact.widget.TreeViewAdapter;
 import com.jiec.utils.LogUtil;
+import com.jiec.utils.PhoneUtils;
 
 public class MyContactActivity extends Activity implements ContactChangeListener {
+
+    EditText mPhoneNumET;
+
+    Button mCallBtn;
 
     ExpandableListView mExpandableListView;
 
@@ -42,6 +48,17 @@ public class MyContactActivity extends Activity implements ContactChangeListener
 
         mContacts = new ArrayList<Company>();
         ContactModel.getInstance().addListener(this);
+
+        mPhoneNumET = (EditText) findViewById(R.id.et_phone_num);
+
+        mCallBtn = (Button) findViewById(R.id.btn_call);
+        mCallBtn.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                PhoneUtils.callPhone(MyContactActivity.this, mPhoneNumET.getText().toString());
+            }
+        });
 
         mExpandableListView = (ExpandableListView) findViewById(R.id.expandablelistview);
 

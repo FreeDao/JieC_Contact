@@ -3,7 +3,6 @@ package com.jiec.contact;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,6 +13,7 @@ import android.widget.TextView;
 import com.jiec.contact.model.Contact;
 import com.jiec.contact.model.ContactModel;
 import com.jiec.contact.model.ContactModel.ContactChangeListener;
+import com.jiec.utils.PhoneUtils;
 
 public class ContactDetailActivity extends Activity implements OnClickListener,
         ContactChangeListener {
@@ -135,49 +135,30 @@ public class ContactDetailActivity extends Activity implements OnClickListener,
     @Override
     public void onClick(View view) {
         if (view == mBGCall_1) {
-            callPhone(mContact.getBgdh_1());
+            PhoneUtils.callPhone(this, mContact.getBgdh_1());
         } else if (view == mBGCall_2) {
-            callPhone(mContact.getBgdh_2());
+            PhoneUtils.callPhone(this, mContact.getBgdh_2());
         } else if (view == mBGCall_3) {
-            callPhone(mContact.getBgdh_3());
+            PhoneUtils.callPhone(this, mContact.getBgdh_3());
         } else if (view == mBGChat_1) {
-            sendSMS(mContact.getBgdh_1());
+            PhoneUtils.sendSMS(this, mContact.getBgdh_1());
         } else if (view == mBGChat_2) {
-            sendSMS(mContact.getBgdh_2());
+            PhoneUtils.sendSMS(this, mContact.getBgdh_2());
         } else if (view == mBGChat_3) {
-            sendSMS(mContact.getBgdh_3());
+            PhoneUtils.sendSMS(this, mContact.getBgdh_3());
         } else if (view == mYDCall_1) {
-            callPhone(mContact.getYddh_1());
+            PhoneUtils.callPhone(this, mContact.getYddh_1());
         } else if (view == mYDCall_2) {
-            callPhone(mContact.getYddh_2());
+            PhoneUtils.callPhone(this, mContact.getYddh_2());
         } else if (view == mYDCall_3) {
-            callPhone(mContact.getYddh_3());
+            PhoneUtils.callPhone(this, mContact.getYddh_3());
         } else if (view == mYDChat_1) {
-            sendSMS(mContact.getYddh_1());
+            PhoneUtils.sendSMS(this, mContact.getYddh_1());
         } else if (view == mYDChat_2) {
-            sendSMS(mContact.getYddh_2());
+            PhoneUtils.sendSMS(this, mContact.getYddh_2());
         } else if (view == mYDChat_3) {
-            sendSMS(mContact.getYddh_3());
+            PhoneUtils.sendSMS(this, mContact.getYddh_3());
         }
-    }
-
-    private void callPhone(String number) {
-        if (number == null || number.length() < 1) {
-            return;
-        }
-        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + number));
-        startActivity(intent);
-    }
-
-    private void sendSMS(String number) {
-        if (number == null || number.length() < 1) {
-            return;
-        }
-        Uri smsToUri = Uri.parse("smsto:" + number);
-        Intent intent = new Intent(Intent.ACTION_SENDTO, smsToUri);
-        intent.putExtra("sms_body", "");
-        startActivity(intent);
-
     }
 
     @Override

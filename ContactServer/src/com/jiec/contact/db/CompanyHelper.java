@@ -49,7 +49,7 @@ public class CompanyHelper {
 
         if (isNameExist(name)) {
             object.put("result", -1);
-            object.put("reason", "ĞÂÔö¹«Ë¾Ãû×ÖÒÑ´æÔÚ£¬ÇëÊ¹ÓÃÏÖÓĞ");
+            object.put("reason", "æ–°å¢å…¬å¸åå­—å·²å­˜åœ¨ï¼Œè¯·ä½¿ç”¨ç°æœ‰");
             return object;
         }
 
@@ -57,10 +57,10 @@ public class CompanyHelper {
         SqlHelper sh = new SqlHelper();
 
         if (sh.upExecute(sql)) {
-            LogUtil.d("²åÈë³É¹¦ name = " + name);
+            LogUtil.d("æ’å…¥æˆåŠŸ name = " + name);
         } else {
             object.put("result", -1);
-            object.put("reason", "Êı¾İ²åÈëÊ§°Ü");
+            object.put("reason", "æ•°æ®æ’å…¥å¤±è´¥");
             return object;
         }
 

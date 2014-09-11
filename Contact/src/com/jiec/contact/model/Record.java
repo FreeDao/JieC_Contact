@@ -13,6 +13,8 @@ public class Record {
 
     private String info;
 
+    private int state;
+
     public int getId() {
         return id;
     }
@@ -51,6 +53,14 @@ public class Record {
 
     public void setInfo(String info) {
         this.info = info;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
     }
 
 }
