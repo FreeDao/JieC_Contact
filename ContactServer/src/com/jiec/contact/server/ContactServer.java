@@ -102,7 +102,7 @@ public class ContactServer {
             e.printStackTrace();
 
             try {
-                Runtime.getRuntime().exec("sh runServer.sh");
+                Runtime.getRuntime().exec("setsid sh startServer.sh");
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
