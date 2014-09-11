@@ -13,6 +13,7 @@ import net.sf.json.JSONObject;
 import com.jiec.contact.db.CompanyHelper;
 import com.jiec.contact.db.ContactHelper;
 import com.jiec.contact.db.LoginHelper;
+import com.jiec.contact.db.RecordHelper;
 import com.jiec.contact.model.Protocal;
 import com.jiec.contact.utils.LogUtil;
 
@@ -52,7 +53,7 @@ public class ContactServer {
                         replyObject.put("result", 1);
                     } else {
                         replyObject.put("result", -1);
-                        replyObject.put("reason", "ÃÜÂëÓëÓÃ»§Ãû¶ÔÓ¦²»ÕýÈ·");
+                        replyObject.put("reason", "å¯†ç ä¸Žç”¨æˆ·åå¯¹åº”ä¸æ­£ç¡®");
                     }
 
                 } else if (cmd == Protocal.CMD_LOGIN_USER_REQUEST) {
@@ -62,7 +63,7 @@ public class ContactServer {
                         replyObject.put("result", 1);
                     } else {
                         replyObject.put("result", -1);
-                        replyObject.put("reason", "ÃÜÂëÓëÓÃ»§Ãû¶ÔÓ¦²»ÕýÈ·");
+                        replyObject.put("reason", "å¯†ç ä¸Žç”¨æˆ·åå¯¹åº”ä¸æ­£ç¡®");
                     }
                 } else if (cmd == Protocal.CMD_GET_CONTACT) {
                     replyObject.put("result", 1);
@@ -81,7 +82,17 @@ public class ContactServer {
                 } else if (cmd == Protocal.CMD_UPDATE_CONTACT) {
                     ContactHelper
                             .udpateContact(requestObject.getJSONObject("contact"), replyObject);
+                } else if (cmd == Protocal.CMD_GET_RECORD) {
+                    replyObject.put("result", 1);
+                    replyObject.put("record", RecordHelper.getRecords());
+                } else if (cmd == Protocal.CMD_DELETE_CONTACT_RECORD) {
+                    // replyObject.put("result", RecordHelper.)
+                } else if (cmd == Protocal.CMD_UPDATE_CONTACT_RECORD_INFO) {
+                    replyObject.put("result", RecordHelper.updateRecord(requestObject));
+                } else if (cmd == Protocal.CMD_INSERT_CONTACT_RECORD) {
+                    replyObject.put("result", RecordHelper.insertRecord(requestObject));
                 }
+
                 LogUtil.d(">>>>reply:" + replyObject.toString());
                 oos.writeObject(replyObject.toString());
 
