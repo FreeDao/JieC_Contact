@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 
+import com.jiec.contact.LoginPhoneActivity;
 import com.jiec.contact.MainActivity;
 import com.jiec.contact.MyApplication;
 import com.jiec.utils.LogUtil;
@@ -22,13 +23,15 @@ public class AppReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         final String action = intent.getAction();
 
+        LogUtil.d("onReceive action = " + action);
+
         if (Intent.ACTION_NEW_OUTGOING_CALL.equals(action)) {
             LogUtil.d("去电了");
 
-        } else if (Intent.ACTION_BOOT_COMPLETED.equals(action)) {
-            // 开机启动
-            // 启动检测已预订礼包是否可以领取的服务
-            Intent mainIntent = new Intent(context, MainActivity.class);
+        } else if ("android.intent.action.BOOT_COMPLETED".equals(action)) {
+            // 开机启动MainActivity
+            Intent mainIntent = new Intent(context, LoginPhoneActivity.class);
+            mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(mainIntent);
         } else if (!mIsListenered) {
             mIsListenered = true;

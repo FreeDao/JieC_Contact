@@ -62,6 +62,8 @@
 			<intent-filter>   
             	<action android:name="android.intent.action.PHONE_STATE"/>   
     			<action android:name="android.intent.action.NEW_OUTGOING_CALL" />   
+    			<action android:name="android.intent.action.BOOT_COMPLETED"></action>  
+                <category android:name="android.intent.category.LAUNCHER" />  
         	</intent-filter> 
         </receiver>
     </application>
