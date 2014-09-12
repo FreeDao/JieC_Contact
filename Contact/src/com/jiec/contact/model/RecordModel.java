@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import com.jiec.contact.socket.ContactSocket;
 import com.jiec.contact.socket.ContactSocket.RespondListener;
+import com.jiec.utils.ToastUtil;
 
 public class RecordModel {
 
@@ -32,10 +33,11 @@ public class RecordModel {
 
     private static RecordModel sInstance = null;
 
-    private List<Record> mRecords;
+    private static List<Record> mRecords;
 
     private RecordModel() {
         mRecords = new ArrayList<Record>();
+        requestData();
     }
 
     public List<Record> getRecords() {
@@ -91,6 +93,47 @@ public class RecordModel {
             public void onFailed(int cmd, String reason) {
                 // TODO Auto-generated method stub
 
+            }
+
+        });
+    }
+
+    public void updateRecord(String info, int id) {
+        JSONObject object = new JSONObject();
+        try {
+            object.put("seq", ContactSocket.getSeq());
+            object.put("cmd", Protocal.CMD_UPDATE_CONTACT_RECORD_INFO);
+            object.put("info", info);
+            object.put("id", id);
+        } catch (JSONException e1) {
+            e1.printStackTrace();
+        }
+
+        new ContactSocket().send(object, new RespondListener() {
+
+            @Override
+            public void onSuccess(int cmd, JSONObject object) {
+                try {
+                    for (int i = 0; i < mRecords.size(); i++) {
+                        if (mRecords.get(i).getId() == object.getInt("id")) {
+                            mRecords.get(i).setInfo(object.getString("info"));
+                            break;
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                for (int i = 0; i < mChangeListeners.size(); i++) {
+                    mChangeListeners.get(i).onDataChanged();
+                }
+
+            }
+
+            @Override
+            public void onFailed(int cmd, String reason) {
+                // TODO Auto-generated method stub
+                ToastUtil.showMsg("更新不成功，请重试");
             }
 
         });

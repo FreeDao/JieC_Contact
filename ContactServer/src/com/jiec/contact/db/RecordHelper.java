@@ -54,7 +54,7 @@ public class RecordHelper {
 
     public static boolean updateRecord(JSONObject object) {
         String sql = "UPDATE contact_record SET record_info='" + object.getString("info")
-                + "' WHERE record_id=" + object.getInt("id") + ";)";
+                + "' WHERE record_id=" + object.getInt("id") + ";";
         SqlHelper sh = new SqlHelper();
         return sh.upExecute(sql);
     }

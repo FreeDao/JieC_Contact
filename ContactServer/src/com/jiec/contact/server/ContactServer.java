@@ -46,6 +46,7 @@ public class ContactServer {
 
                 JSONObject replyObject = new JSONObject();
                 replyObject.put("seq", requestObject.getInt("seq"));
+                replyObject.put("reason", "");
                 if (cmd == Protocal.CMD_LOGIN_REQUEST) {
                     if (LoginHelper.checkLoginPhone(requestObject.getString("phoneNum"),
                             requestObject.getString("passwd"))) {
@@ -89,9 +90,11 @@ public class ContactServer {
                 } else if (cmd == Protocal.CMD_DELETE_CONTACT_RECORD) {
                     // replyObject.put("result", RecordHelper.)
                 } else if (cmd == Protocal.CMD_UPDATE_CONTACT_RECORD_INFO) {
-                    replyObject.put("result", RecordHelper.updateRecord(requestObject));
+                    replyObject.put("result", RecordHelper.updateRecord(requestObject) ? 1 : -1);
+                    replyObject.put("info", requestObject.getString("info"));
+                    replyObject.put("id", requestObject.getInt("id"));
                 } else if (cmd == Protocal.CMD_INSERT_CONTACT_RECORD) {
-                    replyObject.put("result", RecordHelper.insertRecord(requestObject));
+                    replyObject.put("result", RecordHelper.insertRecord(requestObject) ? 1 : -1);
                 }
 
                 LogUtil.d(">>>>reply:" + replyObject.toString());

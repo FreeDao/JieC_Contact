@@ -1,27 +1,31 @@
 
 package com.jiec.contact;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.jiec.contact.model.Record;
 import com.jiec.contact.model.RecordModel;
 import com.jiec.contact.model.RecordModel.OnDataChangeListener;
+import com.jiec.utils.PhoneUtils;
 
 public class MyRecordActivity extends ListActivity implements OnDataChangeListener {
 
     private RecordAdapter mAdapter;
-
-    private List<Record> mRecords;
 
     private Context mContext;
 
@@ -29,15 +33,48 @@ public class MyRecordActivity extends ListActivity implements OnDataChangeListen
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mRecords = new ArrayList<Record>();
-
         RecordModel.getInstance().addListener(this);
-        RecordModel.getInstance().requestData();
 
         mAdapter = new RecordAdapter();
         setListAdapter(mAdapter);
 
         mContext = this;
+
+        getListView().setOnItemLongClickListener(new OnItemLongClickListener() {
+
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View v, int position, long id) {
+
+                final int recordId = mAdapter.getDatas().get(position).getId();
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(MyRecordActivity.this);
+                builder.setTitle("备注");
+                builder.setIcon(android.R.drawable.ic_dialog_info);
+                builder.setSingleChoiceItems(new String[] {
+                        "待办理", "回复电话"
+                }, 0, new OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        RecordModel.getInstance().updateRecord(which == 0 ? "待办理" : "回复电话",
+                                recordId);
+                        dialog.dismiss();
+                    }
+                });
+
+                builder.setNegativeButton("取消", null).show();
+                return false;
+            }
+        });
+
+        getListView().setOnItemClickListener(new OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
+                PhoneUtils.callPhone(MyRecordActivity.this, mAdapter.getDatas().get(position)
+                        .getNum());
+            }
+        });
     }
 
     @Override
@@ -48,14 +85,26 @@ public class MyRecordActivity extends ListActivity implements OnDataChangeListen
 
     @Override
     public void onDataChanged() {
-        mRecords.clear();
-
-        mRecords = RecordModel.getInstance().getRecords();
+        mAdapter.setDatas(RecordModel.getInstance().getRecords());
 
         mAdapter.notifyDataSetChanged();
     }
 
     private class RecordAdapter extends BaseAdapter {
+
+        private List<Record> mRecords;
+
+        public RecordAdapter() {
+            mRecords = RecordModel.getInstance().getRecords();
+        }
+
+        public void setDatas(List<Record> records) {
+            mRecords = records;
+        }
+
+        public List<Record> getDatas() {
+            return mRecords;
+        }
 
         @Override
         public int getCount() {
