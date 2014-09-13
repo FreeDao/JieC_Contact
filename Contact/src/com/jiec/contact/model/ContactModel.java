@@ -309,6 +309,7 @@ public class ContactModel {
                 }
             }
         }
+        LogUtil.e("name", name + ", l = " + name.length());
         return name;
     }
 }
