@@ -12,6 +12,7 @@ import net.sf.json.JSONObject;
 
 import com.jiec.contact.db.CompanyHelper;
 import com.jiec.contact.db.ContactHelper;
+import com.jiec.contact.db.JobHelper;
 import com.jiec.contact.db.LoginHelper;
 import com.jiec.contact.db.RecordHelper;
 import com.jiec.contact.model.Protocal;
@@ -95,6 +96,15 @@ public class ContactServer {
                     replyObject.put("id", requestObject.getInt("id"));
                 } else if (cmd == Protocal.CMD_INSERT_CONTACT_RECORD) {
                     replyObject.put("result", RecordHelper.insertRecord(requestObject) ? 1 : -1);
+                } else if (cmd == Protocal.CMD_GET_JOB) {
+                    replyObject.put("result", 1);
+                    replyObject.put("data",
+                            JobHelper.getRecords(requestObject.getString("user_id")));
+                } else if (cmd == Protocal.CMD_UPDATE_JOB) {
+                    replyObject.put("result", JobHelper.updateRecord(requestObject) ? 1 : -1);
+                    replyObject.put("info", requestObject.getString("info"));
+                    replyObject.put("id", requestObject.getInt("id"));
+                    replyObject.put("finish_time", requestObject.getString("finish_time"));
                 }
 
                 LogUtil.d(">>>>reply:" + replyObject.toString());

@@ -1,6 +1,11 @@
 
 package com.jiec.utils;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +13,9 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.CallLog;
 import android.util.Log;
+
+import com.jiec.contact.model.ContactModel;
+import com.jiec.contact.model.Record;
 
 public class PhoneUtils {
 
@@ -55,5 +63,43 @@ public class PhoneUtils {
             // TODO: handle exception
             Log.d("deleteSMS", "Exception:: " + e);
         }
+    }
+
+    public static List<Record> getRecordsFromContact(Context context) {
+        List<Record> records = new ArrayList<Record>();
+        Cursor cursor = context.getContentResolver().query(CallLog.Calls.CONTENT_URI, null, null,
+                null, null);
+
+        if (cursor.getCount() <= 0) {
+            return null;
+        }
+
+        cursor.moveToFirst();
+        do {
+            Record record = new Record();
+
+            /* Reading Date */
+            SimpleDateFormat sfd = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            String time = sfd.format(new Date(cursor.getLong(cursor
+                    .getColumnIndex(CallLog.Calls.DATE))));
+            record.setTime(time);
+
+            /* Reading duration */
+            // call.duration =
+            // cursor.getLong(cursor.getColumnIndex(CallLog.Calls.DURATION));
+
+            /* Reading Date */
+            int type = cursor.getInt(cursor.getColumnIndex(CallLog.Calls.TYPE));
+            record.setState(type);
+
+            record.setNum(cursor.getString(cursor.getColumnIndex(CallLog.Calls.NUMBER)));
+
+            record.setName(ContactModel.getInstance().getNameByPhoneNum(record.getNum()));
+
+            records.add(record);
+        } while (cursor.moveToNext());
+
+        PhoneUtils.deleteContactRecord(context);
+        return records;
     }
 }

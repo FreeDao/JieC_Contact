@@ -133,16 +133,19 @@ public class MyRecordActivity extends ListActivity implements OnDataChangeListen
             if (convertView == null) {
                 convertView = LayoutInflater.from(mContext).inflate(R.layout.layout_record_item,
                         null);
-                name = (TextView) convertView.findViewById(R.id.tv_name);
-                num = (TextView) convertView.findViewById(R.id.tv_num);
-                time = (TextView) convertView.findViewById(R.id.tv_time);
-                info = (TextView) convertView.findViewById(R.id.tv_info);
+
             }
+
+            name = (TextView) convertView.findViewById(R.id.tv_name);
+            num = (TextView) convertView.findViewById(R.id.tv_num);
+            time = (TextView) convertView.findViewById(R.id.tv_time);
+            info = (TextView) convertView.findViewById(R.id.tv_info);
 
             name.setText(mRecords.get(position).getName());
             num.setText(mRecords.get(position).getNum());
             time.setText(mRecords.get(position).getTime());
             info.setText(mRecords.get(position).getInfo());
+
             return convertView;
         }
     }

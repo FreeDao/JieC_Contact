@@ -8,8 +8,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.os.Handler;
+import android.os.Looper;
+
+import com.jiec.contact.MyApplication;
 import com.jiec.contact.socket.ContactSocket;
 import com.jiec.contact.socket.ContactSocket.RespondListener;
+import com.jiec.utils.LogUtil;
+import com.jiec.utils.PhoneUtils;
 import com.jiec.utils.ToastUtil;
 
 public class RecordModel {
@@ -38,6 +44,24 @@ public class RecordModel {
     private RecordModel() {
         mRecords = new ArrayList<Record>();
         requestData();
+
+        // 讲本地的通讯记录加本地记录中，已经上传到远程服务器
+        List<Record> list = PhoneUtils.getRecordsFromContact(MyApplication.getContext());
+        pushRecordToServer(list);
+    }
+
+    public void pushRecordToServer(final List<Record> list) {
+        if (list != null) {
+            mRecords.addAll(list);
+            new Thread(new Runnable() {
+
+                @Override
+                public void run() {
+                    insertRecord(list);
+                }
+            }).start();
+
+        }
     }
 
     public List<Record> getRecords() {
@@ -83,9 +107,16 @@ public class RecordModel {
                     e.printStackTrace();
                 }
 
-                for (int i = 0; i < mChangeListeners.size(); i++) {
-                    mChangeListeners.get(i).onDataChanged();
-                }
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        for (int i = 0; i < mChangeListeners.size(); i++) {
+
+                            mChangeListeners.get(i).onDataChanged();
+                        }
+                    }
+                });
 
             }
 
@@ -124,9 +155,16 @@ public class RecordModel {
                     e.printStackTrace();
                 }
 
-                for (int i = 0; i < mChangeListeners.size(); i++) {
-                    mChangeListeners.get(i).onDataChanged();
-                }
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        for (int i = 0; i < mChangeListeners.size(); i++) {
+
+                            mChangeListeners.get(i).onDataChanged();
+                        }
+                    }
+                });
 
             }
 
@@ -138,4 +176,58 @@ public class RecordModel {
 
         });
     }
+
+    public void insertRecord(List<Record> records) {
+        JSONObject object = new JSONObject();
+        try {
+            object.put("seq", ContactSocket.getSeq());
+            object.put("cmd", Protocal.CMD_INSERT_CONTACT_RECORD);
+            object.put("id", UserModel.getInstance().getUserId());
+            JSONArray recordArray = new JSONArray();
+            for (int i = 0; i < records.size(); i++) {
+                JSONObject recordJsonObject = new JSONObject();
+                recordJsonObject.put("name", records.get(i).getName());
+                recordJsonObject.put("num", records.get(i).getNum());
+                recordJsonObject.put("state", records.get(i).getState());
+                recordJsonObject.put("time", records.get(i).getTime());
+                recordJsonObject.put("owner", UserModel.getInstance().getUserId());
+                recordArray.put(recordJsonObject);
+            }
+
+            object.put("records", recordArray);
+        } catch (JSONException e1) {
+            e1.printStackTrace();
+        }
+
+        new ContactSocket().send(object, new RespondListener() {
+
+            @Override
+            public void onSuccess(int cmd, JSONObject object) {
+                try {
+                    LogUtil.d("数据上传成功" + object.toString());
+                    requestData();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        for (int i = 0; i < mChangeListeners.size(); i++) {
+
+                            mChangeListeners.get(i).onDataChanged();
+                        }
+                    }
+                });
+
+            }
+
+            @Override
+            public void onFailed(int cmd, String reason) {
+                ToastUtil.showMsg(reason);
+            }
+        });
+    }
+
 }

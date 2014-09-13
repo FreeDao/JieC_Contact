@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.jiec.contact.core.AppReceiver;
 import com.jiec.contact.model.Protocal;
 import com.jiec.contact.socket.ContactSocket;
 import com.jiec.contact.socket.ContactSocket.RespondListener;
@@ -99,6 +100,8 @@ public class LoginPhoneActivity extends Activity {
                         ToastUtil.showMsg("登陆成功！");
                         startActivity(new Intent(LoginPhoneActivity.this, LoginUIDActivity.class));
                         finish();
+
+                        AppReceiver.setLogined(true);
 
                     }
 

@@ -1,37 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="55dp"
-    android:orientation="horizontal" >"
+    android:layout_height="50dp"
+    >
 	    <TextView
 	        android:id="@+id/tv_name"
-	        android:layout_width="wrap_content"
-	        android:layout_height="55dp"
+	        android:layout_width="50dp"
+	        android:layout_height="50dp"
 	        android:layout_gravity="center"
+	        android:text="张三"
 	        android:gravity="center"
 	        android:layout_margin="5dp"
-	        android:textSize="20dip" />
+	        android:textSize="15sp" />
 	
 	    <LinearLayout 
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
+	        android:layout_toRightOf="@id/tv_name"
 	        android:orientation="vertical"
-	        android:layout_marginLeft="20dp">
-	    <TextView
-	        android:id="@+id/tv_num"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_margin="5dp"
-	        android:layout_marginLeft="20dp"
-	        android:textSize="18dip" />
-	    
-	    <TextView
-	        android:id="@+id/tv_time"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_margin="5dp"
-	        android:layout_marginLeft="20dp"
-	        android:textSize="18dip" />
+	        android:layout_marginLeft="10dp">
+		    <TextView
+		        android:id="@+id/tv_num"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginTop="5dp"
+		        android:text="10086"
+		        android:layout_marginLeft="20dp"
+		        android:textSize="15sp" />
+		    
+		    <TextView
+		        android:id="@+id/tv_time"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginTop="5dp"
+		        android:text="2014-09-13 10:20"
+		        android:layout_marginLeft="20dp"
+		        android:textSize="15dp" />
 	    
 	    </LinearLayout>
 	    
@@ -39,9 +43,10 @@
 	        android:id="@+id/tv_info"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_gravity="center"
-	        android:gravity="center"
-	        android:layout_marginLeft="50dp"
+	        android:layout_alignParentRight="true"
+	        android:layout_centerVertical="true"
+	        android:layout_marginRight="10dp"
+	        android:text="待办理"
 	        android:textColor="#ff0000"
-	        android:textSize="18dip" />
-</LinearLayout>
+	        android:textSize="15sp" />
+</RelativeLayout>

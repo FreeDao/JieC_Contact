@@ -32,4 +32,6 @@ public class Protocal {
     public static final int CMD_DELETE_CONTACT_RECORD = 14;
 
     public static final int CMD_INSERT_CONTACT_RECORD = 15;
+
+    public static final int CMD_UPDATE_JOB = 16;
 }

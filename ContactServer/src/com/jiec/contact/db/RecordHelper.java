@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import com.jiec.contact.utils.LogUtil;
+
 public class RecordHelper {
     public static JSONObject getRecords(String owner) {
         JSONObject object = new JSONObject();
@@ -42,19 +44,34 @@ public class RecordHelper {
     }
 
     public static boolean insertRecord(JSONObject object) {
-        String sql = "INSERT INTO contact_record (record_name, record_num, record_time, record_info) value('"
-                + object.getString("name")
-                + "', "
-                + object.getString("num")
-                + "', "
-                + object.getString("time") + "', " + object.getString("info") + "')";
-        SqlHelper sh = new SqlHelper();
-        return sh.upExecute(sql);
+        boolean result = true;
+        JSONArray recordsArray = object.getJSONArray("records");
+        for (int i = 0; i < recordsArray.size(); i++) {
+            object = recordsArray.getJSONObject(i);
+
+            String sql = "INSERT INTO contact_record (record_name, record_num, record_time, record_state, record_owner) value('"
+                    + object.getString("name")
+                    + "', '"
+                    + object.getString("num")
+                    + "', '"
+                    + object.getString("time")
+                    + "', "
+                    + object.getInt("state")
+                    + ", '"
+                    + object.getString("owner") + "');";
+            LogUtil.d(sql);
+            SqlHelper sh = new SqlHelper();
+            result = result & sh.upExecute(sql);
+        }
+
+        return result;
+
     }
 
     public static boolean updateRecord(JSONObject object) {
         String sql = "UPDATE contact_record SET record_info='" + object.getString("info")
                 + "' WHERE record_id=" + object.getInt("id") + ";";
+        LogUtil.d(sql);
         SqlHelper sh = new SqlHelper();
         return sh.upExecute(sql);
     }
