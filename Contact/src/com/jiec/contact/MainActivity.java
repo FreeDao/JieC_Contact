@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.jiec.contact.model.CompanyModel;
 import com.jiec.contact.model.ContactModel;
+import com.jiec.utils.FTPClientUtils;
 
 public class MainActivity extends TabActivity {
 
@@ -42,6 +43,8 @@ public class MainActivity extends TabActivity {
         tabHost.addTab(tabHost.newTabSpec("设置").setIndicator("设置").setContent(settingIntent));
 
         CompanyModel.getInstance().requestCompanies();
+
+        FTPClientUtils.updateFile();
 
     }
 
