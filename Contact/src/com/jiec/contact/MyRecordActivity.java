@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.jiec.contact.model.Record;
 import com.jiec.contact.model.RecordModel;
 import com.jiec.contact.model.RecordModel.OnDataChangeListener;
+import com.jiec.utils.PhoneNumUtils;
 import com.jiec.utils.PhoneUtils;
 
 public class MyRecordActivity extends ListActivity implements OnDataChangeListener {
@@ -142,7 +143,7 @@ public class MyRecordActivity extends ListActivity implements OnDataChangeListen
             info = (TextView) convertView.findViewById(R.id.tv_info);
 
             name.setText(mRecords.get(position).getName());
-            num.setText(mRecords.get(position).getNum());
+            num.setText(PhoneNumUtils.toStarPhoneNumber(mRecords.get(position).getNum()));
             time.setText(mRecords.get(position).getTime());
             info.setText(mRecords.get(position).getInfo());
 
