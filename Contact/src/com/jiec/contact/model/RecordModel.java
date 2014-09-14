@@ -98,6 +98,7 @@ public class RecordModel {
                         record.setId(array.getJSONObject(i).getInt("id"));
                         record.setName(array.getJSONObject(i).getString("name"));
                         record.setNum(array.getJSONObject(i).getString("num"));
+                        record.setDate(array.getJSONObject(i).getString("date"));
                         record.setTime(array.getJSONObject(i).getString("time"));
                         record.setInfo(array.getJSONObject(i).getString("info"));
                         record.setState(array.getJSONObject(i).getInt("state"));
@@ -189,6 +190,7 @@ public class RecordModel {
                 recordJsonObject.put("name", records.get(i).getName());
                 recordJsonObject.put("num", records.get(i).getNum());
                 recordJsonObject.put("state", records.get(i).getState());
+                recordJsonObject.put("date", records.get(i).getDate());
                 recordJsonObject.put("time", records.get(i).getTime());
                 recordJsonObject.put("owner", UserModel.getInstance().getUserId());
                 recordArray.put(recordJsonObject);

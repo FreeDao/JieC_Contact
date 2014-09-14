@@ -15,15 +15,6 @@ public class FTPClientUtils {
 
     private FTPClient ftp;
 
-    /**
-     * @param path �ϴ���ftp�������ĸ�·����
-     * @param addr ��ַ
-     * @param port �˿ں�
-     * @param username �û���
-     * @param password ����
-     * @return
-     * @throws Exception
-     */
     private boolean connect(String path, String addr, int port, String username, String password)
             throws Exception {
         boolean result = false;
@@ -42,10 +33,6 @@ public class FTPClientUtils {
         return result;
     }
 
-    /**
-     * @param file �ϴ����ļ����ļ���
-     * @throws Exception
-     */
     private void upload(File file) throws Exception {
         if (file.isDirectory()) {
             ftp.makeDirectory(file.getName());
@@ -91,6 +78,7 @@ public class FTPClientUtils {
                             t.upload(files[i]);
                             LogUtil.d("upload file :" + files[i].getAbsolutePath() + " success"
                                     + ", time = " + (System.currentTimeMillis() - time));
+                            files[i].delete();
                         }
                     }
 

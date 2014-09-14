@@ -51,12 +51,25 @@ public class MyRecordActivity extends ListActivity implements OnDataChangeListen
                 AlertDialog.Builder builder = new AlertDialog.Builder(MyRecordActivity.this);
                 builder.setTitle("备注");
                 builder.setIcon(android.R.drawable.ic_dialog_info);
-                builder.setSingleChoiceItems(new String[] {
+                String[] itemStrings = new String[] {
                         "待办理", "回复电话"
-                }, 0, new OnClickListener() {
+                };
+
+                if (mAdapter.getDatas().get(position).getName().length() < 1) {
+                    itemStrings = new String[] {
+                            "待办理", "回复电话", "保存联系人"
+                    };
+                }
+
+                builder.setSingleChoiceItems(itemStrings, 0, new OnClickListener() {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        if (which == 2) {
+                            // 跳转到新建联系人界面
+                            dialog.dismiss();
+                            return;
+                        }
                         RecordModel.getInstance().updateRecord(which == 0 ? "待办理" : "回复电话",
                                 recordId);
                         dialog.dismiss();
@@ -144,7 +157,7 @@ public class MyRecordActivity extends ListActivity implements OnDataChangeListen
 
             name.setText(mRecords.get(position).getName());
             num.setText(PhoneNumUtils.toStarPhoneNumber(mRecords.get(position).getNum()));
-            time.setText(mRecords.get(position).getTime());
+            time.setText(mRecords.get(position).getDate() + " " + mRecords.get(position).getTime());
             info.setText(mRecords.get(position).getInfo());
 
             return convertView;

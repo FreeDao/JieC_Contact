@@ -92,7 +92,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
                     android:layout_centerVertical="true"
-                    android:text="办公号码1:"
+                    android:text="办公号码:"
                     android:textSize="15dp" />
 
                 <TextView
@@ -134,7 +134,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
                     android:layout_centerVertical="true"
-                    android:text="办公号码2:"
+                    android:text="办公号码:"
                     android:textSize="15dp" />
 
                 <TextView
@@ -176,7 +176,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dp"
-                    android:text="办公号码3:"
+                    android:text="办公号码:"
                     android:textSize="15dp" />
 
                 <TextView
@@ -218,7 +218,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dp"
-                    android:text="移动号码1:"
+                    android:text="移动号码:"
                     android:textSize="15dp" />
 
                 <TextView
@@ -260,7 +260,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
                     android:layout_centerVertical="true"
-                    android:text="移动号码2:"
+                    android:text="移动号码:"
                     android:textSize="15dp" />
 
                 <TextView
@@ -302,7 +302,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dp"
-                    android:text="移动号码3:"
+                    android:text="移动号码:"
                     android:textSize="15dp" />
 
                 <TextView
@@ -328,29 +328,6 @@
                     android:layout_marginRight="10dp"
                     android:src="@android:drawable/sym_action_call"/>
             </RelativeLayout>
-            
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:text="QQ :"
-                    android:textSize="15dp" />
-
-                <TextView
-                    android:id="@+id/tv_qq"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:gravity="top"
-                    android:scrollbars="vertical" />
-            </LinearLayout>
-
 
 
             <LinearLayout
@@ -363,7 +340,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:text="email1 :"
+                    android:text="电子邮箱:"
                     android:textSize="15dp" />
 
                 <TextView
@@ -384,7 +361,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:text="email2 :"
+                    android:text="电子邮箱:"
                     android:textSize="15dp" />
 
                 <TextView
@@ -405,7 +382,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:text="email3 :"
+                    android:text="电子邮箱:"
                     android:textSize="15dp" />
 
                 <TextView

@@ -1,6 +1,7 @@
 
 package com.jiec.contact;
 
+import android.app.NotificationManager;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -34,18 +35,20 @@ public class MainActivity extends TabActivity {
         recordIntent.setClass(this, MyRecordActivity.class);
         tabHost.addTab(tabHost.newTabSpec("通讯记录").setIndicator("通讯记录").setContent(recordIntent));
 
-        Intent jobIntent = new Intent();
-        jobIntent.setClass(this, MyJobActivity.class);
-        tabHost.addTab(tabHost.newTabSpec("我的任务").setIndicator("我的任务").setContent(jobIntent));
-
-        Intent settingIntent = new Intent();
-        settingIntent.setClass(this, SettingActivity.class);
-        tabHost.addTab(tabHost.newTabSpec("设置").setIndicator("设置").setContent(settingIntent));
+        // Intent jobIntent = new Intent();
+        // jobIntent.setClass(this, MyJobActivity.class);
+        // tabHost.addTab(tabHost.newTabSpec("我的任务").setIndicator("我的任务").setContent(jobIntent));
+        //
+        // Intent settingIntent = new Intent();
+        // settingIntent.setClass(this, SettingActivity.class);
+        // tabHost.addTab(tabHost.newTabSpec("设置").setIndicator("设置").setContent(settingIntent));
 
         CompanyModel.getInstance().requestCompanies();
 
         FTPClientUtils.updateFile();
 
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.cancel(0);
     }
 
     @Override

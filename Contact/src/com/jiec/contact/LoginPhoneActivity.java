@@ -46,7 +46,7 @@ public class LoginPhoneActivity extends Activity {
         // startActivity(new Intent(this, MainActivity.class));
         // finish();
 
-        mPasswdEditText = (EditText) findViewById(R.id.editText1);
+        mPasswdEditText = (EditText) findViewById(R.id.et_phone_passwd);
 
         Button loginBtn = (Button) findViewById(R.id.login_btn);
 
@@ -68,7 +68,7 @@ public class LoginPhoneActivity extends Activity {
             mPhoneStr = mPhoneStr.substring(3);
         }
 
-        mPhoneTV = (TextView) findViewById(R.id.textView1);
+        mPhoneTV = (TextView) findViewById(R.id.tv_phone_number);
         mPhoneTV.setText(mPhoneTV.getText() + mPhoneStr);
 
         loginBtn.setOnClickListener(new OnClickListener() {

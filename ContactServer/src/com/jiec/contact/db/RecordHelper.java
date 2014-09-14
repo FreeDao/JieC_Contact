@@ -2,6 +2,7 @@
 package com.jiec.contact.db;
 
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -13,7 +14,10 @@ public class RecordHelper {
         JSONObject object = new JSONObject();
 
         SqlHelper sh = new SqlHelper();
-        String sql = "SELECT * FROM contact_record WHERE record_owner = '" + owner + "';";
+        SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String date = sDateFormat.format(new java.util.Date());
+        String sql = "SELECT * FROM contact_record WHERE record_owner = '" + owner
+                + "' and record_date = '" + date + "';";
         ResultSet rs = sh.queryExecute(sql);
 
         if (rs == null) {
@@ -27,9 +31,10 @@ public class RecordHelper {
                 o.put("id", rs.getInt(1));
                 o.put("name", rs.getString(2));
                 o.put("num", rs.getString(3));
-                o.put("time", rs.getString(4));
-                o.put("info", rs.getString(5));
-                o.put("state", rs.getInt(6));
+                o.put("date", rs.getString(4));
+                o.put("time", rs.getString(5));
+                o.put("info", rs.getString(6));
+                o.put("state", rs.getInt(7));
 
                 jsonArray.add(o);
             }
@@ -49,16 +54,16 @@ public class RecordHelper {
         for (int i = 0; i < recordsArray.size(); i++) {
             object = recordsArray.getJSONObject(i);
 
-            String sql = "INSERT INTO contact_record (record_name, record_num, record_time, record_state, record_owner) value('"
+            String sql = "INSERT INTO contact_record (record_name, record_num, record_date, record_time, record_state, record_owner) value('"
                     + object.getString("name")
                     + "', '"
                     + object.getString("num")
                     + "', '"
+                    + object.getString("date")
+                    + "', '"
                     + object.getString("time")
                     + "', "
-                    + object.getInt("state")
-                    + ", '"
-                    + object.getString("owner") + "');";
+                    + object.getInt("state") + ", '" + object.getString("owner") + "');";
             LogUtil.d(sql);
             SqlHelper sh = new SqlHelper();
             result = result & sh.upExecute(sql);

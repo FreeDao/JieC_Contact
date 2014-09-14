@@ -113,7 +113,7 @@ public class MyContactActivity extends Activity implements ContactChangeListener
         for (int i = 0; i < mContacts.size(); i++) {
             TreeViewAdapter.TreeNode node = new TreeViewAdapter.TreeNode();
 
-            node.parent = mContacts.get(i).getName();
+            node.parent = getTitleName(mContacts.get(i));
 
             for (int j = 0; j < mContacts.get(i).getContacts().size(); j++) {
 
@@ -123,6 +123,20 @@ public class MyContactActivity extends Activity implements ContactChangeListener
         }
         mAdapter.updateTreeNode(treeNode);
         LogUtil.e("updateView");
+    }
+
+    private String getTitleName(Company company) {
+        String name = company.getName() + "  (";
+        for (int i = 0; i < company.getContacts().size(); i++) {
+            if (i > 2 || i == company.getContacts().size() - 1) {
+                name += company.getContacts().get(i).getName();
+                break;
+            }
+
+            name += company.getContacts().get(i).getName() + "、";
+        }
+        name = name + ")";
+        return name;
     }
 
     @Override

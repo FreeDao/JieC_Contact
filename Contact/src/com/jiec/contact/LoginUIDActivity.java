@@ -36,8 +36,8 @@ public class LoginUIDActivity extends Activity {
         setContentView(R.layout.activity_login_user_id);
         lockKey();
 
-        mUserId = (EditText) findViewById(R.id.editText2);
-        mUserPasswd = (EditText) findViewById(R.id.editText1);
+        mUserId = (EditText) findViewById(R.id.et_user_id);
+        mUserPasswd = (EditText) findViewById(R.id.et_user_passwd);
 
         Button loginBtn = (Button) findViewById(R.id.login_btn);
         loginBtn.setOnClickListener(new OnClickListener() {

@@ -9,6 +9,8 @@ public class Record {
 
     private String num;
 
+    private String date;
+
     private String time;
 
     private String info;
@@ -37,6 +39,14 @@ public class Record {
 
     public void setNum(String num) {
         this.num = num;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getTime() {

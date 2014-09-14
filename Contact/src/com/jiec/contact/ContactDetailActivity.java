@@ -113,9 +113,6 @@ public class ContactDetailActivity extends Activity implements OnClickListener,
         TextView tv_yd_phone_num_3 = (TextView) findViewById(R.id.tv_yd_phone_num_3);
         tv_yd_phone_num_3.setText(PhoneNumUtils.toStarPhoneNumber(mContact.getYddh_3()));
 
-        TextView tv_qq = (TextView) findViewById(R.id.tv_qq);
-        tv_qq.setText(mContact.getQq());
-
         TextView tv_email_1 = (TextView) findViewById(R.id.tv_email_1);
         tv_email_1.setText(mContact.getEmail_1());
 
