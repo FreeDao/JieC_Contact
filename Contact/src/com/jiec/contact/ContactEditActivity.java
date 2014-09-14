@@ -20,14 +20,19 @@ import com.jiec.contact.model.ContactModel;
 import com.jiec.contact.model.UserModel;
 import com.jiec.contact.widget.CompanyListDialog;
 import com.jiec.contact.widget.CompanyListDialog.OnCompanyItemClickListener;
+import com.jiec.contact.widget.JiecEditText;
+import com.jiec.utils.PhoneNumUtils;
 import com.jiec.utils.ToastUtil;
 
 public class ContactEditActivity extends Activity {
     private Button mBtnSave, mBtnBack;
 
-    private EditText mCompanyEditText, mNameEditText, mBG_1EditText, mBG_2EditText, mBG_3EditText;
+    private EditText mCompanyEditText, mNameEditText;
 
-    private EditText mYD_1EditText, mYD_2EditText, mYD_3EditText, mQQEditText, mEmail_1EditText;
+    private JiecEditText mYD_1EditText, mYD_2EditText, mYD_3EditText, mBG_1EditText, mBG_2EditText,
+            mBG_3EditText;
+
+    private EditText mQQEditText, mEmail_1EditText;
 
     private EditText mEmail_2EditText, mEmail_3EditText, mOwnEditText, mLastEditText;
 
@@ -74,12 +79,12 @@ public class ContactEditActivity extends Activity {
         });
 
         mNameEditText = (EditText) findViewById(R.id.et_name);
-        mBG_1EditText = (EditText) findViewById(R.id.et_phone_num_1);
-        mBG_2EditText = (EditText) findViewById(R.id.et_phone_num_2);
-        mBG_3EditText = (EditText) findViewById(R.id.et_phone_num_3);
-        mYD_1EditText = (EditText) findViewById(R.id.et_yd_phone_num_1);
-        mYD_2EditText = (EditText) findViewById(R.id.et_yd_phone_num_2);
-        mYD_3EditText = (EditText) findViewById(R.id.et_yd_phone_num_3);
+        mBG_1EditText = (JiecEditText) findViewById(R.id.et_phone_num_1);
+        mBG_2EditText = (JiecEditText) findViewById(R.id.et_phone_num_2);
+        mBG_3EditText = (JiecEditText) findViewById(R.id.et_phone_num_3);
+        mYD_1EditText = (JiecEditText) findViewById(R.id.et_yd_phone_num_1);
+        mYD_2EditText = (JiecEditText) findViewById(R.id.et_yd_phone_num_2);
+        mYD_3EditText = (JiecEditText) findViewById(R.id.et_yd_phone_num_3);
         mQQEditText = (EditText) findViewById(R.id.et_qq);
         mEmail_1EditText = (EditText) findViewById(R.id.et_email1);
         mEmail_2EditText = (EditText) findViewById(R.id.et_email2);
@@ -95,12 +100,18 @@ public class ContactEditActivity extends Activity {
             mNameEditText.setText(mContact.getName());
             mCompanyEditText.setText(mContact.getCompany_id());
             mCompanyId = mContact.getCompany_id();
-            mBG_1EditText.setText(mContact.getBgdh_1());
-            mBG_2EditText.setText(mContact.getBgdh_2());
-            mBG_3EditText.setText(mContact.getBgdh_3());
-            mYD_1EditText.setText(mContact.getYddh_1());
-            mYD_2EditText.setText(mContact.getYddh_2());
-            mYD_3EditText.setText(mContact.getYddh_3());
+            mBG_1EditText.setText(PhoneNumUtils.toStarPhoneNumber(mContact.getBgdh_1()));
+            mBG_1EditText.setNumber(mContact.getBgdh_1());
+            mBG_2EditText.setText(PhoneNumUtils.toStarPhoneNumber(mContact.getBgdh_2()));
+            mBG_2EditText.setNumber(mContact.getBgdh_2());
+            mBG_3EditText.setText(PhoneNumUtils.toStarPhoneNumber(mContact.getBgdh_3()));
+            mBG_3EditText.setNumber(mContact.getBgdh_3());
+            mYD_1EditText.setText(PhoneNumUtils.toStarPhoneNumber(mContact.getYddh_1()));
+            mYD_1EditText.setNumber(mContact.getYddh_1());
+            mYD_2EditText.setText(PhoneNumUtils.toStarPhoneNumber(mContact.getYddh_2()));
+            mYD_2EditText.setNumber(mContact.getYddh_2());
+            mYD_3EditText.setText(PhoneNumUtils.toStarPhoneNumber(mContact.getYddh_3()));
+            mYD_3EditText.setNumber(mContact.getYddh_3());
             mQQEditText.setText(mContact.getQq());
             mEmail_1EditText.setText(mContact.getEmail_1());
             mEmail_2EditText.setText(mContact.getEmail_2());
@@ -125,12 +136,12 @@ public class ContactEditActivity extends Activity {
                 JSONObject contact = new JSONObject();
                 try {
                     contact.put("contact_name", mNameEditText.getText().toString());
-                    contact.put("contact_bgdh_1", mBG_1EditText.getText().toString());
-                    contact.put("contact_bgdh_2", mBG_2EditText.getText().toString());
-                    contact.put("contact_bgdh_3", mBG_3EditText.getText().toString());
-                    contact.put("contact_yddh_1", mYD_1EditText.getText().toString());
-                    contact.put("contact_yddh_2", mYD_2EditText.getText().toString());
-                    contact.put("contact_yddh_3", mYD_3EditText.getText().toString());
+                    contact.put("contact_bgdh_1", mBG_1EditText.getNumber());
+                    contact.put("contact_bgdh_2", mBG_2EditText.getNumber());
+                    contact.put("contact_bgdh_3", mBG_3EditText.getNumber());
+                    contact.put("contact_yddh_1", mYD_1EditText.getNumber());
+                    contact.put("contact_yddh_2", mYD_2EditText.getNumber());
+                    contact.put("contact_yddh_3", mYD_3EditText.getNumber());
                     contact.put("contact_company_id", mCompanyId);
                     contact.put("contact_company_name", mCompanyName);
                     contact.put("contact_qq", mQQEditText.getText().toString());

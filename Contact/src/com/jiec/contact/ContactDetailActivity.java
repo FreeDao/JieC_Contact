@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.jiec.contact.model.Contact;
 import com.jiec.contact.model.ContactModel;
 import com.jiec.contact.model.ContactModel.ContactChangeListener;
+import com.jiec.utils.PhoneNumUtils;
 import com.jiec.utils.PhoneUtils;
 
 public class ContactDetailActivity extends Activity implements OnClickListener,
@@ -95,22 +96,22 @@ public class ContactDetailActivity extends Activity implements OnClickListener,
         tv_company_id.setText(mContact.getCompany_id());
 
         TextView tv_phone_num_1 = (TextView) findViewById(R.id.tv_phone_num_1);
-        tv_phone_num_1.setText(mContact.getBgdh_1());
+        tv_phone_num_1.setText(PhoneNumUtils.toStarPhoneNumber(mContact.getBgdh_1()));
 
         TextView tv_phone_num_2 = (TextView) findViewById(R.id.tv_phone_num_2);
-        tv_phone_num_2.setText(mContact.getBgdh_2());
+        tv_phone_num_2.setText(PhoneNumUtils.toStarPhoneNumber(mContact.getBgdh_2()));
 
         TextView tv_phone_num_3 = (TextView) findViewById(R.id.tv_phone_num_3);
-        tv_phone_num_3.setText(mContact.getBgdh_3());
+        tv_phone_num_3.setText(PhoneNumUtils.toStarPhoneNumber(mContact.getBgdh_3()));
 
         TextView tv_yd_phone_num_1 = (TextView) findViewById(R.id.tv_yd_phone_num_1);
-        tv_yd_phone_num_1.setText(mContact.getYddh_1());
+        tv_yd_phone_num_1.setText(PhoneNumUtils.toStarPhoneNumber(mContact.getYddh_1()));
 
         TextView tv_yd_phone_num_2 = (TextView) findViewById(R.id.tv_yd_phone_num_2);
-        tv_yd_phone_num_2.setText(mContact.getYddh_2());
+        tv_yd_phone_num_2.setText(PhoneNumUtils.toStarPhoneNumber(mContact.getYddh_2()));
 
         TextView tv_yd_phone_num_3 = (TextView) findViewById(R.id.tv_yd_phone_num_3);
-        tv_yd_phone_num_3.setText(mContact.getYddh_3());
+        tv_yd_phone_num_3.setText(PhoneNumUtils.toStarPhoneNumber(mContact.getYddh_3()));
 
         TextView tv_qq = (TextView) findViewById(R.id.tv_qq);
         tv_qq.setText(mContact.getQq());
