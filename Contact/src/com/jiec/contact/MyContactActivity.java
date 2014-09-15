@@ -87,8 +87,6 @@ public class MyContactActivity extends Activity implements ContactChangeListener
             }
         });
 
-        updateView();
-
         mExpandableListView.setAdapter(mAdapter);
         mExpandableListView.setOnChildClickListener(new OnChildClickListener() {
 
@@ -104,14 +102,9 @@ public class MyContactActivity extends Activity implements ContactChangeListener
             }
         });
 
-        new Thread(new Runnable() {
+        mContacts = ContactModel.getInstance().getContacts();
 
-            @Override
-            public void run() {
-                ContactModel.getInstance().getContacts();
-            }
-        }).start();
-
+        updateView();
     }
 
     private void updateView() {

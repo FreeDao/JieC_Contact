@@ -98,7 +98,7 @@ public class LoginPhoneActivity extends Activity {
                     @Override
                     public void onSuccess(int cmd, JSONObject object) {
                         ToastUtil.showMsg("登陆成功！");
-                        startActivity(new Intent(LoginPhoneActivity.this, LoginUIDActivity.class));
+                        startActivity(new Intent(LoginPhoneActivity.this, MainActivity.class));
                         finish();
 
                         AppReceiver.setLogined(true);

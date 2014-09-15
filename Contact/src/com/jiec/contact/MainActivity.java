@@ -7,12 +7,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TabHost;
 import android.widget.Toast;
 
 import com.jiec.contact.model.CompanyModel;
 import com.jiec.contact.model.ContactModel;
+import com.jiec.contact.model.RecordModel;
+import com.jiec.contact.model.UserModel;
 import com.jiec.utils.FTPClientUtils;
+import com.jiec.utils.LogUtil;
+import com.jiec.utils.ToastUtil;
 
 public class MainActivity extends TabActivity {
 
@@ -67,6 +73,51 @@ public class MainActivity extends TabActivity {
             return true;
         }
         return super.dispatchKeyEvent(event);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+        LogUtil.d("featrueId = " + featureId + ", item id = " + item.getItemId());
+        switch (item.getItemId()) {
+            case R.id.action_login_user:
+                loginUser();
+                break;
+            case R.id.action_logout_user:
+                logoutUser();
+                break;
+
+            default:
+                break;
+        }
+        return super.onMenuItemSelected(featureId, item);
+    }
+
+    private void loginUser() {
+        if (UserModel.getInstance().isLogined()) {
+            ToastUtil.showMsg("用户已登录，请先退出用户");
+        } else {
+            startActivity(new Intent(MainActivity.this, LoginUIDActivity.class));
+            finish();
+        }
+    }
+
+    private void logoutUser() {
+        if (!UserModel.getInstance().isLogined()) {
+            ToastUtil.showMsg("尚未登录，请先登录用户");
+            return;
+        }
+        ContactModel.getInstance().finish();
+        RecordModel.getInstance().finish();
+        UserModel.getInstance().setLogined(false);
+        startActivity(new Intent(MainActivity.this, LoginUIDActivity.class));
+        finish();
     }
 
 }

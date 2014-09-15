@@ -2,7 +2,8 @@
 <resources>
 
     <string name="app_name">云通讯</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_login_user">登录用户</string>
+    <string name="action_logout_user">退出用户</string>
     <string name="hello_world">Hello world!</string>
 
 </resources>

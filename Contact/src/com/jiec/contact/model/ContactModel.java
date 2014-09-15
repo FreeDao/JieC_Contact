@@ -31,6 +31,7 @@ public class ContactModel {
 
     private ContactModel() {
         mContacts = new ArrayList<Company>();
+        requestContactData();
     }
 
     public void addListener(ContactChangeListener changeListener) {
@@ -53,9 +54,6 @@ public class ContactModel {
 
     public List<Company> getContacts() {
         LogUtil.e("mContacts size = " + mContacts.size());
-        if (mContacts.size() == 0) {
-            requestContactData();
-        }
         return mContacts;
     }
 
@@ -75,7 +73,7 @@ public class ContactModel {
         mContacts.clear();
     }
 
-    private void requestContactData() {
+    public void requestContactData() {
         String str = "{seq:" + (ContactSocket.getSeq()) + ",cmd:" + Protocal.CMD_GET_CONTACT
                 + ",user_id:" + "\"" + UserModel.getInstance().getUserId() + "\"" + "}";
         JSONObject object = null;

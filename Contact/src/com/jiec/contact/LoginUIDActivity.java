@@ -15,7 +15,9 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.jiec.contact.model.ContactModel;
 import com.jiec.contact.model.Protocal;
+import com.jiec.contact.model.RecordModel;
 import com.jiec.contact.model.UserModel;
 import com.jiec.contact.socket.ContactSocket;
 import com.jiec.contact.socket.ContactSocket.RespondListener;
@@ -71,6 +73,8 @@ public class LoginUIDActivity extends Activity {
                         ToastUtil.showMsg("登陆成功！");
                         UserModel.getInstance().setUserId(mUserId.getText().toString().trim());
                         startActivity(new Intent(LoginUIDActivity.this, MainActivity.class));
+                        ContactModel.getInstance().requestContactData();
+                        RecordModel.getInstance().requestData();
                         finish();
                     }
 

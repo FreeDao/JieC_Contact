@@ -75,6 +75,10 @@ public class RecordModel {
         return sInstance;
     }
 
+    public void finish() {
+        mRecords.clear();
+    }
+
     public void requestData() {
         JSONObject object = new JSONObject();
         try {
