@@ -44,9 +44,9 @@ public class LoginPhoneActivity extends Activity {
         setContentView(R.layout.activity_login_phone);
         lockKey();
 
-        startActivity(new Intent(this, MainActivity.class));
-        finish();
-        UserModel.getInstance().setUserId("1002");
+        // startActivity(new Intent(this, MainActivity.class));
+        // finish();
+        // UserModel.getInstance().setUserId("1002");
 
         mPasswdEditText = (EditText) findViewById(R.id.et_phone_passwd);
 
