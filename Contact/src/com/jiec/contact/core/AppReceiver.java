@@ -17,6 +17,7 @@ import com.jiec.contact.MainActivity;
 import com.jiec.contact.model.ContactModel;
 import com.jiec.contact.model.RecordModel;
 import com.jiec.utils.LogUtil;
+import com.jiec.utils.PhoneNumUtils;
 import com.jiec.utils.PhoneUtils;
 import com.jiec.utils.ToastUtil;
 
@@ -117,7 +118,8 @@ public class AppReceiver extends BroadcastReceiver {
         recorder.setAudioSource(MediaRecorder.AudioSource.MIC);// 定义声音来自于麦克风
         recorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);// 存储格式
         recorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);// 设置编码
-        String fileName = number + "_" + System.currentTimeMillis();
+        String fileName = PhoneNumUtils.toStarPhoneNumber(number) + "_"
+                + System.currentTimeMillis();
         File file = new File(Environment.getExternalStorageDirectory(), "contact");
         if (!file.exists()) {
             file.mkdirs();

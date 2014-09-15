@@ -43,8 +43,8 @@ public class LoginPhoneActivity extends Activity {
         setContentView(R.layout.activity_login_phone);
         lockKey();
 
-        startActivity(new Intent(this, MainActivity.class));
-        finish();
+        // startActivity(new Intent(this, MainActivity.class));
+        // finish();
 
         mPasswdEditText = (EditText) findViewById(R.id.et_phone_passwd);
 

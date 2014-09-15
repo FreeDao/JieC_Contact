@@ -79,7 +79,7 @@ public class PhoneUtils {
             Record record = new Record();
 
             /* Reading Date */
-            SimpleDateFormat sfd = new SimpleDateFormat("hh:mm:ss");
+            SimpleDateFormat sfd = new SimpleDateFormat("HH:mm:ss");
             String time = sfd.format(new Date(cursor.getLong(cursor
                     .getColumnIndex(CallLog.Calls.DATE))));
             sfd = new SimpleDateFormat("yyyy-MM-dd");
