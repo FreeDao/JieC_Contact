@@ -66,6 +66,16 @@ public class CompanyModel {
         return mCompanies;
     }
 
+    public String getCompanyName(String companyId) {
+        for (int i = 0; i < mCompanies.size(); i++) {
+            if (mCompanies.get(i).id.equals(companyId)) {
+                return mCompanies.get(i).name;
+            }
+        }
+
+        return "";
+    }
+
     public void requestCompanies() {
         JSONObject object = new JSONObject();
         try {

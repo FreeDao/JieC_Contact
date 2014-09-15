@@ -9,17 +9,17 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaRecorder;
+import android.os.Bundle;
 import android.os.Environment;
 import android.telephony.TelephonyManager;
 
 import com.jiec.contact.LoginPhoneActivity;
 import com.jiec.contact.MainActivity;
-import com.jiec.contact.model.ContactModel;
 import com.jiec.contact.model.RecordModel;
+import com.jiec.contact.widget.CorverCallScreen;
 import com.jiec.utils.LogUtil;
 import com.jiec.utils.PhoneNumUtils;
 import com.jiec.utils.PhoneUtils;
-import com.jiec.utils.ToastUtil;
 
 public class AppReceiver extends BroadcastReceiver {
 
@@ -54,33 +54,23 @@ public class AppReceiver extends BroadcastReceiver {
             if (number.startsWith("+86")) {
                 number = number.substring(3);
             }
-            if (ContactModel.getInstance().getNameByPhoneNum(number).length() < 1) {
-                ToastUtil.showMsg("未登记号码");
-            } else {
-                ToastUtil.showMsg("已登记号码");
-            }
-
-            number = "out_" + number;
-            LogUtil.d("去电了 :" + number);
+            CorverCallScreen.getInstance().addCorverScreen(number);
+            number = "out_" + PhoneNumUtils.toStarPhoneNumber(number);
 
         } else if (intent.getAction().equals("android.intent.action.PHONE_STATE")) {
             TelephonyManager tm = (TelephonyManager) context
                     .getSystemService(Service.TELEPHONY_SERVICE);
             switch (tm.getCallState()) {
                 case TelephonyManager.CALL_STATE_RINGING:
-                    number = tm.getLine1Number();
+                    Bundle bundle = intent.getExtras();
+                    number = bundle.getString("incoming_number");
 
                     if (number.startsWith("+86")) {
                         number = number.substring(3);
                     }
+                    CorverCallScreen.getInstance().addCorverScreen(number);
 
-                    if (ContactModel.getInstance().getNameByPhoneNum(number).length() < 1) {
-                        ToastUtil.showMsg("未登记号码");
-                    } else {
-                        ToastUtil.showMsg("已登记号码");
-                    }
-
-                    number = "in_" + number;
+                    number = "in_" + PhoneNumUtils.toStarPhoneNumber(number);
 
                     LogUtil.e("hg", "电话状态……RINGING" + number);
                     break;
@@ -97,6 +87,7 @@ public class AppReceiver extends BroadcastReceiver {
                     LogUtil.e("hg", "电话状态……IDLE");
 
                     stopRecord();
+                    CorverCallScreen.getInstance().removeCorverScreen();
 
                     Intent mainIntent = new Intent(context, MainActivity.class);
                     if (!sLogined) {
