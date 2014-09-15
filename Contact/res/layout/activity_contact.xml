@@ -15,7 +15,6 @@
 	        android:layout_height="wrap_content"
 			android:layout_weight="3"
 			android:hint="输入号码或名字"
-			android:phoneNumber="true"
 	        />
 	    
 	    <Button 

@@ -316,7 +316,8 @@ public class ContactModel {
             for (int j = 0; j < mContacts.get(i).getContacts().size(); j++) {
                 Contact c = mContacts.get(i).getContacts().get(j);
                 if (str.equals(c.bgdh_1) || str.equals(c.bgdh_2) || str.equals(c.bgdh_3)
-                        || str.equals(c.yddh_1) || str.equals(c.yddh_2) || str.equals(c.yddh_3)) {
+                        || str.equals(c.yddh_1) || str.equals(c.yddh_2) || str.equals(c.yddh_3)
+                        || str.equals(c.name)) {
                     return c;
                 }
             }
