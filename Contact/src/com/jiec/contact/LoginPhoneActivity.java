@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.jiec.contact.core.AppReceiver;
 import com.jiec.contact.model.Protocal;
+import com.jiec.contact.model.UserModel;
 import com.jiec.contact.socket.ContactSocket;
 import com.jiec.contact.socket.ContactSocket.RespondListener;
 import com.jiec.utils.SIMCardInfo;
@@ -45,6 +46,7 @@ public class LoginPhoneActivity extends Activity {
 
         // startActivity(new Intent(this, MainActivity.class));
         // finish();
+        // UserModel.getInstance().setUserId("1002");
 
         mPasswdEditText = (EditText) findViewById(R.id.et_phone_passwd);
 
@@ -70,6 +72,7 @@ public class LoginPhoneActivity extends Activity {
 
         mPhoneTV = (TextView) findViewById(R.id.tv_phone_number);
         mPhoneTV.setText(mPhoneTV.getText() + mPhoneStr);
+        UserModel.getInstance().setPhoneNumber(mPhoneStr);
 
         loginBtn.setOnClickListener(new OnClickListener() {
 

@@ -8,6 +8,16 @@ public class UserModel {
 
     private boolean mLogined = false;
 
+    private String mPhoneNumber = "";
+
+    public void setPhoneNumber(String phoneNumber) {
+        mPhoneNumber = phoneNumber;
+    }
+
+    public String getPhoneNumber() {
+        return mPhoneNumber;
+    }
+
     public void setLogined(boolean logined) {
         mLogined = logined;
         if (!mLogined) {

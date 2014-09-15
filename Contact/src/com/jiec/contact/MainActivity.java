@@ -55,6 +55,10 @@ public class MainActivity extends TabActivity {
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.cancel(0);
+
+        setTitle("手机:" + UserModel.getInstance().getPhoneNumber() + "  用户:"
+                + (UserModel.getInstance().isLogined() ? UserModel.getInstance().getUserId() : "无"));
+
     }
 
     @Override

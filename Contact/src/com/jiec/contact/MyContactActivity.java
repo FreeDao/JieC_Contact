@@ -59,6 +59,10 @@ public class MyContactActivity extends Activity implements ContactChangeListener
 
             @Override
             public void onClick(View arg0) {
+                if (mPhoneNumET.getText().toString().trim().length() < 1) {
+                    ToastUtil.showMsg("请输入要搜索的号码或者名字");
+                    return;
+                }
                 Intent intent = new Intent(MyContactActivity.this, ContactDetailActivity.class);
                 Contact contact = ContactModel.getInstance().getContactByNameOrPhoneNumber(
                         mPhoneNumET.getText().toString().trim());
