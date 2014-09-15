@@ -17,12 +17,13 @@ import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 
 import com.jiec.contact.model.Company;
+import com.jiec.contact.model.Contact;
 import com.jiec.contact.model.ContactModel;
 import com.jiec.contact.model.ContactModel.ContactChangeListener;
 import com.jiec.contact.widget.SuperTreeViewAdapter;
 import com.jiec.contact.widget.TreeViewAdapter;
 import com.jiec.utils.LogUtil;
-import com.jiec.utils.PhoneUtils;
+import com.jiec.utils.ToastUtil;
 
 public class MyContactActivity extends Activity implements ContactChangeListener {
 
@@ -40,6 +41,8 @@ public class MyContactActivity extends Activity implements ContactChangeListener
 
     public static final String NEW_REQUEST_KEY = "NEW_REQUEST_KEY";
 
+    public static final String NEW_CONTACT_NUMBER = "new_contact_number";
+
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,7 +59,15 @@ public class MyContactActivity extends Activity implements ContactChangeListener
 
             @Override
             public void onClick(View arg0) {
-                PhoneUtils.callPhone(MyContactActivity.this, mPhoneNumET.getText().toString());
+                Intent intent = new Intent(MyContactActivity.this, ContactDetailActivity.class);
+                Contact contact = ContactModel.getInstance().getContactByNameOrPhoneNumber(
+                        mPhoneNumET.getText().toString().trim());
+                if (contact == null) {
+                    ToastUtil.showMsg("未找到联系人");
+                } else {
+                    intent.putExtra("contact", contact);
+                    startActivity(intent);
+                }
             }
         });
 

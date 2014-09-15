@@ -95,6 +95,8 @@ public class ContactEditActivity extends Activity {
             SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String date = sDateFormat.format(new java.util.Date());
             mLastEditText.setText(date);
+
+            mBG_1EditText.setText(intent.getStringExtra(MyContactActivity.NEW_CONTACT_NUMBER));
         } else {
             mContact = getIntent().getParcelableExtra("contact");
             mNameEditText.setText(mContact.getName());

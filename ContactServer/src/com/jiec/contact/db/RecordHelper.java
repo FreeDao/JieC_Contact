@@ -17,7 +17,7 @@ public class RecordHelper {
         SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String date = sDateFormat.format(new java.util.Date());
         String sql = "SELECT * FROM contact_record WHERE record_owner = '" + owner
-                + "' and record_date = '" + date + "';";
+                + "' and record_date = '" + date + "' ORDER BY record_time DESC;";
         ResultSet rs = sh.queryExecute(sql);
 
         if (rs == null) {

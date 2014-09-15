@@ -8,30 +8,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
-	    <Button 
-	        android:id="@+id/btn_new_contact"
-	        android:layout_width="20dp"
-	        android:layout_height="wrap_content"
-	        android:text="新建"
-	        android:layout_weight="1"
-	        />"
 	        
 	    <EditText 
 	        android:id="@+id/et_phone_num"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-			android:layout_weight="2"
-			android:hint="输入电话号码"
+			android:layout_weight="3"
+			android:hint="输入号码或名字"
 			android:phoneNumber="true"
 	        />
 	    
 	    <Button 
 	        android:id="@+id/btn_call"
 	        android:layout_width="20dp"
-	        android:layout_height="wrap_content"
+	        android:layout_height="50dp"
 	        android:layout_weight="1"
-	        android:text="拨号"/>
-        
+	        android:background="@android:drawable/ic_menu_search"
+	        />
+	    
+        <Button 
+	        android:id="@+id/btn_new_contact"
+	        android:layout_width="20dp"
+	        android:layout_height="wrap_content"
+	        android:text="新建"
+	        android:layout_weight="2"
+	        />"
     </LinearLayout>
 
     

@@ -8,6 +8,7 @@ import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,11 +19,12 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.jiec.contact.model.Contact;
+import com.jiec.contact.model.ContactModel;
 import com.jiec.contact.model.Record;
 import com.jiec.contact.model.RecordModel;
 import com.jiec.contact.model.RecordModel.OnDataChangeListener;
 import com.jiec.utils.PhoneNumUtils;
-import com.jiec.utils.PhoneUtils;
 
 public class MyRecordActivity extends ListActivity implements OnDataChangeListener {
 
@@ -47,6 +49,7 @@ public class MyRecordActivity extends ListActivity implements OnDataChangeListen
             public boolean onItemLongClick(AdapterView<?> arg0, View v, int position, long id) {
 
                 final int recordId = mAdapter.getDatas().get(position).getId();
+                final String recordNum = mAdapter.getDatas().get(position).getNum();
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(MyRecordActivity.this);
                 builder.setTitle("备注");
@@ -67,6 +70,12 @@ public class MyRecordActivity extends ListActivity implements OnDataChangeListen
                     public void onClick(DialogInterface dialog, int which) {
                         if (which == 2) {
                             // 跳转到新建联系人界面
+                            Intent intent = new Intent(MyRecordActivity.this,
+                                    ContactEditActivity.class);
+                            intent.putExtra(MyContactActivity.NEW_REQUEST_KEY,
+                                    MyContactActivity.NEW_REQUEST_KEY);
+                            intent.putExtra(MyContactActivity.NEW_CONTACT_NUMBER, recordNum);
+                            startActivity(intent);
                             dialog.dismiss();
                             return;
                         }
@@ -85,8 +94,24 @@ public class MyRecordActivity extends ListActivity implements OnDataChangeListen
 
             @Override
             public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
-                PhoneUtils.callPhone(MyRecordActivity.this, mAdapter.getDatas().get(position)
-                        .getNum());
+                // PhoneUtils.callPhone(MyRecordActivity.this,
+                // mAdapter.getDatas().get(position)
+                // .getNum());
+
+                Intent intent = new Intent(MyRecordActivity.this, ContactDetailActivity.class);
+                Contact contact = ContactModel.getInstance().getContactByNameOrPhoneNumber(
+                        mAdapter.getDatas().get(position).getNum());
+                if (contact == null) {
+                    intent = new Intent(MyRecordActivity.this, ContactEditActivity.class);
+                    intent.putExtra(MyContactActivity.NEW_REQUEST_KEY,
+                            MyContactActivity.NEW_REQUEST_KEY);
+                    intent.putExtra(MyContactActivity.NEW_CONTACT_NUMBER,
+                            mAdapter.getDatas().get(position).getNum());
+                    startActivity(intent);
+                } else {
+                    intent.putExtra("contact", contact);
+                    startActivity(intent);
+                }
             }
         });
     }
