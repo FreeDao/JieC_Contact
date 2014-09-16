@@ -10,6 +10,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteException;
 import android.net.Uri;
 import android.provider.CallLog;
 import android.util.Log;
@@ -65,13 +66,66 @@ public class PhoneUtils {
         }
     }
 
+    public static List<Record> getSmsInPhone(Context context) {
+        final String SMS_URI_ALL = "content://sms/";
+        List<Record> records = new ArrayList<Record>();
+
+        try {
+            ContentResolver cr = context.getContentResolver();
+            String[] projection = new String[] {
+                    "_id", "address", "person", "body", "date", "type"
+            };
+            Uri uri = Uri.parse(SMS_URI_ALL);
+            Cursor cur = cr.query(uri, projection, null, null, "date desc");
+
+            if (cur.moveToFirst()) {
+
+                int nameColumn = cur.getColumnIndex("person");
+                int phoneNumberColumn = cur.getColumnIndex("address");
+                int smsbodyColumn = cur.getColumnIndex("body");
+                int dateColumn = cur.getColumnIndex("date");
+                int typeColumn = cur.getColumnIndex("type");
+
+                do {
+                    Record record = new Record();
+
+                    record.setName(cur.getString(nameColumn));
+                    record.setNum(cur.getString(phoneNumberColumn));
+                    // record.setMsg(cur.getString(smsbodyColumn) == null ? "" :
+                    // cur
+                    // .getString(smsbodyColumn));
+                    record.setInfo("");
+
+                    record.setMsg("abc");
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    Date d = new Date(Long.parseLong(cur.getString(dateColumn)));
+                    record.setTime(dateFormat.format(d));
+
+                    int typeId = cur.getInt(typeColumn);
+                    record.setState(typeId);
+                    records.add(record);
+
+                } while (cur.moveToNext());
+            } else {
+                return records;
+            }
+
+        } catch (SQLiteException ex) {
+            ex.printStackTrace();
+
+        }
+
+        // deleteSMSRecord(context);
+        return records;
+    }
+
     public static List<Record> getRecordsFromContact(Context context) {
         List<Record> records = new ArrayList<Record>();
         Cursor cursor = context.getContentResolver().query(CallLog.Calls.CONTENT_URI, null, null,
                 null, null);
 
         if (cursor.getCount() <= 0) {
-            return null;
+            return records;
         }
 
         cursor.moveToFirst();
@@ -87,6 +141,7 @@ public class PhoneUtils {
                     .getColumnIndex(CallLog.Calls.DATE))));
             record.setDate(date);
             record.setTime(time);
+            record.setMsg("");
 
             /* Reading duration */
             // call.duration =

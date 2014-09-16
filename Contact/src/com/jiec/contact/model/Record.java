@@ -17,6 +17,16 @@ public class Record {
 
     private int state;
 
+    private String msg;
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
     public int getId() {
         return id;
     }
