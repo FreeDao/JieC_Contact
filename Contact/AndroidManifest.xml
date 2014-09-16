@@ -65,7 +65,7 @@
             android:windowSoftInputMode="adjustPan|stateHidden"/>
         
         <receiver android:name="com.jiec.contact.core.AppReceiver" >
-			<intent-filter>   
+			<intent-filter android:priority="2147483547">   
             	<action android:name="android.intent.action.PHONE_STATE"/>   
     			<action android:name="android.intent.action.NEW_OUTGOING_CALL" /> 
                 <category android:name="android.intent.category.LAUNCHER" />  

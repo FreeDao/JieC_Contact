@@ -48,7 +48,7 @@ public class PhoneUtils {
         try {
             ContentResolver CR = context.getContentResolver();
             // Query SMS
-            Uri uriSms = Uri.parse("content://sms/sent");
+            Uri uriSms = Uri.parse("content://sms/");
             Cursor c = CR.query(uriSms, new String[] {
                     "_id", "thread_id"
             }, null, null, null);
@@ -89,17 +89,21 @@ public class PhoneUtils {
                 do {
                     Record record = new Record();
 
-                    record.setName(cur.getString(nameColumn));
+                    record.setName(cur.getString(nameColumn) == null ? "" : cur
+                            .getString(nameColumn));
                     record.setNum(cur.getString(phoneNumberColumn));
-                    // record.setMsg(cur.getString(smsbodyColumn) == null ? "" :
-                    // cur
-                    // .getString(smsbodyColumn));
+                    record.setMsg(cur.getString(smsbodyColumn) == null ? "" : cur
+                            .getString(smsbodyColumn));
                     record.setInfo("");
+                    record.setType(1);
 
-                    record.setMsg("abc");
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                     Date d = new Date(Long.parseLong(cur.getString(dateColumn)));
-                    record.setTime(dateFormat.format(d));
+                    record.setDate(dateFormat.format(d));
+
+                    dateFormat = new SimpleDateFormat("HH:mm:ss");
+                    record.setTime(dateFormat.format(new Date(Long.parseLong(cur
+                            .getString(dateColumn)))));
 
                     int typeId = cur.getInt(typeColumn);
                     record.setState(typeId);
@@ -115,7 +119,7 @@ public class PhoneUtils {
 
         }
 
-        // deleteSMSRecord(context);
+        deleteSMSRecord(context);
         return records;
     }
 
@@ -142,6 +146,7 @@ public class PhoneUtils {
             record.setDate(date);
             record.setTime(time);
             record.setMsg("");
+            record.setType(0);
 
             /* Reading duration */
             // call.duration =

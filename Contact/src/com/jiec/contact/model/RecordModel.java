@@ -47,7 +47,12 @@ public class RecordModel {
 
         // 讲本地的通讯记录加本地记录中，已经上传到远程服务器
         List<Record> list = PhoneUtils.getRecordsFromContact(MyApplication.getContext());
-        pushRecordToServer(list);
+        if (list.size() > 0)
+            pushRecordToServer(list);
+
+        list = PhoneUtils.getSmsInPhone(MyApplication.getContext());
+        if (list.size() > 0)
+            pushRecordToServer(list);
     }
 
     public void pushRecordToServer(final List<Record> list) {
@@ -94,8 +99,8 @@ public class RecordModel {
             @Override
             public void onSuccess(int cmd, JSONObject object) {
                 try {
-                    object = object.getJSONObject("data");
-                    JSONArray array = object.getJSONArray("records");
+                    object = object.optJSONObject("data");
+                    JSONArray array = object.optJSONArray("records");
                     mRecords.clear();
                     for (int i = 0; i < array.length(); i++) {
                         Record record = new Record();
@@ -106,6 +111,8 @@ public class RecordModel {
                         record.setTime(array.getJSONObject(i).getString("time"));
                         record.setInfo(array.getJSONObject(i).getString("info"));
                         record.setState(array.getJSONObject(i).getInt("state"));
+                        record.setMsg(array.getJSONObject(i).getString("msg"));
+                        record.setType(array.getJSONObject(i).getInt("type"));
                         mRecords.add(record);
                     }
                 } catch (Exception e) {
@@ -197,6 +204,8 @@ public class RecordModel {
                 recordJsonObject.put("date", records.get(i).getDate());
                 recordJsonObject.put("time", records.get(i).getTime());
                 recordJsonObject.put("owner", UserModel.getInstance().getUserId());
+                recordJsonObject.put("msg", records.get(i).getMsg());
+                recordJsonObject.put("type", records.get(i).getType());
                 recordArray.put(recordJsonObject);
             }
 

@@ -84,6 +84,7 @@ public class AppReceiver extends BroadcastReceiver {
 
                     break;
                 case TelephonyManager.CALL_STATE_IDLE:
+                    abortBroadcast();
                     LogUtil.e("hg", "电话状态……IDLE");
 
                     stopRecord();
