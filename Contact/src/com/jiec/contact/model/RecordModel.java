@@ -45,14 +45,20 @@ public class RecordModel {
         mRecords = new ArrayList<Record>();
         requestData();
 
-        // 讲本地的通讯记录加本地记录中，已经上传到远程服务器
-        List<Record> list = PhoneUtils.getRecordsFromContact(MyApplication.getContext());
-        if (list.size() > 0)
-            pushRecordToServer(list);
+        scanSystemRecord();
+    }
 
-        list = PhoneUtils.getSmsInPhone(MyApplication.getContext());
-        if (list.size() > 0)
-            pushRecordToServer(list);
+    public void scanSystemRecord() {
+        synchronized (this) {
+            // 讲本地的通讯记录加本地记录中，已经上传到远程服务器
+            List<Record> list = PhoneUtils.getRecordsFromContact(MyApplication.getContext());
+            if (list.size() > 0)
+                pushRecordToServer(list);
+
+            list = PhoneUtils.getSmsInPhone(MyApplication.getContext());
+            if (list.size() > 0)
+                pushRecordToServer(list);
+        }
     }
 
     public void pushRecordToServer(final List<Record> list) {
