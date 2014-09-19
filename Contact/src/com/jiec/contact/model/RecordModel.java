@@ -111,8 +111,10 @@ public class RecordModel {
                     for (int i = 0; i < array.length(); i++) {
                         Record record = new Record();
                         record.setId(array.getJSONObject(i).getInt("id"));
-                        record.setName(array.getJSONObject(i).getString("name"));
                         record.setNum(array.getJSONObject(i).getString("num"));
+                        record.setName(array.getJSONObject(i).getString("name").length() < 1 ? ContactModel
+                                .getInstance().getNameByPhoneNum(record.getNum()) : array
+                                .getJSONObject(i).getString("name"));
                         record.setDate(array.getJSONObject(i).getString("date"));
                         record.setTime(array.getJSONObject(i).getString("time"));
                         record.setInfo(array.getJSONObject(i).getString("info"));
@@ -247,6 +249,25 @@ public class RecordModel {
             @Override
             public void onFailed(int cmd, String reason) {
                 ToastUtil.showMsg(reason);
+            }
+        });
+    }
+
+    public void refreshRecord() {
+        for (int i = 0; i < mRecords.size(); i++) {
+            mRecords.get(i).setName(
+                    ContactModel.getInstance().getNameByPhoneNum(mRecords.get(i).getNum()));
+
+        }
+
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+
+            @Override
+            public void run() {
+                for (int i = 0; i < mChangeListeners.size(); i++) {
+
+                    mChangeListeners.get(i).onDataChanged();
+                }
             }
         });
     }

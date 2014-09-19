@@ -23,6 +23,10 @@ public class ContactModel {
         public void onDataChanged();
     }
 
+    public static interface ContactInsertListener {
+        public void insertSucceess();
+    }
+
     private static ContactModel sInstance = null;
 
     private List<Company> mContacts = null;
@@ -148,7 +152,7 @@ public class ContactModel {
         });
     }
 
-    public boolean insertNewContact(final JSONObject contact) {
+    public boolean insertNewContact(final JSONObject contact, final ContactInsertListener listener) {
         JSONObject object = new JSONObject();
         try {
             object.put("seq", ContactSocket.getSeq());
@@ -194,6 +198,10 @@ public class ContactModel {
                             company.getContacts().add(c);
                             mContacts.add(company);
                         }
+                    }
+
+                    if (listener != null) {
+                        listener.insertSucceess();
                     }
 
                 } catch (Exception e) {

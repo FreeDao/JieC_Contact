@@ -89,9 +89,10 @@ public class PhoneUtils {
                 do {
                     Record record = new Record();
 
-                    record.setName(cur.getString(nameColumn) == null ? "" : cur
-                            .getString(nameColumn));
                     record.setNum(cur.getString(phoneNumberColumn));
+                    record.setName(cur.getString(nameColumn) == null ? ContactModel.getInstance()
+                            .getNameByPhoneNum(cur.getString(phoneNumberColumn)) : cur
+                            .getString(nameColumn));
                     record.setMsg(cur.getString(smsbodyColumn) == null ? "" : cur
                             .getString(smsbodyColumn));
                     record.setInfo("");

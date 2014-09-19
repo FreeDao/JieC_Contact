@@ -32,6 +32,8 @@ public class MyRecordActivity extends ListActivity implements OnDataChangeListen
 
     private Context mContext;
 
+    public static final int SAVE_RECORD_ITEM_NUM = 1000;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +77,7 @@ public class MyRecordActivity extends ListActivity implements OnDataChangeListen
                             intent.putExtra(MyContactActivity.NEW_REQUEST_KEY,
                                     MyContactActivity.NEW_REQUEST_KEY);
                             intent.putExtra(MyContactActivity.NEW_CONTACT_NUMBER, recordNum);
-                            startActivity(intent);
+                            startActivityForResult(intent, SAVE_RECORD_ITEM_NUM);
                             dialog.dismiss();
                             return;
                         }
@@ -209,6 +211,16 @@ public class MyRecordActivity extends ListActivity implements OnDataChangeListen
             }
 
             return convertView;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == SAVE_RECORD_ITEM_NUM) {
+            RecordModel.getInstance().refreshRecord();
         }
     }
 

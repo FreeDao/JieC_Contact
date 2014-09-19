@@ -17,6 +17,7 @@ import android.widget.EditText;
 
 import com.jiec.contact.model.Contact;
 import com.jiec.contact.model.ContactModel;
+import com.jiec.contact.model.ContactModel.ContactInsertListener;
 import com.jiec.contact.model.UserModel;
 import com.jiec.contact.widget.CompanyListDialog;
 import com.jiec.contact.widget.CompanyListDialog.OnCompanyItemClickListener;
@@ -157,7 +158,16 @@ public class ContactEditActivity extends Activity {
                 }
 
                 if (mIsNewContact) {
-                    ContactModel.getInstance().insertNewContact(contact);
+                    ContactModel.getInstance().insertNewContact(contact,
+                            new ContactInsertListener() {
+
+                                @Override
+                                public void insertSucceess() {
+                                    setResult(MyRecordActivity.SAVE_RECORD_ITEM_NUM);
+                                }
+
+                            });
+
                 } else {
                     try {
                         contact.put("contact_id", mContact.getId());
