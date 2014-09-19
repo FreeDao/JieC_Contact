@@ -1,6 +1,8 @@
 
 package com.jiec.contact;
 
+import java.lang.reflect.Method;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -116,6 +118,21 @@ public class LoginPhoneActivity extends Activity {
                 });
             }
         });
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        // TODO Auto-generated method stub
+        super.onWindowFocusChanged(hasFocus);
+        try {
+
+            Object service = getSystemService("statusbar");
+            Class<?> statusbarManager = Class.forName("android.app.StatusBarManager");
+            Method test = statusbarManager.getMethod("collapse");
+            test.invoke(service);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     private void lockKey() {
