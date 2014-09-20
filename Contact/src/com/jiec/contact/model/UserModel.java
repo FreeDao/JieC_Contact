@@ -6,7 +6,9 @@ public class UserModel {
 
     private String mUserId = "999999";
 
-    private boolean mLogined = false;
+    private boolean mPhoneLogined = false;
+
+    private boolean mUserLogined = false;
 
     private String mPhoneNumber = "";
 
@@ -18,15 +20,23 @@ public class UserModel {
         return mPhoneNumber;
     }
 
-    public void setLogined(boolean logined) {
-        mLogined = logined;
-        if (!mLogined) {
-            mUserId = "999999";
-        }
+    public void setPhoneLogined(boolean logined) {
+        mPhoneLogined = logined;
     }
 
-    public boolean isLogined() {
-        return mLogined;
+    public boolean isPhoneLogined() {
+        return mPhoneLogined;
+    }
+
+    public boolean isUserLogined() {
+        return mUserLogined;
+    }
+
+    public void setUserLogined(boolean userLogined) {
+        this.mUserLogined = userLogined;
+        if (!mUserLogined) {
+            mUserId = "999999";
+        }
     }
 
     private UserModel() {
@@ -43,7 +53,7 @@ public class UserModel {
 
     public void setUserId(String id) {
         mUserId = id;
-        setLogined(true);
+        setUserLogined(true);
     }
 
     public String getUserId() {

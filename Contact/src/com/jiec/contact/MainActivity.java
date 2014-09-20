@@ -1,7 +1,6 @@
 
 package com.jiec.contact;
 
-import android.app.NotificationManager;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -53,11 +52,11 @@ public class MainActivity extends TabActivity {
 
         FTPClientUtils.updateFile();
 
-        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        notificationManager.cancel(0);
-
-        setTitle("手机:" + UserModel.getInstance().getPhoneNumber() + "  用户:"
-                + (UserModel.getInstance().isLogined() ? UserModel.getInstance().getUserId() : "无"));
+        setTitle("手机:"
+                + UserModel.getInstance().getPhoneNumber()
+                + "  用户:"
+                + (UserModel.getInstance().isUserLogined() ? UserModel.getInstance().getUserId()
+                        : "无"));
 
     }
 
@@ -104,7 +103,7 @@ public class MainActivity extends TabActivity {
     }
 
     private void loginUser() {
-        if (UserModel.getInstance().isLogined()) {
+        if (UserModel.getInstance().isUserLogined()) {
             ToastUtil.showMsg("用户已登录，请先退出用户");
         } else {
             startActivity(new Intent(MainActivity.this, LoginUIDActivity.class));
@@ -113,13 +112,13 @@ public class MainActivity extends TabActivity {
     }
 
     private void logoutUser() {
-        if (!UserModel.getInstance().isLogined()) {
+        if (!UserModel.getInstance().isUserLogined()) {
             ToastUtil.showMsg("尚未登录，请先登录用户");
             return;
         }
         ContactModel.getInstance().finish();
         RecordModel.getInstance().finish();
-        UserModel.getInstance().setLogined(false);
+        UserModel.getInstance().setUserLogined(false);
         startActivity(new Intent(MainActivity.this, LoginUIDActivity.class));
         finish();
     }

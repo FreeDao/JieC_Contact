@@ -118,15 +118,6 @@ public class MyRecordActivity extends ListActivity implements OnDataChangeListen
         });
     }
 
-    // @Override
-    // protected void onResume() {
-    // // TODO Auto-generated method stub
-    //
-    // super.onResume();
-    //
-    // RecordModel.getInstance().scanSystemRecord();
-    // }
-
     @Override
     protected void onDestroy() {
         RecordModel.getInstance().removeListener(this);

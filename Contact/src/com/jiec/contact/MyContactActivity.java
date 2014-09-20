@@ -20,6 +20,8 @@ import com.jiec.contact.model.Company;
 import com.jiec.contact.model.Contact;
 import com.jiec.contact.model.ContactModel;
 import com.jiec.contact.model.ContactModel.ContactChangeListener;
+import com.jiec.contact.model.RecordModel;
+import com.jiec.contact.model.UserModel;
 import com.jiec.contact.widget.SuperTreeViewAdapter;
 import com.jiec.contact.widget.TreeViewAdapter;
 import com.jiec.utils.LogUtil;
@@ -106,9 +108,12 @@ public class MyContactActivity extends Activity implements ContactChangeListener
             }
         });
 
-        mContacts = ContactModel.getInstance().getContacts();
-
         updateView();
+
+        if (UserModel.getInstance().isUserLogined()) {
+            ContactModel.getInstance().requestContactData();
+            RecordModel.getInstance().requestData();
+        }
     }
 
     private void updateView() {

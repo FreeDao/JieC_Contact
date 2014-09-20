@@ -43,9 +43,6 @@ public class RecordModel {
 
     private RecordModel() {
         mRecords = new ArrayList<Record>();
-        requestData();
-
-        scanSystemRecord();
     }
 
     public void scanSystemRecord() {

@@ -35,7 +35,6 @@ public class ContactModel {
 
     private ContactModel() {
         mContacts = new ArrayList<Company>();
-        requestContactData();
     }
 
     public void addListener(ContactChangeListener changeListener) {

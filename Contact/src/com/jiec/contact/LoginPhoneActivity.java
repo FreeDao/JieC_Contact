@@ -19,7 +19,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.jiec.contact.core.AppReceiver;
 import com.jiec.contact.model.Protocal;
 import com.jiec.contact.model.UserModel;
 import com.jiec.contact.socket.ContactSocket;
@@ -106,7 +105,7 @@ public class LoginPhoneActivity extends Activity {
                         startActivity(new Intent(LoginPhoneActivity.this, MainActivity.class));
                         finish();
 
-                        AppReceiver.setLogined(true);
+                        UserModel.getInstance().setPhoneLogined(true);
 
                     }
 

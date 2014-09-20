@@ -16,6 +16,7 @@ import android.telephony.TelephonyManager;
 import com.jiec.contact.LoginPhoneActivity;
 import com.jiec.contact.MainActivity;
 import com.jiec.contact.model.RecordModel;
+import com.jiec.contact.model.UserModel;
 import com.jiec.contact.widget.CorverCallScreen;
 import com.jiec.utils.LogUtil;
 import com.jiec.utils.PhoneNumUtils;
@@ -23,17 +24,11 @@ import com.jiec.utils.PhoneUtils;
 
 public class AppReceiver extends BroadcastReceiver {
 
-    private static boolean sLogined = false;
-
     private static String number = "";// 定义一个监听电话号码
 
     private boolean isRecord = false;// 定义一个当前是否正在复制的标志
 
     private MediaRecorder recorder = null;// 媒体复制类
-
-    public static void setLogined(boolean logined) {
-        sLogined = logined;
-    }
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -90,28 +85,28 @@ public class AppReceiver extends BroadcastReceiver {
                     stopRecord();
                     CorverCallScreen.getInstance().removeCorverScreen();
 
-                    Intent mainIntent = new Intent(context, MainActivity.class);
-                    if (!sLogined) {
-                        mainIntent = new Intent(context, LoginPhoneActivity.class);
-                    }
-                    mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(mainIntent);
-                    // 挂电话都会走到这个地方
-                    RecordModel.getInstance().pushRecordToServer(
-                            PhoneUtils.getRecordsFromContact(context));
-
+                    enterApp(context);
                     break;
             }
         } else if (action.equals("android.provider.Telephony.SMS_RECEIVED")) {
-            Intent mainIntent = new Intent(context, MainActivity.class);
-            if (!sLogined) {
-                mainIntent = new Intent(context, LoginPhoneActivity.class);
-            }
-            mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(mainIntent);
+            enterApp(context);
+        }
+    }
+
+    private void enterApp(Context context) {
+        Intent mainIntent = null;
+        if (!UserModel.getInstance().isPhoneLogined()) {
+            mainIntent = new Intent(context, LoginPhoneActivity.class);
+        } else if (!UserModel.getInstance().isUserLogined()) {
+            mainIntent = new Intent(context, LoginPhoneActivity.class);
+        } else {
+            mainIntent = new Intent(context, MainActivity.class);
             // 挂电话都会走到这个地方
+            RecordModel.getInstance().pushRecordToServer(PhoneUtils.getRecordsFromContact(context));
             RecordModel.getInstance().pushRecordToServer(PhoneUtils.getSmsInPhone(context));
         }
+        mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(mainIntent);
     }
 
     private void startRecord() {
