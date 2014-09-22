@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TabHost;
+import android.widget.TextView;
 
 import com.jiec.contact.model.CompanyModel;
 import com.jiec.contact.model.ContactModel;
@@ -46,6 +47,12 @@ public class MainActivity extends TabActivity {
         // Intent settingIntent = new Intent();
         // settingIntent.setClass(this, SettingActivity.class);
         // tabHost.addTab(tabHost.newTabSpec("设置").setIndicator("设置").setContent(settingIntent));
+
+        for (int i = 0; i < getTabWidget().getChildCount(); i++) {
+            // 修改显示字体大小
+            TextView tv = (TextView) getTabWidget().getChildAt(i).findViewById(android.R.id.title);
+            tv.setTextSize(18);
+        }
 
         if (!UserModel.getInstance().checkPhoneNumber(this)) {
             ToastUtil.showMsg("请更换sim卡，该卡不是公司分配的卡");

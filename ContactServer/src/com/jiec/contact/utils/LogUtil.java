@@ -3,7 +3,7 @@ package com.jiec.contact.utils;
 
 public class LogUtil {
 
-    private static boolean isDebug = true;
+    private static boolean isDebug = false;
 
     public static boolean isDebug() {
         return isDebug;
@@ -20,9 +20,7 @@ public class LogUtil {
     }
 
     public static void e(String msg) {
-        if (isDebug) {
-            System.out.println(msg);
-        }
+        System.out.println(msg);
     }
 
 }

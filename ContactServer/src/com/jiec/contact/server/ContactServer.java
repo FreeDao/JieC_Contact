@@ -113,7 +113,7 @@ public class ContactServer {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            LogUtil.e(e.toString());
 
             try {
                 Runtime.getRuntime().exec("setsid sh startServer.sh");
