@@ -89,7 +89,7 @@ public class PhoneUtils {
                 do {
                     Record record = new Record();
 
-                    record.setNum(cur.getString(phoneNumberColumn));
+                    record.setNum(PhoneNumUtils.standard(cur.getString(phoneNumberColumn)));
                     record.setName(cur.getString(nameColumn) == null ? ContactModel.getInstance()
                             .getNameByPhoneNum(cur.getString(phoneNumberColumn)) : cur
                             .getString(nameColumn));
@@ -157,7 +157,8 @@ public class PhoneUtils {
             int type = cursor.getInt(cursor.getColumnIndex(CallLog.Calls.TYPE));
             record.setState(type);
 
-            record.setNum(cursor.getString(cursor.getColumnIndex(CallLog.Calls.NUMBER)));
+            record.setNum(PhoneNumUtils.standard(cursor.getString(cursor
+                    .getColumnIndex(CallLog.Calls.NUMBER))));
 
             record.setName(ContactModel.getInstance().getNameByPhoneNum(record.getNum()));
 

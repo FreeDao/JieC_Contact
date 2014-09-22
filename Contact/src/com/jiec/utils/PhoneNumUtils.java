@@ -10,4 +10,11 @@ public class PhoneNumUtils {
         }
         return number;
     }
+
+    public static String standard(String str) {
+        if (str != null && str.startsWith("+86")) {
+            str = str.substring(3);
+        }
+        return str;
+    }
 }
