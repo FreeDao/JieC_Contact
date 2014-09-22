@@ -109,9 +109,8 @@ public class RecordModel {
                         Record record = new Record();
                         record.setId(array.getJSONObject(i).getInt("id"));
                         record.setNum(array.getJSONObject(i).getString("num"));
-                        record.setName(array.getJSONObject(i).getString("name").length() < 1 ? ContactModel
-                                .getInstance().getNameByPhoneNum(record.getNum()) : array
-                                .getJSONObject(i).getString("name"));
+                        record.setName(ContactModel.getInstance()
+                                .getNameByPhoneNum(record.getNum()));
                         record.setDate(array.getJSONObject(i).getString("date"));
                         record.setTime(array.getJSONObject(i).getString("time"));
                         record.setInfo(array.getJSONObject(i).getString("info"));

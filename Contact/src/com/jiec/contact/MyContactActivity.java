@@ -20,7 +20,6 @@ import com.jiec.contact.model.Company;
 import com.jiec.contact.model.Contact;
 import com.jiec.contact.model.ContactModel;
 import com.jiec.contact.model.ContactModel.ContactChangeListener;
-import com.jiec.contact.model.RecordModel;
 import com.jiec.contact.model.UserModel;
 import com.jiec.contact.widget.SuperTreeViewAdapter;
 import com.jiec.contact.widget.TreeViewAdapter;
@@ -112,7 +111,6 @@ public class MyContactActivity extends Activity implements ContactChangeListener
 
         if (UserModel.getInstance().isUserLogined()) {
             ContactModel.getInstance().requestContactData();
-            RecordModel.getInstance().requestData();
         }
     }
 

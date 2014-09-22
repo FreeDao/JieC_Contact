@@ -91,7 +91,7 @@ public class CompanyModel {
             public void onSuccess(int cmd, JSONObject object) {
                 try {
                     mConnectTime = 0;
-
+                    mCompanies.clear();
                     object = object.getJSONObject("data");
 
                     LogUtil.e("onsuccess data = " + object.toString());

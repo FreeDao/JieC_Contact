@@ -91,6 +91,7 @@ public class ContactModel {
             @Override
             public void onSuccess(int cmd, JSONObject object) {
                 try {
+                    mContacts.clear();
                     object = object.getJSONObject("contacts");
 
                     LogUtil.e("onsuccess data = " + object.toString());
@@ -210,6 +211,7 @@ public class ContactModel {
                 for (int i = 0; i < mChangeListeners.size(); i++) {
                     mChangeListeners.get(i).onDataChanged();
                 }
+                RecordModel.getInstance().refreshRecord();
             }
 
             @Override
@@ -290,6 +292,8 @@ public class ContactModel {
                 for (int i = 0; i < mChangeListeners.size(); i++) {
                     mChangeListeners.get(i).onDataChanged();
                 }
+
+                RecordModel.getInstance().refreshRecord();
             }
 
             @Override
@@ -310,11 +314,10 @@ public class ContactModel {
                         || number.equals(c.yddh_1) || number.equals(c.yddh_2)
                         || number.equals(c.yddh_3)) {
                     name = c.getName();
-                    break;
+                    return name;
                 }
             }
         }
-        LogUtil.e("name", name + ", l = " + name.length());
         return name;
     }
 

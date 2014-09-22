@@ -105,13 +105,13 @@ public class CorverCallScreen {
                 TextView name = (TextView) findViewById(R.id.tv_name);
                 name.setText(contact.getName());
 
-                TextView numberTextView = (TextView) findViewById(R.id.tv_number);
-                numberTextView.setText(PhoneNumUtils.toStarPhoneNumber(str));
-
                 TextView company = (TextView) findViewById(R.id.tv_company);
                 company.setText(CompanyModel.getInstance().getCompanyName(contact.getCompany_id())
                         + " (" + contact.getCompany_id() + ")");
             }
+
+            TextView numberTextView = (TextView) findViewById(R.id.tv_number);
+            numberTextView.setText(PhoneNumUtils.toStarPhoneNumber(str));
         }
 
     }

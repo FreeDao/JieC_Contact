@@ -117,6 +117,10 @@ public class MyRecordActivity extends ListActivity implements OnDataChangeListen
                 }
             }
         });
+
+        if (UserModel.getInstance().isUserLogined()) {
+            RecordModel.getInstance().requestData();
+        }
     }
 
     @Override
