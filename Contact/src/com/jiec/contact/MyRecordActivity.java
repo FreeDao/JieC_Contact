@@ -24,6 +24,7 @@ import com.jiec.contact.model.ContactModel;
 import com.jiec.contact.model.Record;
 import com.jiec.contact.model.RecordModel;
 import com.jiec.contact.model.RecordModel.OnDataChangeListener;
+import com.jiec.contact.model.UserModel;
 import com.jiec.utils.PhoneNumUtils;
 
 public class MyRecordActivity extends ListActivity implements OnDataChangeListener {
@@ -122,6 +123,14 @@ public class MyRecordActivity extends ListActivity implements OnDataChangeListen
     protected void onDestroy() {
         RecordModel.getInstance().removeListener(this);
         super.onDestroy();
+    }
+
+    @Override
+    protected void onStart() {
+        // TODO Auto-generated method stub
+        if (UserModel.getInstance().isUserLogined())
+            RecordModel.getInstance().scanSystemRecord();
+        super.onStart();
     }
 
     @Override

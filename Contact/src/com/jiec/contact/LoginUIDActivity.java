@@ -34,7 +34,7 @@ public class LoginUIDActivity extends Activity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login_user_id);
-        lockKey();
+        // lockKey();
 
         mUserId = (EditText) findViewById(R.id.et_user_id);
         mUserPasswd = (EditText) findViewById(R.id.et_user_passwd);
@@ -112,15 +112,11 @@ public class LoginUIDActivity extends Activity {
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
-        int keyCode = event.getKeyCode();
-        if (keyCode == KeyEvent.KEYCODE_BACK) { // 监控/拦截/屏蔽返回键
+        // TODO Auto-generated method stub
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+            startActivity(new Intent(LoginUIDActivity.this, MainActivity.class));
+            finish();
             return true;
-        } else if (keyCode == KeyEvent.KEYCODE_MENU) {
-            // 监控/拦截菜单键
-            return true;
-        } else if (keyCode == KeyEvent.KEYCODE_HOME) {
-            return true;
-            // 由于Home键为系统键，此处不能捕获，需要重写onAttachedToWindow()
         }
         return super.dispatchKeyEvent(event);
     }

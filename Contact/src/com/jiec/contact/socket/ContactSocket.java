@@ -46,37 +46,43 @@ public class ContactSocket {
         connect();
     }
 
-    public void send(JSONObject object, RespondListener listener) {
-        try {
-            Log.i("test", object.toString());
-            ObjectOutputStream oos = new ObjectOutputStream(mSocket.getOutputStream());
-            oos.writeObject(object.toString());
+    public void send(final JSONObject object, final RespondListener listener) {
+        new Thread(new Runnable() {
 
-            mSeq = object.getInt("seq");
+            @Override
+            public void run() {
+                try {
+                    Log.i("test", object.toString());
+                    ObjectOutputStream oos = new ObjectOutputStream(mSocket.getOutputStream());
+                    oos.writeObject(object.toString());
 
-            mListener = listener;
+                    mSeq = object.getInt("seq");
 
-            ObjectInputStream ois = new ObjectInputStream(mSocket.getInputStream());
-            String o = (String) ois.readObject();
-            JSONObject jo = new JSONObject(o);
+                    mListener = listener;
 
-            if (mListener != null) {
-                if (jo.getInt("seq") == mSeq) {
-                    if (jo.getInt("result") == 1) {
-                        mListener.onSuccess(mSeq, jo);
-                    } else {
-                        mListener.onFailed(mSeq, jo.getString("reason"));
+                    ObjectInputStream ois = new ObjectInputStream(mSocket.getInputStream());
+                    String o = (String) ois.readObject();
+                    JSONObject jo = new JSONObject(o);
+
+                    if (mListener != null) {
+                        if (jo.getInt("seq") == mSeq) {
+                            if (jo.getInt("result") == 1) {
+                                mListener.onSuccess(mSeq, jo);
+                            } else {
+                                mListener.onFailed(mSeq, jo.getString("reason"));
+                            }
+                        }
                     }
+
+                    ois.close();
+                    oos.close();
+                    mSocket.close();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
-
-            ois.close();
-            oos.close();
-            mSocket.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        }).start();
 
     }
 

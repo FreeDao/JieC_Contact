@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TabHost;
-import android.widget.Toast;
 
 import com.jiec.contact.model.CompanyModel;
 import com.jiec.contact.model.ContactModel;
@@ -48,6 +47,11 @@ public class MainActivity extends TabActivity {
         // settingIntent.setClass(this, SettingActivity.class);
         // tabHost.addTab(tabHost.newTabSpec("设置").setIndicator("设置").setContent(settingIntent));
 
+        if (!UserModel.getInstance().checkPhoneNumber(this)) {
+            ToastUtil.showMsg("请更换sim卡，该卡不是公司分配的卡");
+
+        }
+
         CompanyModel.getInstance().requestCompanies();
 
         FTPClientUtils.updateFile();
@@ -60,18 +64,16 @@ public class MainActivity extends TabActivity {
 
     }
 
+    private void exitApp() {
+        ContactModel.getInstance().finish();
+        finish();
+        android.os.Process.killProcess(android.os.Process.myPid());
+    }
+
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         if (event.getKeyCode() == KeyEvent.KEYCODE_BACK
                 && event.getAction() == KeyEvent.ACTION_DOWN) {
-            if ((System.currentTimeMillis() - mExitTime) > 2000) {
-                Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show();
-                mExitTime = System.currentTimeMillis();
-            } else {
-                ContactModel.getInstance().finish();
-                finish();
-                android.os.Process.killProcess(android.os.Process.myPid());
-            }
 
             return true;
         }

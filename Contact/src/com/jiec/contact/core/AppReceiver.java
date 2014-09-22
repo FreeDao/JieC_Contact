@@ -13,14 +13,12 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.telephony.TelephonyManager;
 
-import com.jiec.contact.LoginPhoneActivity;
 import com.jiec.contact.MainActivity;
 import com.jiec.contact.model.RecordModel;
 import com.jiec.contact.model.UserModel;
 import com.jiec.contact.widget.CorverCallScreen;
 import com.jiec.utils.LogUtil;
 import com.jiec.utils.PhoneNumUtils;
-import com.jiec.utils.PhoneUtils;
 
 public class AppReceiver extends BroadcastReceiver {
 
@@ -38,7 +36,7 @@ public class AppReceiver extends BroadcastReceiver {
 
         if ("android.intent.action.BOOT_COMPLETED".equals(action)) {
             // 开机启动MainActivity
-            Intent mainIntent = new Intent(context, LoginPhoneActivity.class);
+            Intent mainIntent = new Intent(context, MainActivity.class);
             mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(mainIntent);
             return;
@@ -94,16 +92,9 @@ public class AppReceiver extends BroadcastReceiver {
     }
 
     private void enterApp(Context context) {
-        Intent mainIntent = null;
-        if (!UserModel.getInstance().isPhoneLogined()) {
-            mainIntent = new Intent(context, LoginPhoneActivity.class);
-        } else if (!UserModel.getInstance().isUserLogined()) {
-            mainIntent = new Intent(context, LoginPhoneActivity.class);
-        } else {
-            mainIntent = new Intent(context, MainActivity.class);
-            // 挂电话都会走到这个地方
-            RecordModel.getInstance().pushRecordToServer(PhoneUtils.getRecordsFromContact(context));
-            RecordModel.getInstance().pushRecordToServer(PhoneUtils.getSmsInPhone(context));
+        Intent mainIntent = new Intent(context, MainActivity.class);
+        if (UserModel.getInstance().isUserLogined()) {
+            RecordModel.getInstance().scanSystemRecord();
         }
         mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(mainIntent);
