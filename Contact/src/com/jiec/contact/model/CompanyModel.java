@@ -8,6 +8,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.os.Handler;
+import android.os.Looper;
+
 import com.jiec.contact.socket.ContactSocket;
 import com.jiec.contact.socket.ContactSocket.RespondListener;
 import com.jiec.utils.LogUtil;
@@ -112,9 +115,16 @@ public class CompanyModel {
                     e.printStackTrace();
                 }
 
-                for (int i = 0; i < mListeners.size(); i++) {
-                    mListeners.get(i).onDataChanged();
-                }
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+
+                    @Override
+                    public void run() {
+
+                        for (int i = 0; i < mListeners.size(); i++) {
+                            mListeners.get(i).onDataChanged();
+                        }
+                    }
+                });
 
             }
 

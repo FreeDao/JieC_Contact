@@ -8,6 +8,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.os.Handler;
+import android.os.Looper;
+
 import com.jiec.contact.socket.ContactSocket;
 import com.jiec.contact.socket.ContactSocket.RespondListener;
 import com.jiec.utils.LogUtil;
@@ -139,9 +142,17 @@ public class ContactModel {
                     e.printStackTrace();
                 }
 
-                for (int i = 0; i < mChangeListeners.size(); i++) {
-                    mChangeListeners.get(i).onDataChanged();
-                }
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        // TODO Auto-generated method stub
+                        for (int i = 0; i < mChangeListeners.size(); i++) {
+                            mChangeListeners.get(i).onDataChanged();
+                        }
+
+                    }
+                });
             }
 
             @Override
@@ -201,17 +212,33 @@ public class ContactModel {
                     }
 
                     if (listener != null) {
-                        listener.insertSucceess();
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                // TODO Auto-generated method stub
+
+                                listener.insertSucceess();
+                            }
+                        });
                     }
 
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
 
-                for (int i = 0; i < mChangeListeners.size(); i++) {
-                    mChangeListeners.get(i).onDataChanged();
-                }
-                RecordModel.getInstance().refreshRecord();
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        // TODO Auto-generated method stub
+
+                        for (int i = 0; i < mChangeListeners.size(); i++) {
+                            mChangeListeners.get(i).onDataChanged();
+                        }
+                        RecordModel.getInstance().refreshRecord();
+                    }
+                });
             }
 
             @Override
@@ -289,11 +316,19 @@ public class ContactModel {
                     e.printStackTrace();
                 }
 
-                for (int i = 0; i < mChangeListeners.size(); i++) {
-                    mChangeListeners.get(i).onDataChanged();
-                }
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
 
-                RecordModel.getInstance().refreshRecord();
+                    @Override
+                    public void run() {
+                        // TODO Auto-generated method stub
+                        for (int i = 0; i < mChangeListeners.size(); i++) {
+                            mChangeListeners.get(i).onDataChanged();
+                        }
+
+                        RecordModel.getInstance().refreshRecord();
+
+                    }
+                });
             }
 
             @Override

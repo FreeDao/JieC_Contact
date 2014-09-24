@@ -16,23 +16,48 @@ import com.jiec.contact.db.JobHelper;
 import com.jiec.contact.db.LoginHelper;
 import com.jiec.contact.db.RecordHelper;
 import com.jiec.contact.model.Protocal;
+import com.jiec.contact.utils.AppException;
 import com.jiec.contact.utils.LogUtil;
 
 public class ContactServer {
 
     public ContactServer() {
         ServerSocket ss = null;
-        Socket s = null;
-        ObjectInputStream ois = null;
-        ObjectOutputStream oos = null;
+        Socket socket = null;
         try {
             System.out.println("server start at port 9999");
             ss = new ServerSocket(9090);
 
             while (true) {
-                s = ss.accept();
+                socket = ss.accept();
+                new DoSocketWork(socket).start();
+            }
 
-                ois = new ObjectInputStream(s.getInputStream());
+        } catch (Exception e) {
+            AppException.run(e);
+
+            try {
+                Runtime.getRuntime().exec("setsid sh startServer.sh");
+            } catch (IOException e1) {
+                AppException.run(e1);
+            }
+        }
+
+    }
+
+    class DoSocketWork extends Thread {
+        Socket s = null;
+
+        public DoSocketWork(Socket socket) {
+            s = socket;
+            // TODO Auto-generated constructor stub
+        }
+
+        @Override
+        public void run() {
+            // TODO Auto-generated method stub
+            try {
+                ObjectInputStream ois = new ObjectInputStream(s.getInputStream());
                 String msg = (String) ois.readObject();
 
                 SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -41,7 +66,7 @@ public class ContactServer {
 
                 JSONObject requestObject = JSONObject.fromObject(msg);
 
-                oos = new ObjectOutputStream(s.getOutputStream());
+                ObjectOutputStream oos = new ObjectOutputStream(s.getOutputStream());
 
                 int cmd = requestObject.getInt("cmd");
 
@@ -110,28 +135,22 @@ public class ContactServer {
                 LogUtil.d(">>>>reply:" + replyObject.toString());
                 oos.writeObject(replyObject.toString());
 
+                try {
+                    if (ois != null)
+                        ois.close();
+                    if (oos != null)
+                        oos.close();
+                    if (s != null)
+                        s.close();
+                } catch (Exception e2) {
+                    AppException.run(e2);
+                }
+
+            } catch (Exception e) {
+                AppException.run(e);
             }
 
-        } catch (Exception e) {
-            LogUtil.e(e.toString());
-
-            try {
-                Runtime.getRuntime().exec("setsid sh startServer.sh");
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-        } finally {
-            try {
-                if (ois != null)
-                    ois.close();
-                if (oos != null)
-                    oos.close();
-                if (s != null)
-                    s.close();
-            } catch (Exception e2) {
-                e2.printStackTrace();
-            }
+            super.run();
         }
-
     }
 }
