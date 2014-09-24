@@ -24,6 +24,7 @@ import com.jiec.contact.widget.CompanyListDialog.OnCompanyItemClickListener;
 import com.jiec.contact.widget.JiecEditText;
 import com.jiec.utils.PhoneNumUtils;
 import com.jiec.utils.ToastUtil;
+import com.umeng.analytics.MobclickAgent;
 
 public class ContactEditActivity extends Activity {
     private Button mBtnSave, mBtnBack;
@@ -191,5 +192,17 @@ public class ContactEditActivity extends Activity {
                 finish();
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

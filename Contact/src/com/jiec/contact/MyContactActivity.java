@@ -25,6 +25,7 @@ import com.jiec.contact.widget.SuperTreeViewAdapter;
 import com.jiec.contact.widget.TreeViewAdapter;
 import com.jiec.utils.LogUtil;
 import com.jiec.utils.ToastUtil;
+import com.umeng.analytics.MobclickAgent;
 
 public class MyContactActivity extends Activity implements ContactChangeListener {
 
@@ -168,6 +169,18 @@ public class MyContactActivity extends Activity implements ContactChangeListener
         // TODO Auto-generated method stub
         super.onDestroy();
         ContactModel.getInstance().removeListener(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
 }

@@ -58,6 +58,9 @@ public class AppReceiver extends BroadcastReceiver {
                     Bundle bundle = intent.getExtras();
                     number = bundle.getString("incoming_number");
 
+                    if (number == null) {
+                        number = "";
+                    }
                     if (number.startsWith("+86")) {
                         number = number.substring(3);
                     }

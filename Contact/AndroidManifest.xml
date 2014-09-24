@@ -16,6 +16,8 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />  
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" /> 
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     
     <uses-permission android:name="android.permission.READ_SMS" />  
 	<uses-permission android:name="android.permission.WRITE_SMS" /> 
@@ -84,6 +86,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />  
         	</intent-filter>
         </receiver>
+        
+        <meta-data android:value="54223b67fd98c5857502a636" android:name="UMENG_APPKEY"></meta-data>
+		<meta-data android:value="1" android:name="UMENG_CHANNEL"/>
     </application>
 
 </manifest>

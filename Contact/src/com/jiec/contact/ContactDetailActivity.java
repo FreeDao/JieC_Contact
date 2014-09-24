@@ -15,6 +15,7 @@ import com.jiec.contact.model.ContactModel;
 import com.jiec.contact.model.ContactModel.ContactChangeListener;
 import com.jiec.utils.PhoneNumUtils;
 import com.jiec.utils.PhoneUtils;
+import com.umeng.analytics.MobclickAgent;
 
 public class ContactDetailActivity extends Activity implements OnClickListener,
         ContactChangeListener {
@@ -173,5 +174,17 @@ public class ContactDetailActivity extends Activity implements OnClickListener,
         // TODO Auto-generated method stub
         super.onDestroy();
         ContactModel.getInstance().removeListener(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

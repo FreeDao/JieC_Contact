@@ -26,6 +26,7 @@ import com.jiec.contact.model.RecordModel;
 import com.jiec.contact.model.RecordModel.OnDataChangeListener;
 import com.jiec.contact.model.UserModel;
 import com.jiec.utils.PhoneNumUtils;
+import com.umeng.analytics.MobclickAgent;
 
 public class MyRecordActivity extends ListActivity implements OnDataChangeListener {
 
@@ -38,8 +39,6 @@ public class MyRecordActivity extends ListActivity implements OnDataChangeListen
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        RecordModel.getInstance().addListener(this);
 
         mAdapter = new RecordAdapter();
         setListAdapter(mAdapter);
@@ -118,9 +117,7 @@ public class MyRecordActivity extends ListActivity implements OnDataChangeListen
             }
         });
 
-        if (UserModel.getInstance().isUserLogined()) {
-            RecordModel.getInstance().requestData();
-        }
+        RecordModel.getInstance().addListener(this);
     }
 
     @Override
@@ -132,8 +129,10 @@ public class MyRecordActivity extends ListActivity implements OnDataChangeListen
     @Override
     protected void onStart() {
         // TODO Auto-generated method stub
-        if (UserModel.getInstance().isUserLogined())
+        if (UserModel.getInstance().isUserLogined()) {
             RecordModel.getInstance().scanSystemRecord();
+            RecordModel.getInstance().requestData();
+        }
         super.onStart();
     }
 
@@ -226,6 +225,18 @@ public class MyRecordActivity extends ListActivity implements OnDataChangeListen
         if (resultCode == SAVE_RECORD_ITEM_NUM) {
             RecordModel.getInstance().refreshRecord();
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
 }

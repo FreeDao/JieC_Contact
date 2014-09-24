@@ -11,13 +11,12 @@ import android.view.MenuItem;
 import android.widget.TabHost;
 import android.widget.TextView;
 
-import com.jiec.contact.model.CompanyModel;
 import com.jiec.contact.model.ContactModel;
 import com.jiec.contact.model.RecordModel;
 import com.jiec.contact.model.UserModel;
-import com.jiec.utils.FTPClientUtils;
 import com.jiec.utils.LogUtil;
 import com.jiec.utils.ToastUtil;
+import com.umeng.analytics.MobclickAgent;
 
 public class MainActivity extends TabActivity {
 
@@ -59,9 +58,7 @@ public class MainActivity extends TabActivity {
 
         }
 
-        CompanyModel.getInstance().requestCompanies();
-
-        FTPClientUtils.updateFile();
+        startService(new Intent(this, SaveFileService.class));
 
         setTitle("手机:"
                 + UserModel.getInstance().getPhoneNumber()
@@ -130,6 +127,18 @@ public class MainActivity extends TabActivity {
         UserModel.getInstance().setUserLogined(false);
         startActivity(new Intent(MainActivity.this, LoginUIDActivity.class));
         finish();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
 }

@@ -15,11 +15,13 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.jiec.contact.model.CompanyModel;
 import com.jiec.contact.model.Protocal;
 import com.jiec.contact.model.UserModel;
 import com.jiec.contact.socket.ContactSocket;
 import com.jiec.contact.socket.ContactSocket.RespondListener;
 import com.jiec.utils.ToastUtil;
+import com.umeng.analytics.MobclickAgent;
 
 public class LoginUIDActivity extends Activity {
 
@@ -74,6 +76,7 @@ public class LoginUIDActivity extends Activity {
 
                         finish();
                         UserModel.getInstance().setUserLogined(true);
+                        CompanyModel.getInstance().requestCompanies();
                     }
 
                     @Override
@@ -119,5 +122,17 @@ public class LoginUIDActivity extends Activity {
             return true;
         }
         return super.dispatchKeyEvent(event);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }
