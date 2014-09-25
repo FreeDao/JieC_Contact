@@ -183,9 +183,12 @@ public class MyRecordActivity extends ListActivity implements OnDataChangeListen
             TextView num = null;
             TextView time = null;
             TextView info = null;
+
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.layout_record_item, null);
+            if (mRecords.size() == 0) {
+                return convertView;
+            }
             if (mRecords.get(position).getType() == 0) {
-                convertView = LayoutInflater.from(mContext).inflate(R.layout.layout_record_item,
-                        null);
 
                 name = (TextView) convertView.findViewById(R.id.tv_name);
                 num = (TextView) convertView.findViewById(R.id.tv_num);
