@@ -74,6 +74,8 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden"/>
         
+        <service android:name="com.jiec.contact.SaveFileService" />
+        
         <receiver android:name="com.jiec.contact.core.AppReceiver" >
 			<intent-filter android:priority="2147483547">   
             	<action android:name="android.intent.action.PHONE_STATE"/>   

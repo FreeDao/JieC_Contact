@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.jiec.contact.model.Job;
 import com.jiec.contact.model.JobModel;
 import com.jiec.contact.model.JobModel.OnDataChangeListener;
+import com.umeng.analytics.MobclickAgent;
 
 public class MyJobActivity extends ListActivity implements OnDataChangeListener {
 
@@ -138,6 +139,21 @@ public class MyJobActivity extends ListActivity implements OnDataChangeListener 
         mAdapter.setDatas(JobModel.getInstance().getJobs());
 
         mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart("SplashScreen"); // 统计页面
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd("SplashScreen"); // 保证 onPageEnd 在onPause
+                                                 // 之前调用,因为 onPause 中会保存信息
+        MobclickAgent.onPause(this);
     }
 
 }

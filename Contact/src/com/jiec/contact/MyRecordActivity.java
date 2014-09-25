@@ -233,12 +233,15 @@ public class MyRecordActivity extends ListActivity implements OnDataChangeListen
     @Override
     public void onResume() {
         super.onResume();
+        MobclickAgent.onPageStart("SplashScreen"); // 统计页面
         MobclickAgent.onResume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        MobclickAgent.onPageEnd("SplashScreen"); // 保证 onPageEnd 在onPause
+                                                 // 之前调用,因为 onPause 中会保存信息
         MobclickAgent.onPause(this);
     }
 
