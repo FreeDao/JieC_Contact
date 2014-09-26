@@ -41,7 +41,6 @@ import android.util.DisplayMetrics;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.jiec.contact.R;
 import com.jiec.utils.NetWorkUtil.NetworkType;
 
 /*
@@ -214,7 +213,6 @@ public class AppUtil {
     public static String getVendor() {
         return Build.MANUFACTURER;
     }
-
 
     /**
      * MAC地址
@@ -637,7 +635,6 @@ public class AppUtil {
         return 0;
     }
 
-
     /**
      * 创建快捷方式
      * 
@@ -657,7 +654,6 @@ public class AppUtil {
 
         context.sendBroadcast(shortcutIntent);
     }
-
 
     /**
      * 处理下载量的显示，小于万，直接显示，大于万，小于10万，按3.6万的格式显示，大于十万，按34万这样的 格式显示

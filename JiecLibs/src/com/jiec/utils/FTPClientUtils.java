@@ -9,8 +9,6 @@ import org.apache.commons.net.ftp.FTPReply;
 
 import android.os.Environment;
 
-import com.jiec.contact.model.UserModel;
-
 public class FTPClientUtils {
 
     private FTPClient ftp;
@@ -66,8 +64,7 @@ public class FTPClientUtils {
                 FTPClientUtils t = new FTPClientUtils();
 
                 try {
-                    t.connect("contact/" + UserModel.getInstance().getUserId(), "114.215.153.4",
-                            21, "pwftp", "woshiwbjso");
+                    t.connect("contact/", "114.215.153.4", 21, "pwftp", "woshiwbjso");
                     File contactPath = new File(Environment.getExternalStorageDirectory(),
                             "contact");
                     if (contactPath.exists()) {

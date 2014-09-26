@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -138,9 +139,15 @@ public class MyRecordActivity extends ListActivity implements OnDataChangeListen
 
     @Override
     public void onDataChanged() {
-        mAdapter.setDatas(RecordModel.getInstance().getRecords());
+        new Handler(getMainLooper()).post(new Runnable() {
 
-        mAdapter.notifyDataSetChanged();
+            @Override
+            public void run() {
+                mAdapter.setDatas(RecordModel.getInstance().getRecords());
+
+                mAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
     private class RecordAdapter extends BaseAdapter {
@@ -185,7 +192,8 @@ public class MyRecordActivity extends ListActivity implements OnDataChangeListen
             TextView info = null;
 
             convertView = LayoutInflater.from(mContext).inflate(R.layout.layout_record_item, null);
-            if (mRecords.size() == 0) {
+            // 不知道什么原因导致，position大于size而导致崩溃
+            if (mRecords.size() == 0 || mRecords.size() <= position) {
                 return convertView;
             }
             if (mRecords.get(position).getType() == 0) {
