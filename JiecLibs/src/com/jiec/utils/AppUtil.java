@@ -44,15 +44,15 @@ import android.widget.Toast;
 import com.jiec.utils.NetWorkUtil.NetworkType;
 
 /*
- * æè¿°:APPå·¥å…·ç±»
+ * ÃèÊö:APP¹¤¾ßÀà
  * 
  * @author chenys
- * @since 2013-9-26 ä¸‹åˆ3:22:57
+ * @since 2013-9-26 ÏÂÎç3:22:57
  */
 public class AppUtil {
 
     /**
-     * è·å–è®¾å¤‡å±å¹•å¤§å°
+     * »ñÈ¡Éè±¸ÆÁÄ»´óĞ¡
      * 
      * @param context
      * @return 0 width,1 height
@@ -69,7 +69,7 @@ public class AppUtil {
     }
 
     /**
-     * è·å–å®‰è£…åŒ…ä¿¡æ¯
+     * »ñÈ¡°²×°°üĞÅÏ¢
      * 
      * @param context
      * @return
@@ -84,7 +84,7 @@ public class AppUtil {
     }
 
     /**
-     * è·å–å®‰è£…åŒ…ä¿¡æ¯
+     * »ñÈ¡°²×°°üĞÅÏ¢
      * 
      * @param context
      * @param packageName
@@ -100,7 +100,7 @@ public class AppUtil {
     }
 
     /**
-     * è·å–å®‰è£…åŒ…ä¿¡æ¯
+     * »ñÈ¡°²×°°üĞÅÏ¢
      * 
      * @param context
      * @param filePath
@@ -117,16 +117,16 @@ public class AppUtil {
     }
 
     /**
-     * è·å–ç³»ç»Ÿç‰ˆæœ¬ï¼Œå¦‚1.5,2.1
+     * »ñÈ¡ÏµÍ³°æ±¾£¬Èç1.5,2.1
      * 
-     * @returnã€€SDKç‰ˆæœ¬å·
+     * @return¡¡SDK°æ±¾ºÅ
      */
     public static String getSysVersionName() {
         return Build.VERSION.RELEASE;
     }
 
     /**
-     * è·å–SDKç‰ˆæœ¬å·
+     * »ñÈ¡SDK°æ±¾ºÅ
      * 
      * @return
      */
@@ -135,7 +135,7 @@ public class AppUtil {
     }
 
     /**
-     * è·å–ç‰ˆæœ¬åç§°
+     * »ñÈ¡°æ±¾Ãû³Æ
      * 
      * @return
      */
@@ -149,7 +149,7 @@ public class AppUtil {
     }
 
     /**
-     * è·å–ç‰ˆæœ¬å·
+     * »ñÈ¡°æ±¾ºÅ
      * 
      * @return
      */
@@ -163,7 +163,7 @@ public class AppUtil {
     }
 
     /**
-     * è·å–imei æŸäº›å›½äº§æœºï¼Œæ²¡æœ‰è·å–åˆ°è¯»å–çš„æƒé™ï¼Œå±…ç„¶ä¼šç›´æ¥crashï¼Œæ‰€ä»¥try ï¼Œcatchä¸€ä¸‹
+     * »ñÈ¡imei Ä³Ğ©¹ú²ú»ú£¬Ã»ÓĞ»ñÈ¡µ½¶ÁÈ¡µÄÈ¨ÏŞ£¬¾ÓÈ»»áÖ±½Ócrash£¬ËùÒÔtry £¬catchÒ»ÏÂ
      * 
      * @param context
      * @return
@@ -180,7 +180,7 @@ public class AppUtil {
     }
 
     /**
-     * è·å–imsi
+     * »ñÈ¡imsi
      * 
      * @param context
      * @return
@@ -197,7 +197,7 @@ public class AppUtil {
     }
 
     /**
-     * è·å–æ‰‹æœºå‹å·
+     * »ñÈ¡ÊÖ»úĞÍºÅ
      * 
      * @return
      */
@@ -206,7 +206,7 @@ public class AppUtil {
     }
 
     /**
-     * è·å–å‚å•†
+     * »ñÈ¡³§ÉÌ
      * 
      * @return
      */
@@ -215,7 +215,7 @@ public class AppUtil {
     }
 
     /**
-     * MACåœ°å€
+     * MACµØÖ·
      * 
      * @return
      */
@@ -240,7 +240,7 @@ public class AppUtil {
     }
 
     /**
-     * å•ä½æ¢ç®—
+     * µ¥Î»»»Ëã
      * 
      * @param fileSize
      * @return
@@ -256,7 +256,7 @@ public class AppUtil {
     }
 
     /**
-     * ä»ä¸‹è½½urlä¸­æˆªå–æ–‡ä»¶å
+     * ´ÓÏÂÔØurlÖĞ½ØÈ¡ÎÄ¼şÃû
      * 
      * @param url
      * @return
@@ -269,7 +269,7 @@ public class AppUtil {
     }
 
     /**
-     * æ£€æŸ¥åº”ç”¨æ˜¯å¦å·²å®‰è£…ï¼ˆåŒ…åä¸€è‡´å³å¯ï¼‰
+     * ¼ì²éÓ¦ÓÃÊÇ·ñÒÑ°²×°£¨°üÃûÒ»ÖÂ¼´¿É£©
      * 
      * @param context
      * @param packageName
@@ -291,7 +291,7 @@ public class AppUtil {
     }
 
     /**
-     * æ£€æŸ¥ä¸€ç»„åº”ç”¨æ˜¯å¦å·²å®‰è£…ï¼ˆåŒ…åä¸€è‡´å³å¯ï¼‰
+     * ¼ì²éÒ»×éÓ¦ÓÃÊÇ·ñÒÑ°²×°£¨°üÃûÒ»ÖÂ¼´¿É£©
      * 
      * @param context
      * @param packageName
@@ -318,7 +318,7 @@ public class AppUtil {
     }
 
     /**
-     * æ£€æŸ¥åº”ç”¨æ˜¯å¦å·²å®‰è£…ï¼ˆåŒ…åä¸ç‰ˆæœ¬å·è¦ä¸€è‡´ï¼‰
+     * ¼ì²éÓ¦ÓÃÊÇ·ñÒÑ°²×°£¨°üÃûÓë°æ±¾ºÅÒªÒ»ÖÂ£©
      * 
      * @param context
      * @param packageName
@@ -340,7 +340,7 @@ public class AppUtil {
     }
 
     /**
-     * æ‰“å¼€åº”ç”¨
+     * ´ò¿ªÓ¦ÓÃ
      * 
      * @param context
      * @param packageName
@@ -355,7 +355,7 @@ public class AppUtil {
                         List<ResolveInfo> list = context.getPackageManager().queryIntentActivities(
                                 intent, 0);
                         if (list != null) {
-                            // å¦‚æœè¿™ä¸ªIntentæœ‰1ä¸ªåŠä»¥ä¸Šåº”ç”¨å¯ä»¥åŒ¹é…å¤„ç†ï¼Œåˆ™é€‰æ‹©ç¬¬ä¸€ä¸ªåŒ¹é…çš„å¤„ç†ï¼Œé˜²æ­¢é€‰æ‹©å¤„ç†ç±»ResolverActivityç¼ºå¤±å¯¼è‡´å¼‚å¸¸å´©æºƒ
+                            // Èç¹ûÕâ¸öIntentÓĞ1¸ö¼°ÒÔÉÏÓ¦ÓÃ¿ÉÒÔÆ¥Åä´¦Àí£¬ÔòÑ¡ÔñµÚÒ»¸öÆ¥ÅäµÄ´¦Àí£¬·ÀÖ¹Ñ¡Ôñ´¦ÀíÀàResolverActivityÈ±Ê§µ¼ÖÂÒì³£±ÀÀ£
                             if (list.size() > 0) {
                                 ResolveInfo ri = list.iterator().next();
                                 if (ri != null) {
@@ -370,17 +370,17 @@ public class AppUtil {
                         }
                     }
                 } else {
-                    Toast.makeText(context, "è¯¥åº”ç”¨å·²å¸è½½", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "¸ÃÓ¦ÓÃÒÑĞ¶ÔØ", Toast.LENGTH_SHORT).show();
                 }
             }
         } catch (Exception e) {
-            Toast.makeText(context, "è¯¥åº”ç”¨ä¸èƒ½æ­£å¸¸å¯åŠ¨", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "¸ÃÓ¦ÓÃ²»ÄÜÕı³£Æô¶¯", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
     }
 
     /***
-     * è§£ç 
+     * ½âÂë
      * 
      * @param data
      * @return
@@ -417,7 +417,7 @@ public class AppUtil {
     }
 
     /**
-     * ç¼–ç 
+     * ±àÂë
      * 
      * @param data
      * @return
@@ -451,7 +451,7 @@ public class AppUtil {
     }
 
     /**
-     * æ ¹æ®æ‰‹æœºåˆ†è¾¨ç‡å°†dpè½¬ä¸ºpxå•ä½
+     * ¸ù¾İÊÖ»ú·Ö±æÂÊ½«dp×ªÎªpxµ¥Î»
      */
     public static int dip2px(Context context, float dpValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
@@ -459,7 +459,7 @@ public class AppUtil {
     }
 
     /**
-     * è·å–å±å¹•åˆ†è¾¨ç‡
+     * »ñÈ¡ÆÁÄ»·Ö±æÂÊ
      * 
      * @return
      */
@@ -476,7 +476,7 @@ public class AppUtil {
     }
 
     /**
-     * è·å–æœ¬åº”ç”¨åç§°
+     * »ñÈ¡±¾Ó¦ÓÃÃû³Æ
      * 
      * @param context
      * @return
@@ -489,7 +489,7 @@ public class AppUtil {
     }
 
     /**
-     * è·å–åº”ç”¨å›¾æ ‡
+     * »ñÈ¡Ó¦ÓÃÍ¼±ê
      * 
      * @param context
      * @return
@@ -504,11 +504,11 @@ public class AppUtil {
     }
 
     /**
-     * è½¬æ¢æ—¥æœŸæ ¼å¼ï¼Œä¾‹å¦‚ï¼Œå°†yyyy-MM-dd HH:mm:ssæ˜¾ç¤ºå˜æˆMM-dd HH:mmæ˜¾ç¤º
+     * ×ª»»ÈÕÆÚ¸ñÊ½£¬ÀıÈç£¬½«yyyy-MM-dd HH:mm:ssÏÔÊ¾±ä³ÉMM-dd HH:mmÏÔÊ¾
      * 
-     * @param simpleDateFormat1 æ—¥æœŸæ ¼å¼1
-     * @param simpleDateFormat2 æ—¥æœŸæ ¼å¼2
-     * @param date å’Œæ—¥æœŸæ ¼å¼1ä¸€è‡´çš„æ—¶é—´
+     * @param simpleDateFormat1 ÈÕÆÚ¸ñÊ½1
+     * @param simpleDateFormat2 ÈÕÆÚ¸ñÊ½2
+     * @param date ºÍÈÕÆÚ¸ñÊ½1Ò»ÖÂµÄÊ±¼ä
      * @return
      */
     public static String turnDateFormat(String simpleDateFormat1, String simpleDateFormat2,
@@ -528,10 +528,10 @@ public class AppUtil {
     }
 
     /**
-     * å°†simpleDateFormatå½¢å¼çš„Stringå˜æˆç›¸åº”çš„longå€¼
+     * ½«simpleDateFormatĞÎÊ½µÄString±ä³ÉÏàÓ¦µÄlongÖµ
      * 
-     * @param simpleDateFormat æ—¥æœŸå½¢å¼ å¦‚ï¼šyyyy-MM-dd HH:mm:ss
-     * @param str è¦è½¬æ¢çš„å­—ç¬¦ä¸²
+     * @param simpleDateFormat ÈÕÆÚĞÎÊ½ Èç£ºyyyy-MM-dd HH:mm:ss
+     * @param str Òª×ª»»µÄ×Ö·û´®
      * @return
      */
     public static long turnDatetoLong(String simpleDateFormat, String str) {
@@ -545,7 +545,7 @@ public class AppUtil {
     }
 
     /**
-     * å°†Drawableè½¬åŒ–ä¸ºBitmap
+     * ½«Drawable×ª»¯ÎªBitmap
      * 
      * @param drawable {@link Drawable}
      * @return {@link Bitmap}
@@ -566,7 +566,7 @@ public class AppUtil {
     }
 
     /**
-     * ä¿®æ”¹æ–‡ä»¶ä¸ºå¯è¯»å†™
+     * ĞŞ¸ÄÎÄ¼şÎª¿É¶ÁĞ´
      * 
      * @param context
      * @param filePath
@@ -581,7 +581,7 @@ public class AppUtil {
     }
 
     /**
-     * åŠ å¤šä¸€å±‚å°è£…ï¼Œç”¨äºä¸Šä¼ ç»™æœåŠ¡å™¨ã€‚ ç½‘ç»œç±»å‹ï¼Œ1=3gï¼Œ2=2gï¼Œ3=wifiï¼Œ4=æœªçŸ¥
+     * ¼Ó¶àÒ»²ã·â×°£¬ÓÃÓÚÉÏ´«¸ø·şÎñÆ÷¡£ ÍøÂçÀàĞÍ£¬1=3g£¬2=2g£¬3=wifi£¬4=Î´Öª
      * 
      * @param context
      * @return
@@ -600,7 +600,7 @@ public class AppUtil {
     }
 
     /**
-     * 2gçš„ç±»å‹ï¼š0=é»˜è®¤ï¼ˆé2gï¼‰ï¼Œ1=CTNET 2=CTWAP 3=CMWAP 4=CMNETï¼Œ5=æœªçŸ¥
+     * 2gµÄÀàĞÍ£º0=Ä¬ÈÏ£¨·Ç2g£©£¬1=CTNET 2=CTWAP 3=CMWAP 4=CMNET£¬5=Î´Öª
      * 
      * @param context
      * @return
@@ -636,7 +636,7 @@ public class AppUtil {
     }
 
     /**
-     * åˆ›å»ºå¿«æ·æ–¹å¼
+     * ´´½¨¿ì½İ·½Ê½
      * 
      * @param context
      * @param shortCutName
@@ -656,7 +656,7 @@ public class AppUtil {
     }
 
     /**
-     * å¤„ç†ä¸‹è½½é‡çš„æ˜¾ç¤ºï¼Œå°äºä¸‡ï¼Œç›´æ¥æ˜¾ç¤ºï¼Œå¤§äºä¸‡ï¼Œå°äº10ä¸‡ï¼ŒæŒ‰3.6ä¸‡çš„æ ¼å¼æ˜¾ç¤ºï¼Œå¤§äºåä¸‡ï¼ŒæŒ‰34ä¸‡è¿™æ ·çš„ æ ¼å¼æ˜¾ç¤º
+     * ´¦ÀíÏÂÔØÁ¿µÄÏÔÊ¾£¬Ğ¡ÓÚÍò£¬Ö±½ÓÏÔÊ¾£¬´óÓÚÍò£¬Ğ¡ÓÚ10Íò£¬°´3.6ÍòµÄ¸ñÊ½ÏÔÊ¾£¬´óÓÚÊ®Íò£¬°´34ÍòÕâÑùµÄ ¸ñÊ½ÏÔÊ¾
      * 
      * @param downloadNum
      * @return
@@ -667,15 +667,15 @@ public class AppUtil {
         } else if (downloadNum >= Math.pow(10, 4) && downloadNum < Math.pow(10, 5)) {
             DecimalFormat df = new DecimalFormat(".0");
             float num = (float) (downloadNum / Math.pow(10, 4));
-            return df.format(num) + "ä¸‡";
+            return df.format(num) + "Íò";
         } else {
             int num = (int) (downloadNum / Math.pow(10, 4));
-            return num + "ä¸‡";
+            return num + "Íò";
         }
     }
 
     /**
-     * è¿™ä¸ªæ˜¯æ‰‹æœºå†…å­˜çš„æ€»ç©ºé—´å¤§å°
+     * Õâ¸öÊÇÊÖ»úÄÚ´æµÄ×Ü¿Õ¼ä´óĞ¡
      * 
      * @return
      */
@@ -688,7 +688,7 @@ public class AppUtil {
     }
 
     /**
-     * å°†æ•°å­—å¤§å°è½¬æ¢æˆâ€œMB"ã€â€œKBâ€ã€"GB"æ ¼å¼
+     * ½«Êı×Ö´óĞ¡×ª»»³É¡°MB"¡¢¡°KB¡±¡¢"GB"¸ñÊ½
      * 
      * @param size
      * @return
@@ -729,31 +729,31 @@ public class AppUtil {
     }
 
     /**
-     * @param Path æœç´¢ç›®å½•
-     * @param Extension æ‰©å±•å
-     * @param IsIterative æ˜¯å¦è¿›å…¥å­æ–‡ä»¶å¤¹
+     * @param Path ËÑË÷Ä¿Â¼
+     * @param Extension À©Õ¹Ãû
+     * @param IsIterative ÊÇ·ñ½øÈë×ÓÎÄ¼ş¼Ğ
      */
     public static ArrayList<String> GetFiles(String Path, String Extension, boolean IsIterative) {
-        ArrayList<String> lstFile = new ArrayList<String>(); // ç»“æœ List
+        ArrayList<String> lstFile = new ArrayList<String>(); // ½á¹û List
         File[] files = new File(Path).listFiles();
 
         for (int i = 0; i < files.length; i++) {
             File f = files[i];
             if (f.isFile()) {
                 if (f.getPath().substring(f.getPath().length() - Extension.length())
-                        .equals(Extension)) // åˆ¤æ–­æ‰©å±•å
+                        .equals(Extension)) // ÅĞ¶ÏÀ©Õ¹Ãû
                     lstFile.add(f.getPath());
 
                 if (!IsIterative)
                     continue;
-            } else if (f.isDirectory() && f.getPath().indexOf("/.") == -1) // å¿½ç•¥ç‚¹æ–‡ä»¶ï¼ˆéšè—æ–‡ä»¶/æ–‡ä»¶å¤¹ï¼‰
+            } else if (f.isDirectory() && f.getPath().indexOf("/.") == -1) // ºöÂÔµãÎÄ¼ş£¨Òş²ØÎÄ¼ş/ÎÄ¼ş¼Ğ£©
                 GetFiles(f.getPath(), Extension, IsIterative);
         }
         return lstFile;
     }
 
     /**
-     * è·å–è®¾å¤‡å±æ€§
+     * »ñÈ¡Éè±¸ÊôĞÔ
      * 
      * @param propName
      * @return
