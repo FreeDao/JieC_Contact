@@ -8,19 +8,24 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import com.jiec.contact.utils.LogUtil;
-
 public class SqlHelper {
 
-    final static int SELECT = 0;
+    /**
+     * @param args
+     */
+    public static void main(String[] args) {
+        // TODO Auto-generated method stub
+        SqlHelper ssh = new SqlHelper();
+        ResultSet rs = ssh.queryExecute("select * from dbo.Lxr_Detail");
+        try {
+            while (rs.next()) {
+                System.out.println(rs.getString(1) + "," + rs.getString(2) + "," + rs.getString(3));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-    final static int CREATE = 1;
-
-    final static int DELETE = 2;
-
-    final static int UPDATE = 3;
-
-    final static int STATISTICS = 4;
+    }
 
     private PreparedStatement mPreparedStatement = null;
 
@@ -28,15 +33,15 @@ public class SqlHelper {
 
     private ResultSet mResultSet = null;
 
-    private static final String DRIVER_STR = "com.mysql.jdbc.Driver";
+    private static final String DRIVER_STR = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
 
-    private static final String SQL_URL = "jdbc:mysql://114.215.153.4:3306/contact";
+    private static final String SQL_URL = "jdbc:sqlserver://120.24.58.159:1433;databaseName=contact";
 
     public SqlHelper() {
 
         try {
             Class.forName(DRIVER_STR);
-            mConnection = (Connection) DriverManager.getConnection(SQL_URL, "root", "woshiwbjso");
+            mConnection = (Connection) DriverManager.getConnection(SQL_URL, "sa", "123456");
 
         } catch (Exception e) {
             e.printStackTrace();
