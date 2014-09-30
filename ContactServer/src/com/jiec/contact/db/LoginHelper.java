@@ -7,8 +7,8 @@ public class LoginHelper {
 
     public static boolean checkLoginPhone(String phoneNum, String passwd) {
 
-        return checkPasswd("SELECT phone_passwd FROM contact.phone_info where phone_num = "
-                + phoneNum, passwd);
+        return checkPasswd("SELECT phone_passwd FROM phone_info where phone_num = " + phoneNum,
+                passwd);
     }
 
     public static boolean checkLoginUser(String userName, String passwd) {
