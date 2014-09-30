@@ -22,7 +22,9 @@ public class ContactSocket {
 
     // private static String SERVER_IP = "192.168.0.105";
 
-    private static String SERVER_IP = "192.168.1.138";
+    // private static String SERVER_IP = "192.168.1.138";
+
+    private static String SERVER_IP = "120.24.58.159";
 
     // private static String SERVER_IP = "114.215.153.4";
 

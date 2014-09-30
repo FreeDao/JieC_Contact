@@ -55,7 +55,7 @@ public class ContactHelper {
                 perContact.put("contact_email_2", rs.getString(15));
                 perContact.put("contact_email_3", rs.getString(16));
                 perContact.put("contact_edit_user_id", rs.getString(11));
-                perContact.put("contact_last_edit_time", "");
+                perContact.put("contact_last_edit_time", rs.getString(17));
 
                 companyArray.add(perContact);
 
@@ -97,13 +97,15 @@ public class ContactHelper {
          * contact_company_id varchar(8), contact_qq varchar(18), contact_msn
          * varchar(18), contact_email_1 varchar(28), contact_email_2
          * varchar(28), contact_email_3 varchar(28), contact_own_id varchar(20),
-         * contact_edit_user_id varchar(20), contact_last_edit_time time
+         * contact_edit_user_id varchar(20), contact_last_edit_time time NSERT
+         * INTO [contact].[dbo].[Lxr_Detail] ([BH] ,[XM] ,[BGDH1] ,[BGDH2]
+         * ,[BGDH3] ,[YDDH1] ,[YDDH2] ,[YDDH3] ,[CC] ,[QQHM] ,[MSNHM] ,[DZYS1]
+         * ,[DZYS2] ,[DZYS3] ,[CallPerson] ,[Main])
          */
 
-        String sql = "insert into contact_detail (contact_name, contact_bgdh_1, contact_bgdh_2, contact_bgdh_3,"
-                + "contact_yddh_1, contact_yddh_2, contact_yddh_3, contact_company_id, contact_qq, "
-                + "contact_email_1, contact_email_2, contact_email_3, contact_own_id, contact_last_edit_time) "
-                + "value('"
+        String sql = "insert into Lxr_Detail (XM, BGDH1, BGDH2, BGDH3,"
+                + "YDDH1, YDDH2, YDDH3, BH, QQHM, " + "DZYS1, DZYS2, DZYS3, CC, CallPerson) "
+                + "values('"
                 + object.getString("contact_name")
                 + "', '"
                 + object.getString("contact_bgdh_1")
@@ -139,9 +141,8 @@ public class ContactHelper {
             return;
         }
 
-        sql = "select contact_id from contact_detail where contact_company_id = '"
-                + object.getString("contact_company_id") + "' and contact_name = '"
-                + object.getString("contact_name") + "';";
+        sql = "select ID from Lxr_Detail where BH = '" + object.getString("contact_company_id")
+                + "' and XM = '" + object.getString("contact_name") + "';";
 
         ResultSet rs = sh.queryExecute(sql);
         try {
@@ -155,20 +156,19 @@ public class ContactHelper {
     }
 
     public static void udpateContact(JSONObject object, JSONObject replayObject) {
-        String sql = "UPDATE contact_detail SET contact_name = '"
-                + object.getString("contact_name") + "', contact_bgdh_1 = '"
-                + object.getString("contact_bgdh_1") + "', contact_bgdh_2 = '"
-                + object.getString("contact_bgdh_2") + "', contact_bgdh_3 = '"
-                + object.getString("contact_bgdh_3") + "', contact_yddh_1 = '"
-                + object.getString("contact_yddh_1") + "', contact_yddh_2 = '"
-                + object.getString("contact_yddh_2") + "', contact_yddh_3 = '"
-                + object.getString("contact_yddh_3") + "', contact_company_id = '"
-                + object.getString("contact_company_id") + "', contact_qq = '"
-                + object.getString("contact_qq") + "', contact_email_1 = '"
-                + object.getString("contact_email_1") + "', contact_email_2 = '"
-                + object.getString("contact_email_2") + "', contact_email_3 = '"
-                + object.getString("contact_email_3") + "', contact_last_edit_time = '"
-                + object.getString("contact_last_edit_time") + "' WHERE contact_id = "
+        String sql = "UPDATE Lxr_Detail SET XM = '" + object.getString("contact_name")
+                + "', BGDH1 = '" + object.getString("contact_bgdh_1") + "', BGDH2 = '"
+                + object.getString("contact_bgdh_2") + "', BGDH3 = '"
+                + object.getString("contact_bgdh_3") + "', YDDH1 = '"
+                + object.getString("contact_yddh_1") + "', YDDH2 = '"
+                + object.getString("contact_yddh_2") + "', YDDH3 = '"
+                + object.getString("contact_yddh_3") + "', BH = '"
+                + object.getString("contact_company_id") + "', QQHM = '"
+                + object.getString("contact_qq") + "', DZYS1 = '"
+                + object.getString("contact_email_1") + "', DZYS2 = '"
+                + object.getString("contact_email_2") + "', DZYS3 = '"
+                + object.getString("contact_email_3") + "', CallPerson = '"
+                + object.getString("contact_last_edit_time") + "' WHERE ID = "
                 + object.getInt("contact_id") + ";";
         System.out.println(sql);
         SqlHelper sh = new SqlHelper();

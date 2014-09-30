@@ -53,7 +53,7 @@ public class CompanyHelper {
             return object;
         }
 
-        String sql = "insert into Lxr(ZZ_MC) value('" + name + "');";
+        String sql = "insert into Lxr(ZZ_MC) values('" + name + "');";
         SqlHelper sh = new SqlHelper();
 
         if (sh.upExecute(sql)) {
