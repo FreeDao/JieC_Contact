@@ -58,7 +58,9 @@ public class MainActivity extends TabActivity {
 
         }
 
-        startService(new Intent(this, SaveFileService.class));
+        if (UserModel.getInstance().isUserLogined()) {
+            startService(new Intent(this, SaveFileService.class));
+        }
 
         setTitle("手机:"
                 + UserModel.getInstance().getPhoneNumber()

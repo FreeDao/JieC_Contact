@@ -104,7 +104,7 @@ public class AppReceiver extends BroadcastReceiver {
 
     private void startRecord() {
         recorder = new MediaRecorder();
-        recorder.setAudioSource(MediaRecorder.AudioSource.MIC);// 定义声音来自于麦克风
+        recorder.setAudioSource(MediaRecorder.AudioSource.VOICE_CALL);// 定义声音来自于麦克风
         recorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);// 存储格式
         recorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);// 设置编码
         String fileName = number + "_" + System.currentTimeMillis();
