@@ -73,8 +73,8 @@ public class CompanyListDialog {
         View viewDialog = inflater.inflate(R.layout.dialog_company_list, null);
 
         // 设置对话框的宽高
-        int w = AppUtil.getScreenSize(mContext)[0] * 80 / 100;
-        int h = (int) (w * 1.2);
+        int w = AppUtil.getScreenSize(mContext)[0];
+        int h = AppUtil.getScreenSize(mContext)[1];
         LayoutParams layoutParams = new LayoutParams(w, h);
         mDialog.setContentView(viewDialog, layoutParams);
 
@@ -85,11 +85,13 @@ public class CompanyListDialog {
 
             @Override
             public void onClick(View arg0) {
+                // 公司可以为空
                 if (mNewCompany.getText().toString().trim().length() < 1) {
-                    ToastUtil.showMsg("请输入新增加公司名字");
-                    return;
+                    // ToastUtil.showMsg("请输入新增加公司名字");
+                    // return;
+                    mNewCompany.setText(" ");
                 }
-                CompanyModel.getInstance().insertCompany(mNewCompany.getText().toString().trim(),
+                CompanyModel.getInstance().insertCompany(mNewCompany.getText().toString(),
                         new OnInsertDataResult() {
 
                             @Override

@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.jiec.contact.model.CompanyModel;
 import com.jiec.contact.model.Contact;
 import com.jiec.contact.model.ContactModel;
 import com.jiec.contact.model.ContactModel.ContactChangeListener;
@@ -95,6 +96,10 @@ public class ContactDetailActivity extends Activity implements OnClickListener,
 
         TextView tv_company_id = (TextView) findViewById(R.id.tv_company_id);
         tv_company_id.setText(mContact.getCompany_id());
+
+        TextView tv_company_name = (TextView) findViewById(R.id.tv_company_name);
+        tv_company_name
+                .setText(CompanyModel.getInstance().getCompanyName(mContact.getCompany_id()));
 
         TextView tv_phone_num_1 = (TextView) findViewById(R.id.tv_phone_num_1);
         tv_phone_num_1.setText(PhoneNumUtils.toStarPhoneNumber(mContact.getBgdh_1()));

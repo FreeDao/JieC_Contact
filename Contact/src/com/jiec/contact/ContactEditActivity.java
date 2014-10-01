@@ -15,6 +15,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.jiec.contact.model.CompanyModel;
 import com.jiec.contact.model.Contact;
 import com.jiec.contact.model.ContactModel;
 import com.jiec.contact.model.ContactModel.ContactInsertListener;
@@ -101,8 +102,10 @@ public class ContactEditActivity extends Activity {
             mBG_1EditText.setText(intent.getStringExtra(MyContactActivity.NEW_CONTACT_NUMBER));
         } else {
             mContact = getIntent().getParcelableExtra("contact");
+            mCompanyId = mContact.getCompany_id();
+            mCompanyName = CompanyModel.getInstance().getCompanyName(mCompanyId);
             mNameEditText.setText(mContact.getName());
-            mCompanyEditText.setText(mContact.getCompany_id());
+            mCompanyEditText.setText(mCompanyName + "  (" + mCompanyId + ")");
             mCompanyId = mContact.getCompany_id();
             mBG_1EditText.setText(PhoneNumUtils.toStarPhoneNumber(mContact.getBgdh_1()));
             mBG_1EditText.setNumber(mContact.getBgdh_1());

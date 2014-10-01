@@ -70,6 +70,8 @@ public class CompanyModel {
     }
 
     public String getCompanyName(String companyId) {
+        if (companyId == null)
+            return "";
         for (int i = 0; i < mCompanies.size(); i++) {
             if (mCompanies.get(i).id.equals(companyId)) {
                 return mCompanies.get(i).name;
