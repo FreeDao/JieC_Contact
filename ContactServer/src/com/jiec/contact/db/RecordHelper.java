@@ -56,7 +56,7 @@ public class RecordHelper {
         for (int i = 0; i < recordsArray.size(); i++) {
             object = recordsArray.getJSONObject(i);
 
-            String sql = "INSERT INTO contact_record (record_name, record_num, record_date, record_time, record_state, record_owner, record_msg, record_type) value('"
+            String sql = "INSERT INTO contact_record (record_name, record_num, record_date, record_time, record_state, record_owner, record_msg, record_type) values('"
                     + object.getString("name")
                     + "', '"
                     + object.getString("num")

@@ -113,7 +113,7 @@ public class RecordModel {
                                 .getNameByPhoneNum(record.getNum()));
                         record.setDate(array.getJSONObject(i).getString("date"));
                         record.setTime(array.getJSONObject(i).getString("time"));
-                        record.setInfo(array.getJSONObject(i).getString("info"));
+                        record.setInfo(array.getJSONObject(i).optString("info"));
                         record.setState(array.getJSONObject(i).getInt("state"));
                         record.setMsg(array.getJSONObject(i).getString("msg"));
                         record.setType(array.getJSONObject(i).getInt("type"));

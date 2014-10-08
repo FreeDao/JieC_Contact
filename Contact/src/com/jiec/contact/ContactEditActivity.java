@@ -10,6 +10,8 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -72,9 +74,17 @@ public class ContactEditActivity extends Activity {
 
                             @Override
                             public void onClick(String name, String id) {
-                                mCompanyEditText.setText(name + "  (" + id + ")");
-                                mCompanyName = name;
-                                mCompanyId = id;
+                                final String _name = name;
+                                final String _id = id;
+                                new Handler(Looper.getMainLooper()).post(new Runnable() {
+
+                                    @Override
+                                    public void run() {
+                                        mCompanyEditText.setText(_name + "  (" + _id + ")");
+                                        mCompanyName = _name;
+                                        mCompanyId = _id;
+                                    }
+                                });
                             }
                         });
                 dialog.createDialog();

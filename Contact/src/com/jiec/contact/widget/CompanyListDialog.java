@@ -73,8 +73,8 @@ public class CompanyListDialog {
         View viewDialog = inflater.inflate(R.layout.dialog_company_list, null);
 
         // 设置对话框的宽高
-        int w = AppUtil.getScreenSize(mContext)[0];
-        int h = AppUtil.getScreenSize(mContext)[1];
+        int w = (int) (AppUtil.getScreenSize(mContext)[0] * 0.85);
+        int h = (int) (AppUtil.getScreenSize(mContext)[1] * 0.6);
         LayoutParams layoutParams = new LayoutParams(w, h);
         mDialog.setContentView(viewDialog, layoutParams);
 
