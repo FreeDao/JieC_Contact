@@ -12,6 +12,12 @@ import android.util.Log;
 import com.jiec.utils.AppUtil;
 import com.jiec.utils.FTPClientUtils;
 
+/**
+ * 描述:
+ * 
+ * @author jiec
+ * @since 2014-10-13 上午11:07:35
+ */
 public class SaveFileService extends Service {
 
     Handler mHandler = new Handler() {

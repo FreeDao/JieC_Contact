@@ -6,6 +6,12 @@ import android.content.Context;
 
 import com.jiec.contact.core.AppUncaughtExceptionHandler;
 
+/**
+ * 描述:
+ * 
+ * @author jiec
+ * @since 2014-10-13 上午11:07:35
+ */
 public class MyApplication extends Application {
 
     private static Context mContext = null;

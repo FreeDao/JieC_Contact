@@ -18,6 +18,12 @@ import com.jiec.utils.LogUtil;
 import com.jiec.utils.ToastUtil;
 import com.umeng.analytics.MobclickAgent;
 
+/**
+ * 描述:
+ * 
+ * @author jiec
+ * @since 2014-10-13 上午11:07:35
+ */
 public class MainActivity extends TabActivity {
 
     private long mExitTime = 0;

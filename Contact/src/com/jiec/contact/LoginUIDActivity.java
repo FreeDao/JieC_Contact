@@ -23,6 +23,12 @@ import com.jiec.contact.socket.ContactSocket.RespondListener;
 import com.jiec.utils.ToastUtil;
 import com.umeng.analytics.MobclickAgent;
 
+/**
+ * 描述:
+ * 
+ * @author jiec
+ * @since 2014-10-13 上午11:07:35
+ */
 public class LoginUIDActivity extends Activity {
 
     public static final int FLAG_HOMEKEY_DISPATCHED = 0x80000000;

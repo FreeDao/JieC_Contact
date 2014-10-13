@@ -29,6 +29,12 @@ import com.jiec.contact.model.UserModel;
 import com.jiec.utils.PhoneNumUtils;
 import com.umeng.analytics.MobclickAgent;
 
+/**
+ * 描述:
+ * 
+ * @author jiec
+ * @since 2014-10-13 上午11:07:35
+ */
 public class MyRecordActivity extends ListActivity implements OnDataChangeListener {
 
     private RecordAdapter mAdapter;

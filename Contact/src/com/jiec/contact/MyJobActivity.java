@@ -23,6 +23,12 @@ import com.jiec.contact.model.JobModel;
 import com.jiec.contact.model.JobModel.OnDataChangeListener;
 import com.umeng.analytics.MobclickAgent;
 
+/**
+ * 描述:
+ * 
+ * @author jiec
+ * @since 2014-10-13 上午11:07:35
+ */
 public class MyJobActivity extends ListActivity implements OnDataChangeListener {
 
     private JobAdapter mAdapter;
