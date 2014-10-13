@@ -8,7 +8,6 @@ import android.content.Context;
 
 import com.jiec.contact.socket.ContactSocket;
 import com.jiec.contact.socket.ContactSocket.RespondListener;
-import com.jiec.utils.LogUtil;
 import com.jiec.utils.SIMCardInfo;
 import com.jiec.utils.ToastUtil;
 
@@ -81,14 +80,13 @@ public class UserModel {
             @Override
             public void onSuccess(int cmd, JSONObject object) {
                 UserModel.getInstance().setPhoneLogined(true);
-                LogUtil.e("手机号码合法");
+                ToastUtil.showMsg("手机号码检测通过");
             }
 
             @Override
             public void onFailed(int cmd, String reason) {
                 // TODO Auto-generated method stub
                 ToastUtil.showMsg(reason);
-                android.os.Process.killProcess(android.os.Process.myPid());
             }
         });
 

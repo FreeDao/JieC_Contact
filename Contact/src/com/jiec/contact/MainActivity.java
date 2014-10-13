@@ -111,6 +111,11 @@ public class MainActivity extends TabActivity {
     }
 
     private void loginUser() {
+        if (!UserModel.getInstance().isPhoneLogined()) {
+            ToastUtil.showMsg("手机号码无效");
+            return;
+        }
+
         if (UserModel.getInstance().isUserLogined()) {
             ToastUtil.showMsg("用户已登录，请先退出用户");
         } else {

@@ -80,7 +80,7 @@ public class ContactServer {
                         replyObject.put("result", 1);
                     } else {
                         replyObject.put("result", -1);
-                        replyObject.put("reason", "密码与用户名对应不正确");
+                        replyObject.put("reason", "手机用户名不存在，请后台添加手机号码或者更换手机卡");
                     }
 
                 } else if (cmd == Protocal.CMD_LOGIN_USER_REQUEST) {
