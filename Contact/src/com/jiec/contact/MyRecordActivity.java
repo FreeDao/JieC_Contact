@@ -149,9 +149,11 @@ public class MyRecordActivity extends ListActivity implements OnDataChangeListen
 
             @Override
             public void run() {
-                mAdapter.setDatas(RecordModel.getInstance().getRecords());
+                synchronized (MyRecordActivity.this) {
+                    mAdapter.setDatas(RecordModel.getInstance().getRecords());
 
-                mAdapter.notifyDataSetChanged();
+                    mAdapter.notifyDataSetChanged();
+                }
             }
         });
     }
