@@ -3,6 +3,7 @@ package com.jiec.utils;
 
 import android.content.Context;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 
 /**
  * class name：SIMCardInfo<BR>
@@ -26,8 +27,11 @@ public class SIMCardInfo {
      */
     private String IMSI;
 
+    private Context mContext;
+
     public SIMCardInfo(Context context) {
         telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        mContext = context;
     }
 
     /**
@@ -39,7 +43,27 @@ public class SIMCardInfo {
     public String getNativePhoneNumber() {
         String NativePhoneNumber = null;
         NativePhoneNumber = telephonyManager.getLine1Number();
-        return NativePhoneNumber;
+        if (!TextUtils.isEmpty(NativePhoneNumber))
+            return NativePhoneNumber;
+        else
+            return getImsi(mContext);
+    }
+
+    /**
+     * 获取imsi
+     * 
+     * @param context
+     * @return
+     */
+    public String getImsi(Context context) {
+        try {
+            TelephonyManager tm = (TelephonyManager) context
+                    .getSystemService(Context.TELEPHONY_SERVICE);
+            String tel = tm.getSubscriberId();
+            return TextUtils.isEmpty(tel) ? "" : tel;
+        } catch (Exception e) {
+        }
+        return "";
     }
 
     /**

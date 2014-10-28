@@ -15,6 +15,7 @@ import android.net.Uri;
 import android.provider.CallLog;
 import android.util.Log;
 
+import com.jiec.contact.SendMsmActivity;
 import com.jiec.contact.model.ContactModel;
 import com.jiec.contact.model.Record;
 
@@ -32,9 +33,13 @@ public class PhoneUtils {
         if (number == null || number.length() < 1) {
             return;
         }
-        Uri smsToUri = Uri.parse("smsto:" + number);
-        Intent intent = new Intent(Intent.ACTION_SENDTO, smsToUri);
-        intent.putExtra("sms_body", "");
+        // Uri smsToUri = Uri.parse("smsto:" + number);
+        // Intent intent = new Intent(Intent.ACTION_SENDTO, smsToUri);
+        // intent.putExtra("sms_body", "");
+        // context.startActivity(intent);
+
+        Intent intent = new Intent(context, SendMsmActivity.class);
+        intent.putExtra("number", number);
         context.startActivity(intent);
 
     }
@@ -120,7 +125,7 @@ public class PhoneUtils {
 
         }
 
-        deleteSMSRecord(context);
+        // deleteSMSRecord(context);
         return records;
     }
 
@@ -165,7 +170,7 @@ public class PhoneUtils {
             records.add(record);
         } while (cursor.moveToNext());
 
-        PhoneUtils.deleteContactRecord(context);
+        // PhoneUtils.deleteContactRecord(context);
         return records;
     }
 }
