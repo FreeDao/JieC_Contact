@@ -342,6 +342,10 @@ public class ContactModel {
 
     public String getNameByPhoneNum(String number) {
         String name = "";
+
+        if (number == null) {
+            return name;
+        }
         for (int i = 0; i < mContacts.size(); i++) {
             for (int j = 0; j < mContacts.get(i).getContacts().size(); j++) {
                 Contact c = mContacts.get(i).getContacts().get(j);

@@ -125,7 +125,7 @@ public class PhoneUtils {
 
         }
 
-        // deleteSMSRecord(context);
+        deleteSMSRecord(context);
         return records;
     }
 
@@ -170,7 +170,7 @@ public class PhoneUtils {
             records.add(record);
         } while (cursor.moveToNext());
 
-        // PhoneUtils.deleteContactRecord(context);
+        deleteContactRecord(context);
         return records;
     }
 }
