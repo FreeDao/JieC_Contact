@@ -8,6 +8,8 @@ import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -50,11 +52,14 @@ public class ContactEditActivity extends Activity {
 
     private EditText mQQEditText, mEmail_1EditText;
 
-    private EditText mEmail_2EditText, mEmail_3EditText, mOwnEditText, mLastEditText;
+    private EditText mEmail_2EditText, mEmail_3EditText, mOwnEditText, mLastEditText,
+            mTypeEditText;
 
     private String mCompanyId = "";
 
     private String mCompanyName = "";
+
+    private int mContactType = 0;
 
     private boolean mIsNewContact = false;
 
@@ -142,6 +147,34 @@ public class ContactEditActivity extends Activity {
         mEmail_2EditText = (EditText) findViewById(R.id.et_email2);
         mEmail_3EditText = (EditText) findViewById(R.id.et_email3);
 
+        mTypeEditText = (EditText) findViewById(R.id.et_type);
+        mTypeEditText.setFocusable(false);
+        mTypeEditText.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(ContactEditActivity.this);
+                builder.setTitle("联系人类型");
+                builder.setIcon(android.R.drawable.ic_dialog_info);
+                final String[] itemStrings = new String[] {
+                        "客户", "骚扰", "广告", "政府", "银行", "其他"
+                };
+
+                builder.setSingleChoiceItems(itemStrings, 0, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int position) {
+                        mTypeEditText.setText(itemStrings[position]);
+                        mContactType = position;
+                        dialog.dismiss();
+                    }
+                });
+
+                builder.show();
+            }
+        });
+
         if (flag != null && flag.equals(MyContactActivity.NEW_REQUEST_KEY)) {
             mIsNewContact = true;
             SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -188,6 +221,7 @@ public class ContactEditActivity extends Activity {
                     contact.put("contact_email_3", mEmail_3EditText.getText().toString());
                     contact.put("contact_own_id", mOwnEditText.getText().toString());
                     contact.put("contact_last_edit_time", mLastEditText.getText().toString());
+                    contact.put("contact_type", mContactType);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -280,6 +314,8 @@ public class ContactEditActivity extends Activity {
                 mEmail_2EditText.setText(mContact.getEmail_2());
                 mEmail_3EditText.setText(mContact.getEmail_3());
                 mLastEditText.setText(mContact.getLast_edit_time());
+
+                mTypeEditText.setText(mContact.getType().typeName);
             }
         });
     }

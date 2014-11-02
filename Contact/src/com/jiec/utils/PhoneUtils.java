@@ -1,6 +1,7 @@
 
 package com.jiec.utils;
 
+import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,6 +14,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
 import android.net.Uri;
 import android.provider.CallLog;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import com.jiec.contact.SendMsmActivity;
@@ -172,5 +174,23 @@ public class PhoneUtils {
 
         deleteContactRecord(context);
         return records;
+    }
+
+    /**
+     * 挂断电话
+     */
+    public static void endPhone(Context c, TelephonyManager tm) {
+        try {
+            Log.i(TAG, "endPhone");
+            ITelephony iTelephony;
+            Method getITelephonyMethod = TelephonyManager.class.getDeclaredMethod("getITelephony",
+                    (Class[]) null);
+            getITelephonyMethod.setAccessible(true);
+            iTelephony = (ITelephony) getITelephonyMethod.invoke(tm, (Object[]) null);
+            // 挂断电话
+            iTelephony.endCall();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

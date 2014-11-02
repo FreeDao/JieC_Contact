@@ -43,6 +43,14 @@ public class Contact implements Parcelable {
 
     String last_edit_time = "";
 
+    public class ContactType {
+        public int type = 0;
+
+        public String typeName = "客户";
+    }
+
+    ContactType type = new ContactType();
+
     public int getId() {
         return id;
     }
@@ -239,5 +247,13 @@ public class Contact implements Parcelable {
     };
 
     public void setContact(Contact c) {
+    }
+
+    public ContactType getType() {
+        return type;
+    }
+
+    public void setType(ContactType type) {
+        this.type = type;
     }
 }

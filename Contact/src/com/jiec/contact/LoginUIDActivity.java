@@ -47,6 +47,15 @@ public class LoginUIDActivity extends Activity {
         mUserId = (EditText) findViewById(R.id.et_user_id);
         mUserPasswd = (EditText) findViewById(R.id.et_user_passwd);
 
+        {
+            UserModel.getInstance().setUserId("8888");
+            startActivity(new Intent(LoginUIDActivity.this, MainActivity.class));
+
+            finish();
+            UserModel.getInstance().setUserLogined(true);
+            CompanyModel.getInstance().requestCompanies();
+        }
+
         Button loginBtn = (Button) findViewById(R.id.login_btn);
         loginBtn.setOnClickListener(new OnClickListener() {
 

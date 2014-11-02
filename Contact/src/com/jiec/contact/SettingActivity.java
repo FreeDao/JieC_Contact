@@ -3,7 +3,11 @@ package com.jiec.contact;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.ToggleButton;
 
+import com.jiec.contact.model.UserModel;
 import com.umeng.analytics.MobclickAgent;
 
 /**
@@ -19,6 +23,17 @@ public class SettingActivity extends Activity {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
+
+        ToggleButton tButton = (ToggleButton) findViewById(R.id.toggleButton1);
+        tButton.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
+                UserModel.getInstance().setIsNotAllowBlackCall(arg1);
+            }
+        });
+
+        tButton.setChecked(UserModel.getInstance().isIsNotAllowBlackCall());
     }
 
     @Override
