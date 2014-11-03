@@ -52,6 +52,7 @@ public class SendMsmActivity extends Activity {
                 }
 
                 send2(numberString, etBodyEditText.getText().toString());
+                finish();
             }
         });
     }

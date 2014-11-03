@@ -43,10 +43,8 @@ public class SIMCardInfo {
     public String getNativePhoneNumber() {
         String NativePhoneNumber = null;
         NativePhoneNumber = telephonyManager.getLine1Number();
-        if (!TextUtils.isEmpty(NativePhoneNumber))
-            return NativePhoneNumber;
-        else
-            return getImsi(mContext);
+        return NativePhoneNumber;
+
     }
 
     /**
