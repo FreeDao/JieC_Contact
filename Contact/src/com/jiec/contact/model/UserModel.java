@@ -4,8 +4,11 @@ package com.jiec.contact.model;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 
+import com.jiec.contact.MyApplication;
 import com.jiec.contact.socket.ContactSocket;
 import com.jiec.contact.socket.ContactSocket.RespondListener;
 import com.jiec.utils.SIMCardInfo;
@@ -21,6 +24,21 @@ public class UserModel {
     private boolean mUserLogined = false;
 
     private String mPhoneNumber = "";
+
+    private boolean mIsNotAllowBlackCall = true;
+
+    public boolean isIsNotAllowBlackCall() {
+        return mIsNotAllowBlackCall;
+    }
+
+    public void setIsNotAllowBlackCall(boolean isNotAllowBlackCall) {
+        SharedPreferences sPreferences = MyApplication.getContext().getSharedPreferences(
+                "contact_setting", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sPreferences.edit();
+        editor.putBoolean("is_not_allow_black_call", isNotAllowBlackCall);
+        editor.commit();
+        this.mIsNotAllowBlackCall = isNotAllowBlackCall;
+    }
 
     public void setPhoneNumber(String phoneNumber) {
         mPhoneNumber = phoneNumber;
@@ -50,7 +68,9 @@ public class UserModel {
     }
 
     private UserModel() {
-
+        SharedPreferences sPreferences = MyApplication.getContext().getSharedPreferences(
+                "contact_setting", Activity.MODE_PRIVATE);
+        mIsNotAllowBlackCall = sPreferences.getBoolean("is_not_allow_black_call", true);
     }
 
     public boolean checkPhoneNumber(Context context) {

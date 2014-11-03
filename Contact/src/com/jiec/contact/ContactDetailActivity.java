@@ -140,6 +140,9 @@ public class ContactDetailActivity extends Activity implements OnClickListener,
         TextView tv_last_time = (TextView) findViewById(R.id.tv_last_time);
         tv_last_time.setText(mContact.getLast_edit_time());
 
+        TextView tv_type = (TextView) findViewById(R.id.tv_type);
+        tv_type.setText(mContact.getType().typeName);
+
     }
 
     @Override

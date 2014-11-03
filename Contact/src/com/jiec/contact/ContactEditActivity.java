@@ -8,12 +8,16 @@ import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -25,6 +29,9 @@ import com.jiec.contact.model.UserModel;
 import com.jiec.contact.widget.CompanyListDialog;
 import com.jiec.contact.widget.CompanyListDialog.OnCompanyItemClickListener;
 import com.jiec.contact.widget.JiecEditText;
+import com.jiec.contact.widget.NameListDialog;
+import com.jiec.contact.widget.NameListDialog.OnNameItemClickListener;
+import com.jiec.utils.LogUtil;
 import com.jiec.utils.PhoneNumUtils;
 import com.jiec.utils.ToastUtil;
 import com.umeng.analytics.MobclickAgent;
@@ -45,15 +52,22 @@ public class ContactEditActivity extends Activity {
 
     private EditText mQQEditText, mEmail_1EditText;
 
-    private EditText mEmail_2EditText, mEmail_3EditText, mOwnEditText, mLastEditText;
+    private EditText mEmail_2EditText, mEmail_3EditText, mOwnEditText, mLastEditText,
+            mTypeEditText;
 
     private String mCompanyId = "";
 
     private String mCompanyName = "";
 
+    private int mContactType = 0;
+
     private boolean mIsNewContact = false;
 
     private Contact mContact = null;
+
+    private int mContactId = 0;
+
+    private String mSaveNumber = "";
 
     @SuppressLint("SimpleDateFormat")
     @Override
@@ -98,6 +112,30 @@ public class ContactEditActivity extends Activity {
         });
 
         mNameEditText = (EditText) findViewById(R.id.et_name);
+        mNameEditText.setOnLongClickListener(new OnLongClickListener() {
+
+            @Override
+            public boolean onLongClick(View arg0) {
+                if (mIsNewContact == false) {
+                    return true;
+                }
+                NameListDialog dialog = new NameListDialog(ContactEditActivity.this,
+                        new OnNameItemClickListener() {
+
+                            @Override
+                            public void onClick(String name, String id) {
+
+                                mContactId = Integer.parseInt(id);
+                                mContact = ContactModel.getInstance().getContactById(mContactId);
+
+                                setContactContain();
+                                mIsNewContact = false;
+                            }
+                        });
+                dialog.createDialog();
+                return false;
+            }
+        });
         mBG_1EditText = (JiecEditText) findViewById(R.id.et_phone_num_1);
         mBG_2EditText = (JiecEditText) findViewById(R.id.et_phone_num_2);
         mBG_3EditText = (JiecEditText) findViewById(R.id.et_phone_num_3);
@@ -109,37 +147,47 @@ public class ContactEditActivity extends Activity {
         mEmail_2EditText = (EditText) findViewById(R.id.et_email2);
         mEmail_3EditText = (EditText) findViewById(R.id.et_email3);
 
+        mTypeEditText = (EditText) findViewById(R.id.et_type);
+        mTypeEditText.setFocusable(false);
+        mTypeEditText.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(ContactEditActivity.this);
+                builder.setTitle("联系人类型");
+                builder.setIcon(android.R.drawable.ic_dialog_info);
+                final String[] itemStrings = new String[] {
+                        "客户", "骚扰", "广告", "政府", "银行", "其他"
+                };
+
+                builder.setSingleChoiceItems(itemStrings, 0, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int position) {
+                        mTypeEditText.setText(itemStrings[position]);
+                        mContactType = position;
+                        dialog.dismiss();
+                    }
+                });
+
+                builder.show();
+            }
+        });
+
         if (flag != null && flag.equals(MyContactActivity.NEW_REQUEST_KEY)) {
             mIsNewContact = true;
             SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String date = sDateFormat.format(new java.util.Date());
             mLastEditText.setText(date);
 
-            mBG_1EditText.setText(intent.getStringExtra(MyContactActivity.NEW_CONTACT_NUMBER));
+            mSaveNumber = intent.getStringExtra(MyContactActivity.NEW_CONTACT_NUMBER);
+
+            mBG_1EditText.setText(mSaveNumber);
         } else {
             mContact = getIntent().getParcelableExtra("contact");
-            mCompanyId = mContact.getCompany_id();
-            mCompanyName = CompanyModel.getInstance().getCompanyName(mCompanyId);
-            mNameEditText.setText(mContact.getName());
-            mCompanyEditText.setText(mCompanyName + "  (" + mCompanyId + ")");
-            mCompanyId = mContact.getCompany_id();
-            mBG_1EditText.setText(PhoneNumUtils.toStarPhoneNumber(mContact.getBgdh_1()));
-            mBG_1EditText.setNumber(mContact.getBgdh_1());
-            mBG_2EditText.setText(PhoneNumUtils.toStarPhoneNumber(mContact.getBgdh_2()));
-            mBG_2EditText.setNumber(mContact.getBgdh_2());
-            mBG_3EditText.setText(PhoneNumUtils.toStarPhoneNumber(mContact.getBgdh_3()));
-            mBG_3EditText.setNumber(mContact.getBgdh_3());
-            mYD_1EditText.setText(PhoneNumUtils.toStarPhoneNumber(mContact.getYddh_1()));
-            mYD_1EditText.setNumber(mContact.getYddh_1());
-            mYD_2EditText.setText(PhoneNumUtils.toStarPhoneNumber(mContact.getYddh_2()));
-            mYD_2EditText.setNumber(mContact.getYddh_2());
-            mYD_3EditText.setText(PhoneNumUtils.toStarPhoneNumber(mContact.getYddh_3()));
-            mYD_3EditText.setNumber(mContact.getYddh_3());
-            mQQEditText.setText(mContact.getQq());
-            mEmail_1EditText.setText(mContact.getEmail_1());
-            mEmail_2EditText.setText(mContact.getEmail_2());
-            mEmail_3EditText.setText(mContact.getEmail_3());
-            mLastEditText.setText(mContact.getLast_edit_time());
+            LogUtil.e("oncreate");
+            setContactContain();
         }
 
         mBtnSave = (Button) findViewById(R.id.btn_save);
@@ -173,6 +221,7 @@ public class ContactEditActivity extends Activity {
                     contact.put("contact_email_3", mEmail_3EditText.getText().toString());
                     contact.put("contact_own_id", mOwnEditText.getText().toString());
                     contact.put("contact_last_edit_time", mLastEditText.getText().toString());
+                    contact.put("contact_type", mContactType);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -190,7 +239,7 @@ public class ContactEditActivity extends Activity {
 
                 } else {
                     try {
-                        contact.put("contact_id", mContact.getId());
+                        contact.put("contact_id", mContactId);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -209,6 +258,64 @@ public class ContactEditActivity extends Activity {
 
                 }
                 finish();
+            }
+        });
+    }
+
+    private void setContactContain() {
+        new Handler(getMainLooper()).post(new Runnable() {
+
+            @Override
+            public void run() {
+                mContactId = mContact.getId();
+                mCompanyId = mContact.getCompany_id();
+                mCompanyName = CompanyModel.getInstance().getCompanyName(mCompanyId);
+                mNameEditText.setText(mContact.getName());
+                mCompanyEditText.setText(mCompanyName + "  (" + mCompanyId + ")");
+                mCompanyId = mContact.getCompany_id();
+
+                mBG_1EditText.setText(PhoneNumUtils.toStarPhoneNumber(mContact.getBgdh_1()));
+                mBG_1EditText.setNumber(mContact.getBgdh_1());
+                mBG_2EditText.setText(PhoneNumUtils.toStarPhoneNumber(mContact.getBgdh_2()));
+                mBG_2EditText.setNumber(mContact.getBgdh_2());
+                mBG_3EditText.setText(PhoneNumUtils.toStarPhoneNumber(mContact.getBgdh_3()));
+                mBG_3EditText.setNumber(mContact.getBgdh_3());
+                mYD_1EditText.setText(PhoneNumUtils.toStarPhoneNumber(mContact.getYddh_1()));
+                mYD_1EditText.setNumber(mContact.getYddh_1());
+                mYD_2EditText.setText(PhoneNumUtils.toStarPhoneNumber(mContact.getYddh_2()));
+                mYD_2EditText.setNumber(mContact.getYddh_2());
+                mYD_3EditText.setText(PhoneNumUtils.toStarPhoneNumber(mContact.getYddh_3()));
+                mYD_3EditText.setNumber(mContact.getYddh_3());
+
+                if (mSaveNumber != null) {
+                    if (TextUtils.isEmpty(mContact.getBgdh_1())) {
+                        mBG_1EditText.setText(PhoneNumUtils.toStarPhoneNumber(mSaveNumber));
+                        mBG_1EditText.setNumber(mSaveNumber);
+                    } else if (TextUtils.isEmpty(mContact.getBgdh_2())) {
+                        mBG_2EditText.setText(PhoneNumUtils.toStarPhoneNumber(mSaveNumber));
+                        mBG_2EditText.setNumber(mSaveNumber);
+                    } else if (TextUtils.isEmpty(mContact.getBgdh_3())) {
+                        mBG_3EditText.setText(PhoneNumUtils.toStarPhoneNumber(mSaveNumber));
+                        mBG_3EditText.setNumber(mSaveNumber);
+                    } else if (TextUtils.isEmpty(mContact.getYddh_1())) {
+                        mYD_1EditText.setText(PhoneNumUtils.toStarPhoneNumber(mSaveNumber));
+                        mYD_1EditText.setNumber(mSaveNumber);
+                    } else if (TextUtils.isEmpty(mContact.getYddh_2())) {
+                        mYD_2EditText.setText(PhoneNumUtils.toStarPhoneNumber(mSaveNumber));
+                        mYD_2EditText.setNumber(mSaveNumber);
+                    } else if (TextUtils.isEmpty(mContact.getYddh_3())) {
+                        mYD_3EditText.setText(PhoneNumUtils.toStarPhoneNumber(mSaveNumber));
+                        mYD_3EditText.setNumber(mSaveNumber);
+                    }
+                }
+
+                mQQEditText.setText(mContact.getQq());
+                mEmail_1EditText.setText(mContact.getEmail_1());
+                mEmail_2EditText.setText(mContact.getEmail_2());
+                mEmail_3EditText.setText(mContact.getEmail_3());
+                mLastEditText.setText(mContact.getLast_edit_time());
+
+                mTypeEditText.setText(mContact.getType().typeName);
             }
         });
     }
