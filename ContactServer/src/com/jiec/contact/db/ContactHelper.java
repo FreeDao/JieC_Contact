@@ -56,6 +56,7 @@ public class ContactHelper {
                 perContact.put("contact_email_3", rs.getString(16));
                 perContact.put("contact_edit_user_id", rs.getString(11));
                 perContact.put("contact_last_edit_time", rs.getString(17));
+                perContact.put("contact_type", rs.getInt(20));
 
                 companyArray.add(perContact);
 
@@ -104,7 +105,7 @@ public class ContactHelper {
          */
 
         String sql = "insert into Lxr_Detail (XM, BGDH1, BGDH2, BGDH3,"
-                + "YDDH1, YDDH2, YDDH3, BH, QQHM, " + "DZYS1, DZYS2, DZYS3, CC, CallPerson) "
+                + "YDDH1, YDDH2, YDDH3, BH, QQHM, " + "DZYS1, DZYS2, DZYS3, CC, CallPerson, Type) "
                 + "values('"
                 + object.getString("contact_name")
                 + "', '"
@@ -131,7 +132,10 @@ public class ContactHelper {
                 + object.getString("contact_email_3")
                 + "', '"
                 + object.getString("contact_own_id")
-                + "', '" + object.getString("contact_last_edit_time") + "');";
+                + "', '"
+                + object.getString("contact_last_edit_time")
+                + "',"
+                + object.getInt("contact_type") + ";";
         SqlHelper sh = new SqlHelper();
 
         if (sh.upExecute(sql)) {
@@ -168,8 +172,9 @@ public class ContactHelper {
                 + object.getString("contact_email_1") + "', DZYS2 = '"
                 + object.getString("contact_email_2") + "', DZYS3 = '"
                 + object.getString("contact_email_3") + "', CallPerson = '"
-                + object.getString("contact_last_edit_time") + "' WHERE ID = "
-                + object.getInt("contact_id") + ";";
+                + object.getString("contact_last_edit_time") + "', Type = "
+                + object.getInt("contact_type") + " WHERE ID = " + object.getInt("contact_id")
+                + ";";
         System.out.println(sql);
         SqlHelper sh = new SqlHelper();
 

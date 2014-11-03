@@ -14,6 +14,8 @@ import com.jiec.contact.model.CompanyModel;
 import com.jiec.contact.model.Contact;
 import com.jiec.contact.model.ContactModel;
 import com.jiec.contact.model.ContactModel.ContactChangeListener;
+import com.jiec.contact.model.ContactType;
+import com.jiec.utils.LogUtil;
 import com.jiec.utils.PhoneNumUtils;
 import com.jiec.utils.PhoneUtils;
 import com.umeng.analytics.MobclickAgent;
@@ -141,7 +143,8 @@ public class ContactDetailActivity extends Activity implements OnClickListener,
         tv_last_time.setText(mContact.getLast_edit_time());
 
         TextView tv_type = (TextView) findViewById(R.id.tv_type);
-        tv_type.setText(mContact.getType().typeName);
+        LogUtil.e("type ===== " + mContact.getType());
+        tv_type.setText(ContactType.getTypeName(mContact.getType()));
 
     }
 

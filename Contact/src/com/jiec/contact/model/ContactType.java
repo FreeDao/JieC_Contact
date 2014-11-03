@@ -20,4 +20,20 @@ public class ContactType {
 
     // 其他
     public static final int sOthers = 5;
+
+    public static String getTypeName(int type) {
+        String name = "客户";
+        if (type == sHarass) {
+            name = "骚扰";
+        } else if (type == sAdv) {
+            name = "广告";
+        } else if (type == sGovernment) {
+            name = "政府";
+        } else if (type == sBank) {
+            name = "银行";
+        } else if (type == sOthers) {
+            name = "其他";
+        }
+        return name;
+    }
 }

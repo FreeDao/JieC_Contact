@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.jiec.contact.model.Contact;
@@ -43,6 +44,8 @@ public class MyRecordActivity extends ListActivity implements OnDataChangeListen
 
     public static final int SAVE_RECORD_ITEM_NUM = 1000;
 
+    private ListView mListView;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +54,8 @@ public class MyRecordActivity extends ListActivity implements OnDataChangeListen
         setListAdapter(mAdapter);
 
         mContext = this;
+
+        mListView = getListView();
 
         getListView().setOnItemLongClickListener(new OnItemLongClickListener() {
 
@@ -77,6 +82,7 @@ public class MyRecordActivity extends ListActivity implements OnDataChangeListen
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
                         if (which == 2) {
                             // 跳转到新建联系人界面
                             Intent intent = new Intent(MyRecordActivity.this,
@@ -85,12 +91,11 @@ public class MyRecordActivity extends ListActivity implements OnDataChangeListen
                                     MyContactActivity.NEW_REQUEST_KEY);
                             intent.putExtra(MyContactActivity.NEW_CONTACT_NUMBER, recordNum);
                             startActivityForResult(intent, SAVE_RECORD_ITEM_NUM);
-                            dialog.dismiss();
+
                             return;
                         }
                         RecordModel.getInstance().updateRecord(which == 0 ? "待办理" : "回复电话",
                                 recordId);
-                        dialog.dismiss();
                     }
                 });
 
@@ -150,6 +155,9 @@ public class MyRecordActivity extends ListActivity implements OnDataChangeListen
             @Override
             public void run() {
                 synchronized (MyRecordActivity.this) {
+
+                    mListView.requestLayout();
+
                     mAdapter.setDatas(RecordModel.getInstance().getRecords());
 
                     mAdapter.notifyDataSetChanged();

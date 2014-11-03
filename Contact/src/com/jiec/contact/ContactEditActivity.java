@@ -25,6 +25,7 @@ import com.jiec.contact.model.CompanyModel;
 import com.jiec.contact.model.Contact;
 import com.jiec.contact.model.ContactModel;
 import com.jiec.contact.model.ContactModel.ContactInsertListener;
+import com.jiec.contact.model.ContactType;
 import com.jiec.contact.model.UserModel;
 import com.jiec.contact.widget.CompanyListDialog;
 import com.jiec.contact.widget.CompanyListDialog.OnCompanyItemClickListener;
@@ -315,7 +316,7 @@ public class ContactEditActivity extends Activity {
                 mEmail_3EditText.setText(mContact.getEmail_3());
                 mLastEditText.setText(mContact.getLast_edit_time());
 
-                mTypeEditText.setText(mContact.getType().typeName);
+                mTypeEditText.setText(ContactType.getTypeName(mContact.getType()));
             }
         });
     }

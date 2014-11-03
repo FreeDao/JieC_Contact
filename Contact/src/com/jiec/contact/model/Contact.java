@@ -43,13 +43,7 @@ public class Contact implements Parcelable {
 
     String last_edit_time = "";
 
-    public class ContactType {
-        public int type = 0;
-
-        public String typeName = "客户";
-    }
-
-    ContactType type = new ContactType();
+    int type = ContactType.sCustomer;
 
     public int getId() {
         return id;
@@ -211,6 +205,7 @@ public class Contact implements Parcelable {
         parcel.writeString(own_user_id);
         parcel.writeString(edit_user_id);
         parcel.writeString(last_edit_time);
+        parcel.writeInt(type);
     }
 
     public static final Parcelable.Creator<Contact> CREATOR = new Creator<Contact>() {
@@ -235,6 +230,7 @@ public class Contact implements Parcelable {
             contact.own_user_id = parcel.readString();
             contact.edit_user_id = parcel.readString();
             contact.last_edit_time = parcel.readString();
+            contact.type = parcel.readInt();
 
             return contact;
         }
@@ -249,11 +245,11 @@ public class Contact implements Parcelable {
     public void setContact(Contact c) {
     }
 
-    public ContactType getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(ContactType type) {
+    public void setType(int type) {
         this.type = type;
     }
 }

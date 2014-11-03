@@ -2,6 +2,7 @@
 package com.jiec.contact.widget;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.os.Handler;
 import android.os.Looper;
@@ -18,6 +19,7 @@ import com.jiec.contact.R;
 import com.jiec.contact.model.CompanyModel;
 import com.jiec.contact.model.Contact;
 import com.jiec.contact.model.ContactModel;
+import com.jiec.contact.model.ContactType;
 import com.jiec.utils.PhoneNumUtils;
 
 public class CorverCallScreen {
@@ -108,11 +110,28 @@ public class CorverCallScreen {
                 TextView company = (TextView) findViewById(R.id.tv_company);
                 company.setText(CompanyModel.getInstance().getCompanyName(contact.getCompany_id())
                         + " (" + contact.getCompany_id() + ")");
+
+                TextView numberTextView = (TextView) findViewById(R.id.tv_number);
+                numberTextView.setText(PhoneNumUtils.toStarPhoneNumber(str));
+
+                TextView typeTextView = (TextView) findViewById(R.id.tv_number_type);
+                if (contact.getType() == ContactType.sCustomer) {
+                    typeTextView.setText("客户电话，放心接听");
+                } else if (contact.getType() == ContactType.sHarass) {
+                    typeTextView.setTextColor(Color.RED);
+                    typeTextView.setText("骚扰电话，请注意，建议挂断");
+                } else if (contact.getType() == ContactType.sAdv) {
+                    typeTextView.setTextColor(Color.RED);
+                    typeTextView.setText("广告电话，建议挂断");
+                } else if (contact.getType() == ContactType.sBank) {
+                    typeTextView.setText("银行电话");
+                } else if (contact.getType() == ContactType.sGovernment) {
+                    typeTextView.setText("政府电话");
+                } else if (contact.getType() == ContactType.sOthers) {
+                    typeTextView.setText("未归类");
+                }
             }
 
-            TextView numberTextView = (TextView) findViewById(R.id.tv_number);
-            numberTextView.setText(PhoneNumUtils.toStarPhoneNumber(str));
         }
-
     }
 }

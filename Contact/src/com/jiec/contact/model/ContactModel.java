@@ -132,8 +132,8 @@ public class ContactModel {
                             contact.edit_user_id = contactObject.getString("contact_edit_user_id");
                             contact.last_edit_time = contactObject
                                     .getString("contact_last_edit_time");
-                            contact.type.type = contactObject.optInt("contact_type_type");
-                            contact.type.typeName = contactObject.optString("contact_type_name");
+                            contact.type = contactObject.optInt("contact_type");
+                            LogUtil.e("request type =====J" + contact.type);
                             company.getContacts().add(contact);
                         }
 
@@ -200,8 +200,7 @@ public class ContactModel {
                     c.edit_user_id = contact.getString("contact_own_id");
                     c.last_edit_time = contact.getString("contact_last_edit_time");
 
-                    c.type.type = contact.optInt("contact_type_type");
-                    c.type.typeName = contact.optString("contact_type_name");
+                    c.type = contact.optInt("contact_type");
 
                     for (int i = 0; i < mContacts.size(); i++) {
                         if (mContacts.get(i).getId()
@@ -289,8 +288,7 @@ public class ContactModel {
                     c.email_3 = object.getString("contact_email_3");
                     c.edit_user_id = object.getString("contact_own_id");
                     c.last_edit_time = object.getString("contact_last_edit_time");
-                    c.type.type = contact.optInt("contact_type_type");
-                    c.type.typeName = contact.optString("contact_type_name");
+                    c.type = contact.optInt("contact_type");
 
                     boolean companyExist = false;
                     for (int i = 0; i < mContacts.size(); i++) {

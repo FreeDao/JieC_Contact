@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
+import com.jiec.utils.LogUtil;
 import com.jiec.utils.ToastUtil;
 
 public class ContactSocket {
@@ -45,7 +46,13 @@ public class ContactSocket {
     }
 
     public ContactSocket() {
-        connect();
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                connect();
+            }
+        }).start();
     }
 
     public void send(final JSONObject object, final RespondListener listener) {
@@ -54,6 +61,8 @@ public class ContactSocket {
             @Override
             public void run() {
                 try {
+                    while (mSocket == null || !mSocket.isConnected()) {
+                    }
                     Log.i("test", object.toString());
                     ObjectOutputStream oos = new ObjectOutputStream(mSocket.getOutputStream());
                     oos.writeObject(object.toString());
@@ -90,6 +99,7 @@ public class ContactSocket {
 
     public void connect() {
         try {
+            LogUtil.e("ip = " + SERVER_IP + ", port = " + SERVER_PORT);
             mSocket = new Socket(SERVER_IP, SERVER_PORT);
 
             if (mSocket.isConnected()) {
