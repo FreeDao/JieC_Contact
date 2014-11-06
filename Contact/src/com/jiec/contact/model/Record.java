@@ -21,6 +21,16 @@ public class Record {
 
     private int type;
 
+    private int system_id;
+
+    public int getSystem_id() {
+        return system_id;
+    }
+
+    public void setSystem_id(int system_id) {
+        this.system_id = system_id;
+    }
+
     public int getType() {
         return type;
     }

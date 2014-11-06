@@ -115,14 +115,8 @@ public class MyRecordActivity extends ListActivity implements OnDataChangeListen
                 Intent intent = new Intent(MyRecordActivity.this, ContactDetailActivity.class);
                 Contact contact = ContactModel.getInstance().getContactByNameOrPhoneNumber(
                         mAdapter.getDatas().get(position).getNum());
-                if (contact == null) {
-                    intent = new Intent(MyRecordActivity.this, ContactEditActivity.class);
-                    intent.putExtra(MyContactActivity.NEW_REQUEST_KEY,
-                            MyContactActivity.NEW_REQUEST_KEY);
-                    intent.putExtra(MyContactActivity.NEW_CONTACT_NUMBER,
-                            mAdapter.getDatas().get(position).getNum());
-                    startActivity(intent);
-                } else {
+                if (contact != null) {
+
                     intent.putExtra("contact", contact);
                     startActivity(intent);
                 }

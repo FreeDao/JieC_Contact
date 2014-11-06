@@ -21,7 +21,7 @@ public class ContactSocket {
         public void onFailed(int cmd, String reason);
     }
 
-    // private static String SERVER_IP = "192.168.0.105";
+    // private static String SERVER_IP = "192.168.0.102";
 
     // private static String SERVER_IP = "192.168.1.138";
 
