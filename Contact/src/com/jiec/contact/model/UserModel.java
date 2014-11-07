@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import com.jiec.contact.MyApplication;
 import com.jiec.contact.socket.ContactSocket;
 import com.jiec.contact.socket.ContactSocket.RespondListener;
+import com.jiec.utils.SIMCardInfo;
 import com.jiec.utils.ToastUtil;
 
 public class UserModel {
@@ -73,8 +74,8 @@ public class UserModel {
     }
 
     public boolean checkPhoneNumber(Context context) {
-        // mPhoneNumber = new SIMCardInfo(context).getNativePhoneNumber();
-        mPhoneNumber = "18565382679";
+        //mPhoneNumber = new SIMCardInfo(context).getNativePhoneNumber();
+         mPhoneNumber = "18565382679";
 
         if (mPhoneNumber == null) {
             mPhoneNumber = "";
