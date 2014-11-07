@@ -39,7 +39,7 @@ public class RecordModel {
 
     private static RecordModel sInstance = null;
 
-    private static List<Record> mRecords;
+    private static ArrayList<Record> mRecords;
 
     private RecordModel() {
         mRecords = new ArrayList<Record>();
@@ -72,7 +72,7 @@ public class RecordModel {
         }
     }
 
-    public List<Record> getRecords() {
+    public ArrayList<Record> getRecords() {
         return mRecords;
     }
 

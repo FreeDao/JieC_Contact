@@ -34,6 +34,8 @@ public class CorverCallScreen {
 
     private static CorverCallScreen sInstance;
 
+    private boolean mIsShow = false;
+
     public static CorverCallScreen getInstance() {
         if (sInstance == null) {
             sInstance = new CorverCallScreen(MyApplication.getContext());
@@ -69,6 +71,9 @@ public class CorverCallScreen {
     }
 
     public void addCorverScreen(final String number) {
+        if (mIsShow)
+            return;
+        mIsShow = true;
         new Handler(Looper.getMainLooper()).post(new Runnable() {
 
             @Override
@@ -81,12 +86,14 @@ public class CorverCallScreen {
     }
 
     public void removeCorverScreen() {
+
         new Handler(Looper.getMainLooper()).post(new Runnable() {
 
             @Override
             public void run() {
                 if (mCorverScreen != null) {
                     mWindowManager.removeView(mCorverScreen);
+                    mIsShow = false;
                 }
             }
         });

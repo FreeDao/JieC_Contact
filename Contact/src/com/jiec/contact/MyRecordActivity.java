@@ -1,6 +1,7 @@
 
 package com.jiec.contact;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.AlertDialog;
@@ -150,11 +151,8 @@ public class MyRecordActivity extends ListActivity implements OnDataChangeListen
             public void run() {
                 synchronized (MyRecordActivity.this) {
 
-                    mListView.requestLayout();
-
                     mAdapter.setDatas(RecordModel.getInstance().getRecords());
 
-                    mAdapter.notifyDataSetChanged();
                 }
             }
         });
@@ -168,8 +166,9 @@ public class MyRecordActivity extends ListActivity implements OnDataChangeListen
             mRecords = RecordModel.getInstance().getRecords();
         }
 
-        public void setDatas(List<Record> records) {
-            mRecords = records;
+        public void setDatas(ArrayList<Record> records) {
+            mRecords = (List<Record>) records.clone();
+            notifyDataSetChanged();
         }
 
         public List<Record> getDatas() {
