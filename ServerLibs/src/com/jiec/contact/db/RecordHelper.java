@@ -37,7 +37,7 @@ public class RecordHelper {
                 o.put("state", rs.getInt(7));
                 o.put("msg", rs.getString(9));
                 o.put("type", rs.getInt(10));
-                o.put("system_id", rs.getInt(11));
+                o.put("system_id", rs.getString(11));
 
                 jsonArray.add(o);
             }
@@ -73,8 +73,8 @@ public class RecordHelper {
                     + object.getString("msg")
                     + "', "
                     + object.getInt("type")
-                    + ", "
-                    + object.getInt("system_id") + ");";
+                    + ", '"
+                    + object.getString("system_id") + "');";
             LogUtil.d(sql);
             SqlHelper sh = new SqlHelper();
             result = result & sh.upExecute(sql);

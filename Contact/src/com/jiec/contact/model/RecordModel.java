@@ -117,7 +117,7 @@ public class RecordModel {
                         record.setState(array.getJSONObject(i).getInt("state"));
                         record.setMsg(array.getJSONObject(i).getString("msg"));
                         record.setType(array.getJSONObject(i).getInt("type"));
-                        record.setSystem_id(array.getJSONObject(i).getInt("system_id"));
+                        record.setSystem_id(array.getJSONObject(i).optString("system_id"));
                         mRecords.add(record);
                     }
                 } catch (Exception e) {
@@ -273,9 +273,9 @@ public class RecordModel {
         });
     }
 
-    private boolean isRecordExist(int systemId) {
+    private boolean isRecordExist(String systemId) {
         for (int i = 0; i < mRecords.size(); i++) {
-            if (mRecords.get(i).getSystem_id() == systemId) {
+            if (mRecords.get(i).getSystem_id().equals(systemId)) {
                 return true;
             }
         }

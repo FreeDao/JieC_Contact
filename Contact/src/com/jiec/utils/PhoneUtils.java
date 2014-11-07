@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -113,6 +114,7 @@ public class PhoneUtils {
 
                     int typeId = cur.getInt(typeColumn);
                     record.setState(typeId);
+                    record.setSystem_id(UUID.randomUUID().toString());
                     records.add(record);
 
                 } while (cur.moveToNext());

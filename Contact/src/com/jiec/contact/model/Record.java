@@ -21,13 +21,13 @@ public class Record {
 
     private int type;
 
-    private int system_id;
+    private String system_id;
 
-    public int getSystem_id() {
+    public String getSystem_id() {
         return system_id;
     }
 
-    public void setSystem_id(int system_id) {
+    public void setSystem_id(String system_id) {
         this.system_id = system_id;
     }
 
