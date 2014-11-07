@@ -16,8 +16,8 @@ public class RecordHelper {
         SqlHelper sh = new SqlHelper();
         SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String date = sDateFormat.format(new java.util.Date());
-        String sql = "SELECT * FROM contact_record WHERE record_owner = '" + owner
-                + "' and record_date = '" + date + "' ORDER BY record_time DESC;";
+        String sql = "SELECT * FROM Link_Email WHERE Czz = '" + owner + "' and DownTime = '" + date
+                + "' ORDER BY SendTime DESC;";
         ResultSet rs = sh.queryExecute(sql);
 
         if (rs == null) {
@@ -29,15 +29,15 @@ public class RecordHelper {
             while (rs.next()) {
                 JSONObject o = new JSONObject();
                 o.put("id", rs.getInt(1));
-                o.put("name", rs.getString(2));
-                o.put("num", rs.getString(3));
-                o.put("date", rs.getString(4));
-                o.put("time", rs.getString(5));
-                o.put("info", rs.getString(6));
-                o.put("state", rs.getInt(7));
-                o.put("msg", rs.getString(9));
-                o.put("type", rs.getInt(10));
-                o.put("system_id", rs.getString(11));
+                o.put("name", myTrim(rs.getString(2)));
+                o.put("num", myTrim(rs.getString(3)));
+                o.put("date", myTrim(rs.getString(7)));
+                o.put("time", myTrim(rs.getString(8)));
+                o.put("info", myTrim(rs.getString(16)));
+                o.put("state", myTrim(rs.getString(11)).equals("Y") ? 1 : 0);
+                o.put("msg", myTrim(rs.getString(5)));
+                o.put("type", myTrim(rs.getString(15)).equals("S") ? 1 : 0);
+                o.put("system_id", myTrim(rs.getString(19)));
 
                 jsonArray.add(o);
             }
@@ -51,13 +51,23 @@ public class RecordHelper {
         return object;
     }
 
+    private static String myTrim(String str) {
+        if (str == null) {
+            return "";
+        } else {
+            return str.trim();
+        }
+    }
+
     public static boolean insertRecord(JSONObject object) {
         boolean result = true;
         JSONArray recordsArray = object.getJSONArray("records");
         for (int i = 0; i < recordsArray.size(); i++) {
             object = recordsArray.getJSONObject(i);
 
-            String sql = "INSERT INTO contact_record (record_name, record_num, record_date, record_time, record_state, record_owner, record_msg, record_type, record_system_id) values('"
+            String stateStr = object.getInt("state") == 1 ? "Y" : "N";
+            String typeStr = object.getInt("type") == 1 ? "S" : "P";
+            String sql = "INSERT INTO Link_Email (FromNum, ToNum, DownTime, SendTime, IsSelfRead, Czz, Msg, Type, EndTime) values('"
                     + object.getString("name")
                     + "', '"
                     + object.getString("num")
@@ -65,15 +75,15 @@ public class RecordHelper {
                     + object.getString("date")
                     + "', '"
                     + object.getString("time")
-                    + "', "
-                    + object.getInt("state")
-                    + ", '"
+                    + "', '"
+                    + stateStr
+                    + "', '"
                     + object.getString("owner")
                     + "', '"
                     + object.getString("msg")
-                    + "', "
-                    + object.getInt("type")
-                    + ", '"
+                    + "', '"
+                    + typeStr
+                    + "', '"
                     + object.getString("system_id") + "');";
             LogUtil.d(sql);
             SqlHelper sh = new SqlHelper();
@@ -85,8 +95,8 @@ public class RecordHelper {
     }
 
     public static boolean updateRecord(JSONObject object) {
-        String sql = "UPDATE contact_record SET record_info='" + object.getString("info")
-                + "' WHERE record_id=" + object.getInt("id") + ";";
+        String sql = "UPDATE Link_Email SET CallPerson='" + object.getString("info")
+                + "' WHERE ID=" + object.getInt("id") + ";";
         LogUtil.d(sql);
         SqlHelper sh = new SqlHelper();
         return sh.upExecute(sql);
