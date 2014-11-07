@@ -88,7 +88,7 @@ public class MainActivity extends TabActivity {
         if (event.getKeyCode() == KeyEvent.KEYCODE_BACK
                 && event.getAction() == KeyEvent.ACTION_DOWN) {
 
-            return true;
+            return false;
         }
         return super.dispatchKeyEvent(event);
     }
@@ -118,8 +118,12 @@ public class MainActivity extends TabActivity {
     }
 
     private void loginUser() {
+        if (UserModel.getInstance().isCheckingPhoneNumber()) {
+            ToastUtil.showMsg("手机验证中，请等待验证完成");
+            return;
+        }
         if (!UserModel.getInstance().isPhoneLogined()) {
-            ToastUtil.showMsg("手机号码无效");
+            ToastUtil.showMsg("手机验证无效");
             return;
         }
 

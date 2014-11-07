@@ -178,7 +178,7 @@ public class ContactEditActivity extends Activity {
 
         if (flag != null && flag.equals(MyContactActivity.NEW_REQUEST_KEY)) {
             mIsNewContact = true;
-            SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat sDateFormat = new SimpleDateFormat("yyMMdd HH:mm");
             String date = sDateFormat.format(new java.util.Date());
             mLastEditText.setText(date);
 

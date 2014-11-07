@@ -19,7 +19,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.jiec.contact.model.Contact;
@@ -29,6 +28,7 @@ import com.jiec.contact.model.RecordModel;
 import com.jiec.contact.model.RecordModel.OnDataChangeListener;
 import com.jiec.contact.model.UserModel;
 import com.jiec.utils.PhoneNumUtils;
+import com.jiec.utils.PhoneUtils;
 import com.umeng.analytics.MobclickAgent;
 
 /**
@@ -45,8 +45,6 @@ public class MyRecordActivity extends ListActivity implements OnDataChangeListen
 
     public static final int SAVE_RECORD_ITEM_NUM = 1000;
 
-    private ListView mListView;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,8 +53,6 @@ public class MyRecordActivity extends ListActivity implements OnDataChangeListen
         setListAdapter(mAdapter);
 
         mContext = this;
-
-        mListView = getListView();
 
         getListView().setOnItemLongClickListener(new OnItemLongClickListener() {
 
@@ -70,12 +66,12 @@ public class MyRecordActivity extends ListActivity implements OnDataChangeListen
                 builder.setTitle("备注");
                 builder.setIcon(android.R.drawable.ic_dialog_info);
                 String[] itemStrings = new String[] {
-                        "待办理", "回复电话"
+                        "待办理", "回复电话", "回复短信"
                 };
 
                 if (mAdapter.getDatas().get(position).getName().length() < 1) {
                     itemStrings = new String[] {
-                            "待办理", "回复电话", "保存联系人"
+                            "待办理", "回复电话", "回复短信", "保存联系人"
                     };
                 }
 
@@ -84,7 +80,7 @@ public class MyRecordActivity extends ListActivity implements OnDataChangeListen
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        if (which == 2) {
+                        if (which == 3) {
                             // 跳转到新建联系人界面
                             Intent intent = new Intent(MyRecordActivity.this,
                                     ContactEditActivity.class);
@@ -94,14 +90,19 @@ public class MyRecordActivity extends ListActivity implements OnDataChangeListen
                             startActivityForResult(intent, SAVE_RECORD_ITEM_NUM);
 
                             return;
+                        } else if (which == 0) {
+                            RecordModel.getInstance().updateRecord("待办理", recordId);
+                        } else if (which == 1) {
+                            PhoneUtils.callPhone(MyRecordActivity.this, recordNum);
+                        } else if (which == 2) {
+                            PhoneUtils.sendSMS(MyRecordActivity.this, recordNum);
                         }
-                        RecordModel.getInstance().updateRecord(which == 0 ? "待办理" : "回复电话",
-                                recordId);
+
                     }
                 });
 
                 builder.setNegativeButton("取消", null).show();
-                return false;
+                return true;
             }
         });
 
@@ -116,7 +117,14 @@ public class MyRecordActivity extends ListActivity implements OnDataChangeListen
                 Intent intent = new Intent(MyRecordActivity.this, ContactDetailActivity.class);
                 Contact contact = ContactModel.getInstance().getContactByNameOrPhoneNumber(
                         mAdapter.getDatas().get(position).getNum());
-                if (contact != null) {
+                if (contact == null) {
+                    intent = new Intent(MyRecordActivity.this, ContactEditActivity.class);
+                    intent.putExtra(MyContactActivity.NEW_REQUEST_KEY,
+                            MyContactActivity.NEW_REQUEST_KEY);
+                    intent.putExtra(MyContactActivity.NEW_CONTACT_NUMBER,
+                            mAdapter.getDatas().get(position).getNum());
+                    startActivity(intent);
+                } else if (contact != null) {
 
                     intent.putExtra("contact", contact);
                     startActivity(intent);

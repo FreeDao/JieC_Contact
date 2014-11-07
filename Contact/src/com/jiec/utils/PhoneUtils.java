@@ -85,6 +85,7 @@ public class PhoneUtils {
             Cursor cur = cr.query(uri, projection, null, null, "date desc");
 
             if (cur.moveToFirst()) {
+                int id = cur.getColumnIndex("_id");
 
                 int nameColumn = cur.getColumnIndex("person");
                 int phoneNumberColumn = cur.getColumnIndex("address");
@@ -114,7 +115,7 @@ public class PhoneUtils {
 
                     int typeId = cur.getInt(typeColumn);
                     record.setState(typeId);
-                    record.setSystem_id(UUID.randomUUID().toString());
+                    record.setSystem_id(cur.getInt(id) + "");
                     records.add(record);
 
                 } while (cur.moveToNext());
@@ -168,6 +169,7 @@ public class PhoneUtils {
                     .getColumnIndex(CallLog.Calls.NUMBER))));
 
             record.setName(ContactModel.getInstance().getNameByPhoneNum(record.getNum()));
+            record.setSystem_id(UUID.randomUUID().toString());
 
             records.add(record);
         } while (cursor.moveToNext());

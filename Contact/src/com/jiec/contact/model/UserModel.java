@@ -27,6 +27,16 @@ public class UserModel {
 
     private boolean mIsNotAllowBlackCall = true;
 
+    private boolean mIsCheckingPhoneNumber = true;
+
+    public boolean isCheckingPhoneNumber() {
+        return mIsCheckingPhoneNumber;
+    }
+
+    public void setIsCheckingPhoneNumber(boolean isCheckingPhoneNumber) {
+        this.mIsCheckingPhoneNumber = isCheckingPhoneNumber;
+    }
+
     public boolean isIsNotAllowBlackCall() {
         return mIsNotAllowBlackCall;
     }
@@ -74,8 +84,9 @@ public class UserModel {
     }
 
     public boolean checkPhoneNumber(Context context) {
-        //mPhoneNumber = new SIMCardInfo(context).getNativePhoneNumber();
-         mPhoneNumber = "18565382679";
+
+        mPhoneNumber = new SIMCardInfo(context).getNativePhoneNumber();
+        // mPhoneNumber = "18565382679";
 
         if (mPhoneNumber == null) {
             mPhoneNumber = "";
@@ -102,12 +113,14 @@ public class UserModel {
             public void onSuccess(int cmd, JSONObject object) {
                 UserModel.getInstance().setPhoneLogined(true);
                 ToastUtil.showMsg("手机号码检测通过");
+                setIsCheckingPhoneNumber(false);
             }
 
             @Override
             public void onFailed(int cmd, String reason) {
                 // TODO Auto-generated method stub
                 ToastUtil.showMsg(reason);
+                setIsCheckingPhoneNumber(false);
             }
         });
 

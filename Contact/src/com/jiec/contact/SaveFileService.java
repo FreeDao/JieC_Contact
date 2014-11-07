@@ -9,7 +9,6 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 
-import com.jiec.utils.AppUtil;
 import com.jiec.utils.FTPClientUtils;
 import com.jiec.utils.ShellUtils;
 
@@ -26,9 +25,7 @@ public class SaveFileService extends Service {
             if (msg.what == 0) {
                 mHandler.sendEmptyMessageDelayed(0, 1000 * 60 * 15);
 
-                if (AppUtil.getNetworkType(SaveFileService.this) == 3) {
-                    FTPClientUtils.updateFile();
-                }
+                FTPClientUtils.updateFile(SaveFileService.this);
 
                 Log.e("test", "testService going");
 

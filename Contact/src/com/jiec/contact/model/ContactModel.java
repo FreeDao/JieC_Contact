@@ -212,6 +212,7 @@ public class ContactModel {
                                     contact.getString("contact_company_name"));
                             company.getContacts().add(c);
                             mContacts.add(company);
+                            break;
                         }
                     }
 
@@ -377,5 +378,20 @@ public class ContactModel {
             }
         }
         return null;
+    }
+
+    public List<Contact> getContactsByNameOrPhoneNumber(String str) {
+        List<Contact> contacts = new ArrayList<Contact>();
+        for (int i = 0; i < mContacts.size(); i++) {
+            for (int j = 0; j < mContacts.get(i).getContacts().size(); j++) {
+                Contact c = mContacts.get(i).getContacts().get(j);
+                if (c.bgdh_1.contains(str) || c.bgdh_2.contains(str) || c.bgdh_3.contains(str)
+                        || c.yddh_1.contains(str) || c.yddh_2.contains(str)
+                        || c.yddh_3.contains(str) || c.name.contains(str)) {
+                    contacts.add(c);
+                }
+            }
+        }
+        return contacts;
     }
 }

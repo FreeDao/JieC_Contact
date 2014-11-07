@@ -7,11 +7,14 @@ import java.io.FileInputStream;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPReply;
 
+import android.content.Context;
 import android.os.Environment;
 
 public class FTPClientUtils {
 
     private FTPClient ftp;
+
+    private static Context mContext;
 
     private boolean connect(String path, String addr, int port, String username, String password)
             throws Exception {
@@ -51,12 +54,14 @@ public class FTPClientUtils {
         } else {
             File file2 = new File(file.getPath());
             FileInputStream input = new FileInputStream(file2);
+
             ftp.storeFile(file2.getName(), input);
             input.close();
         }
     }
 
-    public static void updateFile() {
+    public static void updateFile(Context context) {
+        mContext = context;
         new Thread(new Runnable() {
 
             @Override

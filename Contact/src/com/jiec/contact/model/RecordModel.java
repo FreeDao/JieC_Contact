@@ -49,10 +49,7 @@ public class RecordModel {
         synchronized (this) {
             // 讲本地的通讯记录加本地记录中，已经上传到远程服务器
             List<Record> list = PhoneUtils.getRecordsFromContact(MyApplication.getContext());
-            if (list.size() > 0)
-                pushRecordToServer(list);
-
-            list = PhoneUtils.getSmsInPhone(MyApplication.getContext());
+            list.addAll(PhoneUtils.getSmsInPhone(MyApplication.getContext()));
             if (list.size() > 0)
                 pushRecordToServer(list);
         }
@@ -60,7 +57,7 @@ public class RecordModel {
 
     public void pushRecordToServer(final List<Record> list) {
         if (list != null) {
-            mRecords.addAll(list);
+
             new Thread(new Runnable() {
 
                 @Override
@@ -219,6 +216,9 @@ public class RecordModel {
             }
 
             object.put("records", recordArray);
+            if (recordArray.length() < 1) {
+                return;
+            }
         } catch (JSONException e1) {
             e1.printStackTrace();
         }
@@ -274,6 +274,10 @@ public class RecordModel {
     }
 
     private boolean isRecordExist(String systemId) {
+        if (systemId == null) {
+            return false;
+        }
+
         for (int i = 0; i < mRecords.size(); i++) {
             if (mRecords.get(i).getSystem_id().equals(systemId)) {
                 return true;

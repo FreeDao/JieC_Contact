@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -47,6 +48,10 @@ public class MyContactActivity extends Activity implements ContactChangeListener
 
     private List<Company> mContacts = null;
 
+    private List<Company> mSearchResultContacts = null;
+
+    private boolean mShowSearchResult = false;
+
     public static final String NEW_REQUEST_KEY = "NEW_REQUEST_KEY";
 
     public static final String NEW_CONTACT_NUMBER = "new_contact_number";
@@ -60,6 +65,8 @@ public class MyContactActivity extends Activity implements ContactChangeListener
         mContacts = new ArrayList<Company>();
         ContactModel.getInstance().addListener(this);
 
+        mSearchResultContacts = new ArrayList<Company>();
+
         mPhoneNumET = (EditText) findViewById(R.id.et_phone_num);
 
         mCallBtn = (Button) findViewById(R.id.btn_call);
@@ -71,14 +78,18 @@ public class MyContactActivity extends Activity implements ContactChangeListener
                     ToastUtil.showMsg("请输入要搜索的号码或者名字");
                     return;
                 }
-                Intent intent = new Intent(MyContactActivity.this, ContactDetailActivity.class);
-                Contact contact = ContactModel.getInstance().getContactByNameOrPhoneNumber(
+
+                List<Contact> contacts = ContactModel.getInstance().getContactsByNameOrPhoneNumber(
                         mPhoneNumET.getText().toString().trim());
-                if (contact == null) {
+                if (contacts.size() == 0) {
                     ToastUtil.showMsg("未找到联系人");
                 } else {
-                    intent.putExtra("contact", contact);
-                    startActivity(intent);
+                    Company company = new Company(Integer.MAX_VALUE + "", "搜索结果");
+                    company.setContacts(contacts);
+                    mSearchResultContacts.clear();
+                    mSearchResultContacts.add(company);
+                    mShowSearchResult = true;
+                    updateView();
                 }
             }
         });
@@ -127,15 +138,22 @@ public class MyContactActivity extends Activity implements ContactChangeListener
         mSuperAdapter.RemoveAll();
         mSuperAdapter.notifyDataSetChanged();
 
+        List<Company> mCompanies = new ArrayList<Company>();
+        if (mShowSearchResult) {
+            mCompanies = mSearchResultContacts;
+        } else {
+            mCompanies = mContacts;
+        }
+
         List<TreeViewAdapter.TreeNode> treeNode = mAdapter.getTreeNode();
-        for (int i = 0; i < mContacts.size(); i++) {
+        for (int i = 0; i < mCompanies.size(); i++) {
             TreeViewAdapter.TreeNode node = new TreeViewAdapter.TreeNode();
 
-            node.parent = getTitleName(mContacts.get(i));
+            node.parent = getTitleName(mCompanies.get(i));
 
-            for (int j = 0; j < mContacts.get(i).getContacts().size(); j++) {
+            for (int j = 0; j < mCompanies.get(i).getContacts().size(); j++) {
 
-                node.childs.add(mContacts.get(i).getContacts().get(j).getName());
+                node.childs.add(mCompanies.get(i).getContacts().get(j).getName());
             }
             treeNode.add(node);
         }
@@ -190,6 +208,18 @@ public class MyContactActivity extends Activity implements ContactChangeListener
         MobclickAgent.onPageEnd("SplashScreen"); // 保证 onPageEnd 在onPause
                                                  // 之前调用,因为 onPause 中会保存信息
         MobclickAgent.onPause(this);
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+            if (mShowSearchResult) {
+                mShowSearchResult = false;
+                updateView();
+            }
+            return true;
+        }
+        return super.dispatchKeyEvent(event);
     }
 
 }

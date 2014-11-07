@@ -137,6 +137,9 @@ public class CorverCallScreen {
                 } else if (contact.getType() == ContactType.sOthers) {
                     typeTextView.setText("未归类");
                 }
+            } else {
+                TextView numberTextView = (TextView) findViewById(R.id.tv_number);
+                numberTextView.setText(PhoneNumUtils.toStarPhoneNumber(str));
             }
 
         }
