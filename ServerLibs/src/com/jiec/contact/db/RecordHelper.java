@@ -37,6 +37,7 @@ public class RecordHelper {
                 o.put("state", rs.getInt(7));
                 o.put("msg", rs.getString(9));
                 o.put("type", rs.getInt(10));
+                o.put("system_id", rs.getInt(11));
 
                 jsonArray.add(o);
             }
@@ -56,7 +57,7 @@ public class RecordHelper {
         for (int i = 0; i < recordsArray.size(); i++) {
             object = recordsArray.getJSONObject(i);
 
-            String sql = "INSERT INTO contact_record (record_name, record_num, record_date, record_time, record_state, record_owner, record_msg, record_type) values('"
+            String sql = "INSERT INTO contact_record (record_name, record_num, record_date, record_time, record_state, record_owner, record_msg, record_type, record_system_id) values('"
                     + object.getString("name")
                     + "', '"
                     + object.getString("num")
@@ -69,7 +70,11 @@ public class RecordHelper {
                     + ", '"
                     + object.getString("owner")
                     + "', '"
-                    + object.getString("msg") + "', " + object.getInt("type") + ");";
+                    + object.getString("msg")
+                    + "', "
+                    + object.getInt("type")
+                    + ", "
+                    + object.getInt("system_id") + ");";
             LogUtil.d(sql);
             SqlHelper sh = new SqlHelper();
             result = result & sh.upExecute(sql);

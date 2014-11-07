@@ -39,7 +39,7 @@ public class RecordModel {
 
     private static RecordModel sInstance = null;
 
-    private static List<Record> mRecords;
+    private static ArrayList<Record> mRecords;
 
     private RecordModel() {
         mRecords = new ArrayList<Record>();
@@ -72,7 +72,7 @@ public class RecordModel {
         }
     }
 
-    public List<Record> getRecords() {
+    public ArrayList<Record> getRecords() {
         return mRecords;
     }
 
@@ -117,6 +117,7 @@ public class RecordModel {
                         record.setState(array.getJSONObject(i).getInt("state"));
                         record.setMsg(array.getJSONObject(i).getString("msg"));
                         record.setType(array.getJSONObject(i).getInt("type"));
+                        record.setSystem_id(array.getJSONObject(i).getInt("system_id"));
                         mRecords.add(record);
                     }
                 } catch (Exception e) {
@@ -201,6 +202,9 @@ public class RecordModel {
             object.put("id", UserModel.getInstance().getUserId());
             JSONArray recordArray = new JSONArray();
             for (int i = 0; i < records.size(); i++) {
+                if (isRecordExist(records.get(i).getSystem_id()) && records.get(i).getType() == 1) {
+                    continue;
+                }
                 JSONObject recordJsonObject = new JSONObject();
                 recordJsonObject.put("name", records.get(i).getName());
                 recordJsonObject.put("num", records.get(i).getNum());
@@ -210,6 +214,7 @@ public class RecordModel {
                 recordJsonObject.put("owner", UserModel.getInstance().getUserId());
                 recordJsonObject.put("msg", records.get(i).getMsg());
                 recordJsonObject.put("type", records.get(i).getType());
+                recordJsonObject.put("system_id", records.get(i).getSystem_id());
                 recordArray.put(recordJsonObject);
             }
 
@@ -266,6 +271,15 @@ public class RecordModel {
                 }
             }
         });
+    }
+
+    private boolean isRecordExist(int systemId) {
+        for (int i = 0; i < mRecords.size(); i++) {
+            if (mRecords.get(i).getSystem_id() == systemId) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
