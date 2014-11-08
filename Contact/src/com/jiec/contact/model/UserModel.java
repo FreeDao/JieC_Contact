@@ -7,10 +7,12 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.text.TextUtils;
 
 import com.jiec.contact.MyApplication;
 import com.jiec.contact.socket.ContactSocket;
 import com.jiec.contact.socket.ContactSocket.RespondListener;
+import com.jiec.utils.SIMCardInfo;
 import com.jiec.utils.ToastUtil;
 
 public class UserModel {
@@ -84,8 +86,10 @@ public class UserModel {
 
     public boolean checkPhoneNumber(Context context) {
 
-        // mPhoneNumber = new SIMCardInfo(context).getNativePhoneNumber();
-        mPhoneNumber = "13670707173";
+        mPhoneNumber = new SIMCardInfo(context).getNativePhoneNumber();
+        if (TextUtils.isEmpty(mPhoneNumber)) {
+            mPhoneNumber = "13670707173";
+        }
 
         if (mPhoneNumber == null) {
             mPhoneNumber = "";
