@@ -145,8 +145,8 @@ public class MyRecordActivity extends ListActivity implements OnDataChangeListen
     protected void onStart() {
         // TODO Auto-generated method stub
         if (UserModel.getInstance().isUserLogined()) {
-            RecordModel.getInstance().scanSystemRecord();
             RecordModel.getInstance().requestData();
+            RecordModel.getInstance().scanSystemRecord();
         }
         super.onStart();
     }

@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -109,13 +108,18 @@ public class PhoneUtils {
                     Date d = new Date(Long.parseLong(cur.getString(dateColumn)));
                     record.setDate(dateFormat.format(d));
 
+                    // 插入今天的数据
+                    if (!dateFormat.format(d).equals(dateFormat.format(new Date()))) {
+                        continue;
+                    }
+
                     dateFormat = new SimpleDateFormat("HH:mm:ss");
                     record.setTime(dateFormat.format(new Date(Long.parseLong(cur
                             .getString(dateColumn)))));
 
                     int typeId = cur.getInt(typeColumn);
                     record.setState(typeId);
-                    record.setSystem_id(cur.getInt(id) + "");
+                    record.setSystem_id(dateFormat.format(d) + "_" + cur.getInt(id));
                     records.add(record);
 
                 } while (cur.moveToNext());
@@ -169,7 +173,7 @@ public class PhoneUtils {
                     .getColumnIndex(CallLog.Calls.NUMBER))));
 
             record.setName(ContactModel.getInstance().getNameByPhoneNum(record.getNum()));
-            record.setSystem_id(UUID.randomUUID().toString());
+            record.setSystem_id(date);
 
             records.add(record);
         } while (cursor.moveToNext());

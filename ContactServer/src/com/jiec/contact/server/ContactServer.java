@@ -25,8 +25,8 @@ public class ContactServer {
         ServerSocket ss = null;
         Socket socket = null;
         try {
-            System.out.println("server start at port 9090");
-            ss = new ServerSocket(9090);
+            System.out.println("server start at port 9999");
+            ss = new ServerSocket(9999);
 
             while (true) {
                 socket = ss.accept();
