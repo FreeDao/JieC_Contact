@@ -119,7 +119,7 @@ public class PhoneUtils {
 
                     int typeId = cur.getInt(typeColumn);
                     record.setState(typeId);
-                    record.setSystem_id(dateFormat.format(d) + "_" + cur.getInt(id));
+                    record.setSystem_id(record.getDate() + "_" + cur.getInt(id));
                     records.add(record);
 
                 } while (cur.moveToNext());
