@@ -16,7 +16,7 @@ public class RecordHelper {
         SqlHelper sh = new SqlHelper();
         SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String date = sDateFormat.format(new java.util.Date());
-        String sql = "SELECT * FROM Link_Email WHERE Czz = '" + owner + "' and DownTime = '" + date
+        String sql = "SELECT * FROM Link_Email WHERE Czz = '" + owner + "' and Date = '" + date
                 + "' ORDER BY SendTime DESC;";
         ResultSet rs = sh.queryExecute(sql);
 
@@ -29,15 +29,15 @@ public class RecordHelper {
             while (rs.next()) {
                 JSONObject o = new JSONObject();
                 o.put("id", rs.getInt(1));
-                o.put("name", myTrim(rs.getString(2)));
-                o.put("num", myTrim(rs.getString(3)));
-                o.put("date", myTrim(rs.getString(7)));
+                o.put("name", myTrim(rs.getString(9)));
+                o.put("num", myTrim(rs.getString(2) == null ? rs.getString(3) : rs.getString(2)));
+                o.put("date", myTrim(rs.getString(20)));
                 o.put("time", myTrim(rs.getString(8)));
-                o.put("info", myTrim(rs.getString(16)));
+                o.put("info", myTrim(rs.getString(22)));
                 o.put("state", myTrim(rs.getString(11)).equals("Y") ? 1 : 0);
                 o.put("msg", myTrim(rs.getString(5)));
                 o.put("type", myTrim(rs.getString(15)).equals("S") ? 1 : 0);
-                o.put("system_id", myTrim(rs.getString(19)));
+                o.put("system_id", myTrim(rs.getString(21)));
 
                 jsonArray.add(o);
             }
@@ -67,7 +67,7 @@ public class RecordHelper {
 
             String stateStr = object.getInt("state") == 1 ? "Y" : "N";
             String typeStr = object.getInt("type") == 1 ? "S" : "P";
-            String sql = "INSERT INTO Link_Email (FromNum, ToNum, DownTime, SendTime, IsSelfRead, Czz, Msg, Type, EndTime) values('"
+            String sql = "INSERT INTO Link_Email (Czz, FromNum, Date, SendTime, IsSelfRead, Msg, Type, SystemId) values('"
                     + object.getString("name")
                     + "', '"
                     + object.getString("num")
@@ -77,8 +77,6 @@ public class RecordHelper {
                     + object.getString("time")
                     + "', '"
                     + stateStr
-                    + "', '"
-                    + object.getString("owner")
                     + "', '"
                     + object.getString("msg")
                     + "', '"
@@ -95,8 +93,8 @@ public class RecordHelper {
     }
 
     public static boolean updateRecord(JSONObject object) {
-        String sql = "UPDATE Link_Email SET CallPerson='" + object.getString("info")
-                + "' WHERE ID=" + object.getInt("id") + ";";
+        String sql = "UPDATE Link_Email SET Info='" + object.getString("info") + "' WHERE ID="
+                + object.getInt("id") + ";";
         LogUtil.d(sql);
         SqlHelper sh = new SqlHelper();
         return sh.upExecute(sql);
