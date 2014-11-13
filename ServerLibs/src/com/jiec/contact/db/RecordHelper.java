@@ -68,7 +68,7 @@ public class RecordHelper {
             String stateStr = object.getInt("state") == 1 ? "Y" : "N";
             String typeStr = object.getInt("type") == 1 ? "S" : "P";
             String sql = "INSERT INTO Link_Email (Czz, FromNum, Date, SendTime, IsSelfRead, Msg, Type, SystemId) values('"
-                    + object.getString("name")
+                    + object.getString("owner")
                     + "', '"
                     + object.getString("num")
                     + "', '"
