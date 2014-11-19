@@ -100,8 +100,7 @@ public class ContactServer {
                     replyObject.put("result", 1);
                     replyObject.put("data", CompanyHelper.getCompanies());
                 } else if (cmd == Protocal.CMD_INSERT_NEW_COMPANY) {
-                    replyObject = CompanyHelper.insertCompany(requestObject
-                            .getString("company_name"));
+                    replyObject = CompanyHelper.insertCompany(requestObject);
                     replyObject.put("seq", requestObject.getInt("seq"));
                 } else if (cmd == Protocal.CMD_INSERT_NEW_CONTACT) {
                     ContactHelper

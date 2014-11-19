@@ -1,6 +1,7 @@
 
 package com.jiec.contact.model;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -139,11 +140,15 @@ public class CompanyModel {
     }
 
     public void insertCompany(String name, final OnInsertDataResult listener) {
-        String str = "{seq:" + (ContactSocket.getSeq()) + ",cmd:" + Protocal.CMD_INSERT_NEW_COMPANY
-                + ",company_name:" + "\"" + name + "\"" + "}";
-        JSONObject object = null;
+        JSONObject object = new JSONObject();
         try {
-            object = new JSONObject(str);
+            object.put("seq", ContactSocket.getSeq());
+            object.put("cmd", Protocal.CMD_INSERT_NEW_COMPANY);
+            object.put("company_name", name);
+            object.put("creator", UserModel.getInstance().getUserId());
+            SimpleDateFormat sDateFormat = new SimpleDateFormat("yy-MM-dd HH:mm:ss");
+            String date = sDateFormat.format(new java.util.Date());
+            object.put("createTime", date);
         } catch (JSONException e) {
             e.printStackTrace();
         }

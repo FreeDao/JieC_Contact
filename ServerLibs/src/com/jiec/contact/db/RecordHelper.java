@@ -68,8 +68,10 @@ public class RecordHelper {
             String stateStr = object.getInt("state") == 1 ? "Y" : "N";
             String typeStr = object.getInt("type") == 1 ? "S" : "P";
             String subjectStr = object.getInt("type") == 1 ? "短信" : "电话";
-            String sql = "INSERT INTO Link_Email (Czz, FromNum, ToNum, Subject, Date, SendTime, IsSelfRead, Msg, Type, SystemId) values('"
+            String sql = "INSERT INTO Link_Email (Czz, BH, FromNum, ToNum, Subject, Date, SendTime, IsSelfRead, Msg, Type, SystemId) values('"
                     + object.getString("owner")
+                    + "', '"
+                    + object.getString("numBH")
                     + "', '"
                     + object.getString("selfNum")
                     + "', '"
@@ -79,6 +81,8 @@ public class RecordHelper {
                     + "', '"
                     + object.getString("date")
                     + "', '"
+                    + object.getString("date")
+                    + " "
                     + object.getString("time")
                     + "', '"
                     + stateStr

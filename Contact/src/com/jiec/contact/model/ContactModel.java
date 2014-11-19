@@ -82,7 +82,7 @@ public class ContactModel {
                 if (num == contact.getBgdh_1() || num == contact.getBgdh_2()
                         || num == contact.getBgdh_3() || num == contact.getYddh_1()
                         || num == contact.getYddh_2() || num == contact.getYddh_3()) {
-                    return String.valueOf(contact.id);
+                    return mContacts.get(i).getId();
                 }
             }
         }

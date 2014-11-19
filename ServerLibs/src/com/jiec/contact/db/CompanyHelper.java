@@ -44,8 +44,12 @@ public class CompanyHelper {
         return object;
     }
 
-    public static JSONObject insertCompany(String name) {
+    public static JSONObject insertCompany(JSONObject requestObject) {
         JSONObject object = new JSONObject();
+
+        String name = requestObject.getString("company_name");
+        String creator = requestObject.getString("creator");
+        String createTime = requestObject.getString("createTime");
 
         if (isNameExist(name)) {
             object.put("result", -1);
@@ -53,7 +57,9 @@ public class CompanyHelper {
             return object;
         }
 
-        String sql = "insert into Lxr(ZZ_MC) values('" + name + "');";
+        String sql = "insert into Lxr(ZZ_MC, SJLRR, XGSJ) values('" + name + "', '" + creator
+                + "', '" + createTime + "');";
+        LogUtil.e("sql = " + sql);
         SqlHelper sh = new SqlHelper();
 
         if (sh.upExecute(sql)) {

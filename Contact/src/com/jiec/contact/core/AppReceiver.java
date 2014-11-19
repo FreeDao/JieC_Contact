@@ -3,6 +3,7 @@ package com.jiec.contact.core;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -107,7 +108,9 @@ public class AppReceiver extends BroadcastReceiver {
         recorder.setAudioSource(MediaRecorder.AudioSource.VOICE_CALL);// 定义声音来自于麦克风
         recorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);// 存储格式
         recorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);// 设置编码
-        String fileName = number + "_" + System.currentTimeMillis();
+        SimpleDateFormat sDateFormat = new SimpleDateFormat("yyMMdd HH:mm:ss");
+        String date = sDateFormat.format(new java.util.Date());
+        String fileName = number + "_" + date;
         File file = new File(Environment.getExternalStorageDirectory(), "contact");
         if (!file.exists()) {
             file.mkdirs();
