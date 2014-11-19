@@ -90,6 +90,7 @@ public class RecordModel {
             object.put("seq", ContactSocket.getSeq());
             object.put("cmd", Protocal.CMD_GET_RECORD);
             object.put("user_id", UserModel.getInstance().getUserId());
+            object.put("selfNum", UserModel.getInstance().getPhoneNumber());
         } catch (JSONException e1) {
             e1.printStackTrace();
         }

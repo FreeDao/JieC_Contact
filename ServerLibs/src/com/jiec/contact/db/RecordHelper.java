@@ -10,8 +10,10 @@ import net.sf.json.JSONObject;
 import com.jiec.contact.utils.LogUtil;
 
 public class RecordHelper {
-    public static JSONObject getRecords(String owner) {
+    public static JSONObject getRecords(JSONObject requestObject) {
         JSONObject object = new JSONObject();
+
+        String owner = requestObject.getString("user_id");
 
         SqlHelper sh = new SqlHelper();
         SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -24,13 +26,16 @@ public class RecordHelper {
             return null;
         }
 
+        String selfNum = requestObject.getString("selfNum");
+
         JSONArray jsonArray = new JSONArray();
         try {
             while (rs.next()) {
                 JSONObject o = new JSONObject();
                 o.put("id", rs.getInt(1));
                 o.put("name", myTrim(rs.getString(9)));
-                o.put("num", myTrim(rs.getString(3)));
+                o.put("num", myTrim(rs.getString(3)).equals(sDateFormat) ? myTrim(rs.getString(2))
+                        : myTrim(rs.getString(3)));
                 o.put("date", myTrim(rs.getString(20)));
                 o.put("time", myTrim(rs.getString(8)));
                 o.put("info", myTrim(rs.getString(22)));
@@ -67,15 +72,24 @@ public class RecordHelper {
 
             String stateStr = object.getInt("state") == 1 ? "Y" : "N";
             String typeStr = object.getInt("type") == 1 ? "S" : "P";
+
+            String fromNum, toNum;
+            if (object.getInt("state") == 2) {
+                fromNum = object.getString("selfNum");
+                toNum = object.getString("num");
+            } else {
+                toNum = object.getString("selfNum");
+                fromNum = object.getString("num");
+            }
             String subjectStr = object.getInt("type") == 1 ? "短信" : "电话";
             String sql = "INSERT INTO Link_Email (Czz, BH, FromNum, ToNum, Subject, Date, SendTime, IsSelfRead, Msg, Type, SystemId) values('"
                     + object.getString("owner")
                     + "', '"
                     + object.getString("numBH")
                     + "', '"
-                    + object.getString("selfNum")
+                    + fromNum
                     + "', '"
-                    + object.getString("num")
+                    + toNum
                     + "', '"
                     + subjectStr
                     + "', '"
