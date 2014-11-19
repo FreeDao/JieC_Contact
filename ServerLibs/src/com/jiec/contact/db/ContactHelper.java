@@ -12,7 +12,8 @@ import com.jiec.contact.utils.LogUtil;
 public class ContactHelper {
     public static JSONObject getContact(String userId) {
         String sql = "select Lxr.BH,Lxr.ZZ_MC," + "Lxr_Detail.* from Lxr_Detail,Lxr "
-                + "where Lxr_Detail.CC = " + userId + " " + "and Lxr_Detail.BH = Lxr.BH";
+                + "where Lxr_Detail.CC = " + userId + " "
+                + "and Lxr_Detail.BH = Lxr.BH ORDER BY Lxr.BH";
 
         SqlHelper sh = new SqlHelper();
         ResultSet rs = sh.queryExecute(sql);
@@ -89,19 +90,6 @@ public class ContactHelper {
     }
 
     public static void insertContact(JSONObject object, JSONObject replayObject) {
-        /**
-         * contact_id int auto_increment primary key, contact_name varchar(20)
-         * not null, contact_bgdh_1 varchar(20), contact_bgdh_2 varchar(20),
-         * contact_bgdh_3 varchar(20), contact_yddh_1 varchar(20),
-         * contact_yddh_2 varchar(20), contact_yddh_3 varchar(20),
-         * contact_company_id varchar(8), contact_qq varchar(18), contact_msn
-         * varchar(18), contact_email_1 varchar(28), contact_email_2
-         * varchar(28), contact_email_3 varchar(28), contact_own_id varchar(20),
-         * contact_edit_user_id varchar(20), contact_last_edit_time time NSERT
-         * INTO [contact].[dbo].[Lxr_Detail] ([BH] ,[XM] ,[BGDH1] ,[BGDH2]
-         * ,[BGDH3] ,[YDDH1] ,[YDDH2] ,[YDDH3] ,[CC] ,[QQHM] ,[MSNHM] ,[DZYS1]
-         * ,[DZYS2] ,[DZYS3] ,[CallPerson] ,[Main])
-         */
 
         String sql = "insert into Lxr_Detail (XM, BGDH1, BGDH2, BGDH3,"
                 + "YDDH1, YDDH2, YDDH3, BH, QQHM, " + "DZYS1, DZYS2, DZYS3, CC, CallPerson) "
@@ -136,6 +124,9 @@ public class ContactHelper {
 
         if (sh.upExecute(sql)) {
             replayObject.put("result", 1);
+
+            updateCompanyInfo(object.getString("contact_company_id"),
+                    object.getString("contact_name"));
         } else {
             replayObject.put("result", -1);
             return;
@@ -153,6 +144,49 @@ public class ContactHelper {
             e.printStackTrace();
         }
 
+    }
+
+    /**
+     * 更新公司名字字段
+     * 
+     * @param name
+     */
+    public static void updateCompanyInfo(final String companyId, final String name) {
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                String sql = "select XM1, XM2, XM3, XM4, XM5, XM6, XM7, XM8 from Lxr where BH = '"
+                        + companyId + "';";
+                SqlHelper sh = new SqlHelper();
+                ResultSet rs = sh.queryExecute(sql);
+
+                int index = 1;
+                try {
+                    if (rs.next()) {
+                        for (; index < 9; index++) {
+                            if (rs.getString(index) == null) {
+                                break;
+                            }
+
+                        }
+
+                    }
+
+                    if (index == 9)
+                        return;
+
+                    sql = "update Lxr SET XM" + index + " = '" + name + "' where BH = '"
+                            + companyId + "';";
+
+                    if (sh.upExecute(sql)) {
+                        LogUtil.d("更新到Lxr成功");
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     public static void udpateContact(JSONObject object, JSONObject replayObject) {

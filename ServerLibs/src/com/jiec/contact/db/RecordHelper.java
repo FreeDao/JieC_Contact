@@ -30,7 +30,7 @@ public class RecordHelper {
                 JSONObject o = new JSONObject();
                 o.put("id", rs.getInt(1));
                 o.put("name", myTrim(rs.getString(9)));
-                o.put("num", myTrim(rs.getString(2) == null ? rs.getString(3) : rs.getString(2)));
+                o.put("num", myTrim(rs.getString(3)));
                 o.put("date", myTrim(rs.getString(20)));
                 o.put("time", myTrim(rs.getString(8)));
                 o.put("info", myTrim(rs.getString(22)));
@@ -67,10 +67,15 @@ public class RecordHelper {
 
             String stateStr = object.getInt("state") == 1 ? "Y" : "N";
             String typeStr = object.getInt("type") == 1 ? "S" : "P";
-            String sql = "INSERT INTO Link_Email (Czz, FromNum, Date, SendTime, IsSelfRead, Msg, Type, SystemId) values('"
+            String subjectStr = object.getInt("type") == 1 ? "短信" : "电话";
+            String sql = "INSERT INTO Link_Email (Czz, FromNum, ToNum, Subject, Date, SendTime, IsSelfRead, Msg, Type, SystemId) values('"
                     + object.getString("owner")
                     + "', '"
+                    + object.getString("selfNum")
+                    + "', '"
                     + object.getString("num")
+                    + "', '"
+                    + subjectStr
                     + "', '"
                     + object.getString("date")
                     + "', '"

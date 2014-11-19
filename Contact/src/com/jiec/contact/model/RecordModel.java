@@ -204,7 +204,10 @@ public class RecordModel {
                 }
                 JSONObject recordJsonObject = new JSONObject();
                 recordJsonObject.put("name", records.get(i).getName());
+                recordJsonObject.put("selfNum", UserModel.getInstance().getPhoneNumber());
                 recordJsonObject.put("num", records.get(i).getNum());
+                recordJsonObject.put("numBH",
+                        ContactModel.getInstance().getNumBH(records.get(i).getNum()));
                 recordJsonObject.put("state", records.get(i).getState());
                 recordJsonObject.put("date", records.get(i).getDate());
                 recordJsonObject.put("time", records.get(i).getTime());
