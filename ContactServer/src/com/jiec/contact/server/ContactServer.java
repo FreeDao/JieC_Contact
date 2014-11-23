@@ -25,8 +25,8 @@ public class ContactServer {
         ServerSocket ss = null;
         Socket socket = null;
         try {
-            System.out.println("server start at port 9999");
-            ss = new ServerSocket(9999);
+            System.out.println("server start at port 9000");
+            ss = new ServerSocket(9000);
 
             while (true) {
                 socket = ss.accept();
@@ -110,8 +110,7 @@ public class ContactServer {
                             .udpateContact(requestObject.getJSONObject("contact"), replyObject);
                 } else if (cmd == Protocal.CMD_GET_RECORD) {
                     replyObject.put("result", 1);
-                    replyObject.put("data",
-                            RecordHelper.getRecords(requestObject.getString("user_id")));
+                    replyObject.put("data", RecordHelper.getRecords(requestObject));
                 } else if (cmd == Protocal.CMD_DELETE_CONTACT_RECORD) {
                     // replyObject.put("result", RecordHelper.)
                 } else if (cmd == Protocal.CMD_UPDATE_CONTACT_RECORD_INFO) {

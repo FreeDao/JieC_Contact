@@ -18,8 +18,8 @@ public class RecordHelper {
         SqlHelper sh = new SqlHelper();
         SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String date = sDateFormat.format(new java.util.Date());
-        String sql = "SELECT * FROM Link_Email WHERE Czz = '" + owner + "' and Date = '" + date
-                + "' ORDER BY SendTime DESC;";
+        String sql = "SELECT * FROM Link_Email WHERE Czz = '" + owner + "' and SendTime like '%"
+                + date + "%' ORDER BY SendTime DESC;";
         ResultSet rs = sh.queryExecute(sql);
 
         if (rs == null) {
@@ -34,11 +34,11 @@ public class RecordHelper {
                 JSONObject o = new JSONObject();
                 o.put("id", rs.getInt(1));
                 o.put("name", myTrim(rs.getString(9)));
-                o.put("num", myTrim(rs.getString(3)).equals(sDateFormat) ? myTrim(rs.getString(2))
+                o.put("num", myTrim(rs.getString(3)).equals(selfNum) ? myTrim(rs.getString(2))
                         : myTrim(rs.getString(3)));
-                o.put("date", myTrim(rs.getString(20)));
+                o.put("date", myTrim(rs.getString(21)));
                 o.put("time", myTrim(rs.getString(8)));
-                o.put("info", myTrim(rs.getString(22)));
+                o.put("info", myTrim(rs.getString(20)));
                 o.put("state", myTrim(rs.getString(11)).equals("Y") ? 1 : 0);
                 o.put("msg", myTrim(rs.getString(5)));
                 o.put("type", myTrim(rs.getString(15)).equals("S") ? 1 : 0);
@@ -81,11 +81,15 @@ public class RecordHelper {
                 toNum = object.getString("selfNum");
                 fromNum = object.getString("num");
             }
+
+            String attachment = object.getString("date") + "_" + object.getString("time") + "_"
+                    + object.getString("num") + ".arm";
+
             String subjectStr = object.getInt("type") == 1 ? "短信" : "电话";
-            String sql = "INSERT INTO Link_Email (Czz, BH, FromNum, ToNum, Subject, Date, SendTime, IsSelfRead, Msg, Type, SystemId) values('"
+            String sql = "INSERT INTO Link_Email (Czz, BH, FromNum, ToNum, Subject, SendTime, Attachment, IsSelfRead, Msg, Type, SystemId) values('"
                     + object.getString("owner")
                     + "', '"
-                    + object.getString("numBH")
+                    + object.optString("numBH")
                     + "', '"
                     + fromNum
                     + "', '"
@@ -94,18 +98,16 @@ public class RecordHelper {
                     + subjectStr
                     + "', '"
                     + object.getString("date")
-                    + "', '"
-                    + object.getString("date")
                     + " "
                     + object.getString("time")
+                    + "', '"
+                    + attachment
                     + "', '"
                     + stateStr
                     + "', '"
                     + object.getString("msg")
                     + "', '"
-                    + typeStr
-                    + "', '"
-                    + object.getString("system_id") + "');";
+                    + typeStr + "', '" + object.getString("system_id") + "');";
             LogUtil.d(sql);
             SqlHelper sh = new SqlHelper();
             result = result & sh.upExecute(sql);

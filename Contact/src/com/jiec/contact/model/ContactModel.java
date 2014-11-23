@@ -76,17 +76,19 @@ public class ContactModel {
     }
 
     public String getNumBH(String num) {
+        StringBuffer bh = new StringBuffer();
         for (int i = 0; i < mContacts.size(); i++) {
             for (int j = 0; j < mContacts.get(i).getContacts().size(); j++) {
                 Contact contact = mContacts.get(i).getContacts().get(j);
-                if (num == contact.getBgdh_1() || num == contact.getBgdh_2()
-                        || num == contact.getBgdh_3() || num == contact.getYddh_1()
-                        || num == contact.getYddh_2() || num == contact.getYddh_3()) {
-                    return mContacts.get(i).getId();
+                if (num.equals(contact.getBgdh_1()) || num.equals(contact.getBgdh_2())
+                        || num.equals(contact.getBgdh_3()) || num.equals(contact.getYddh_1())
+                        || num.equals(contact.getYddh_2()) || num.equals(contact.getYddh_3())) {
+                    bh.append(mContacts.get(i).getId() + ";");
+
                 }
             }
         }
-        return "";
+        return bh.toString();
     }
 
     public void finish() {

@@ -222,8 +222,7 @@ public class MyRecordActivity extends ListActivity implements OnDataChangeListen
 
                 name.setText(mRecords.get(position).getName());
                 num.setText(PhoneNumUtils.toStarPhoneNumber(mRecords.get(position).getNum()));
-                time.setText(mRecords.get(position).getDate() + " "
-                        + mRecords.get(position).getTime());
+                time.setText(mRecords.get(position).getTime());
                 info.setText(mRecords.get(position).getInfo());
 
             } else {
@@ -236,8 +235,7 @@ public class MyRecordActivity extends ListActivity implements OnDataChangeListen
 
                 name.setText(mRecords.get(position).getName());
                 num.setText(PhoneNumUtils.toStarPhoneNumber(mRecords.get(position).getNum()));
-                time.setText(mRecords.get(position).getDate() + " "
-                        + mRecords.get(position).getTime());
+                time.setText(mRecords.get(position).getTime());
                 info.setText(mRecords.get(position).getMsg());
             }
 

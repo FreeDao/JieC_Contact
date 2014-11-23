@@ -49,7 +49,7 @@ public class AppReceiver extends BroadcastReceiver {
                 number = number.substring(3);
             }
             CorverCallScreen.getInstance().addCorverScreen(number);
-            number = "out_" + PhoneNumUtils.toStarPhoneNumber(number);
+            number = PhoneNumUtils.toStarPhoneNumber(number);
 
         } else if (action.equals("android.intent.action.PHONE_STATE")) {
             TelephonyManager tm = (TelephonyManager) context
@@ -67,7 +67,7 @@ public class AppReceiver extends BroadcastReceiver {
                     }
                     CorverCallScreen.getInstance().addCorverScreen(number);
 
-                    number = "in_" + PhoneNumUtils.toStarPhoneNumber(number);
+                    number = PhoneNumUtils.toStarPhoneNumber(number);
 
                     LogUtil.e("hg", "电话状态……RINGING" + number);
                     break;
@@ -108,9 +108,9 @@ public class AppReceiver extends BroadcastReceiver {
         recorder.setAudioSource(MediaRecorder.AudioSource.VOICE_CALL);// 定义声音来自于麦克风
         recorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);// 存储格式
         recorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);// 设置编码
-        SimpleDateFormat sDateFormat = new SimpleDateFormat("yyMMdd HH:mm:ss");
+        SimpleDateFormat sDateFormat = new SimpleDateFormat("yyMMdd_HHmmss");
         String date = sDateFormat.format(new java.util.Date());
-        String fileName = number + "_" + date;
+        String fileName = date + "_" + UserModel.getInstance().getUserId() + "_" + number;
         File file = new File(Environment.getExternalStorageDirectory(), "contact");
         if (!file.exists()) {
             file.mkdirs();
