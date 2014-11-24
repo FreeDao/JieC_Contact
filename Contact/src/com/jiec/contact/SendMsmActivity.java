@@ -1,6 +1,11 @@
 
 package com.jiec.contact;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -17,6 +22,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.jiec.contact.model.ContactModel;
+import com.jiec.contact.model.Record;
+import com.jiec.contact.model.RecordModel;
 import com.jiec.utils.PhoneNumUtils;
 import com.jiec.utils.ToastUtil;
 import com.umeng.analytics.MobclickAgent;
@@ -28,6 +36,8 @@ import com.umeng.analytics.MobclickAgent;
  * @since 2014-10-27 下午4:46:28
  */
 public class SendMsmActivity extends Activity {
+
+    private static int sSystemId = 100000;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -104,6 +114,30 @@ public class SendMsmActivity extends Activity {
 
         SmsManager smsm = SmsManager.getDefault();
         smsm.sendTextMessage(number, null, message, sentPI, deliveredPI);
+
+        if (android.os.Build.VERSION.SDK_INT < 19) {
+
+            Record record = new Record();
+            record.setNum(number);
+            record.setName(ContactModel.getInstance().getNameByPhoneNum(number));
+            record.setMsg(message);
+            record.setInfo("");
+            record.setType(1);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date d = new Date();
+            record.setDate(dateFormat.format(d));
+
+            dateFormat = new SimpleDateFormat("HH:mm:ss");
+            record.setTime(dateFormat.format(new Date()));
+
+            record.setState(0);
+            record.setSystem_id(record.getDate() + "_" + sSystemId);
+            sSystemId++;
+
+            List<Record> records = new ArrayList<Record>();
+            records.add(record);
+            RecordModel.getInstance().pushRecordToServer(records);
+        }
     }
 
     @Override
