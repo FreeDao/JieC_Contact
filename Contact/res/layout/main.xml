@@ -1,4 +1,4 @@
-<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:id="@android:id/tabhost"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent">
@@ -7,14 +7,45 @@
 		android:layout_width="fill_parent"
 		android:layout_height="fill_parent"
 		>
-		<TabWidget 
-			android:id="@android:id/tabs"
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"/>
+		<RadioGroup
+	        android:id="@+id/rg_home_tab"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:minHeight="40dip"
+	        android:orientation="horizontal" >
+
+	        <RadioButton
+	            android:id="@+id/rb_tab_totallist"
+	            style="@style/ContactTheme.Widget.RadioButton.Tab"
+	            android:layout_width="0dip"
+	            android:layout_height="match_parent"
+	            android:layout_weight="1"
+	            android:checked="true"
+	            android:gravity="center_horizontal|bottom"
+	            android:drawablePadding="1dp"
+	            android:paddingBottom="10dip"
+	            android:paddingTop="10dip"
+	            android:textSize="20sp"
+	            android:text="联系人" />
+	
+	        <RadioButton
+	            android:id="@+id/rb_tab_gameclass"
+	            style="@style/ContactTheme.Widget.RadioButton.Tab"
+	            android:layout_width="0dip"
+	            android:layout_height="match_parent"
+	            android:layout_weight="1"
+	            android:gravity="center_horizontal|bottom"
+	            android:drawablePadding="1dp"
+	            android:paddingBottom="10dip"
+	            android:paddingTop="10dip"
+	            android:textSize="20sp"
+	            android:text="通讯记录" />
+	    </RadioGroup>
+
 		<FrameLayout 
 			android:id="@android:id/tabcontent"
 			android:layout_width="fill_parent"
 			android:layout_height="fill_parent"
 			/>		
 	</LinearLayout>
-</TabHost>
+</LinearLayout>

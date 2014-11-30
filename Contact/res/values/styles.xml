@@ -16,5 +16,15 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
+    
+    <style name="ContactTheme.Widget.RadioButton.Tab" parent="@android:style/Widget.Button">
+        <item name="android:textSize">11sp</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:button">@null</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@drawable/img_tab_text_color</item>
+        <item name="android:background">@drawable/img_tab_bg</item>
+    </style>
 
 </resources>

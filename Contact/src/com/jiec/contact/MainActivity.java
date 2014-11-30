@@ -1,15 +1,12 @@
 
 package com.jiec.contact;
 
-import android.app.TabActivity;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TabHost;
-import android.widget.TextView;
 
 import com.jiec.contact.model.ContactModel;
 import com.jiec.contact.model.RecordModel;
@@ -24,41 +21,44 @@ import com.umeng.analytics.MobclickAgent;
  * @author jiec
  * @since 2014-10-13 上午11:07:35
  */
-public class MainActivity extends TabActivity {
-
-    private long mExitTime = 0;
+public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.main);
 
-        TabHost tabHost = getTabHost();
-        LayoutInflater.from(this).inflate(R.layout.main, tabHost.getTabContentView(), true);
-
-        Intent contactIntent = new Intent();
-        contactIntent.setClass(this, MyContactActivity.class);
-        tabHost.addTab(tabHost.newTabSpec("联系人").setIndicator("联系人").setContent(contactIntent));
-
-        Intent recordIntent = new Intent();
-        recordIntent.setClass(this, MyRecordActivity.class);
-        tabHost.addTab(tabHost.newTabSpec("通讯记录").setIndicator("通讯记录").setContent(recordIntent));
-
-        // Intent jobIntent = new Intent();
-        // jobIntent.setClass(this, MyJobActivity.class);
-        // tabHost.addTab(tabHost.newTabSpec("我的任务").setIndicator("我的任务").setContent(jobIntent));
+        // TabHost tabHost = getTabHost();
+        // LayoutInflater.from(this).inflate(R.layout.main,
+        // tabHost.getTabContentView(), true);
         //
-
-        // Intent settingIntent = new Intent();
-        // settingIntent.setClass(this, SettingActivity.class);
+        // Intent contactIntent = new Intent();
+        // contactIntent.setClass(this, MyContactActivity.class);
+        // tabHost.addTab(tabHost.newTabSpec("联系人").setIndicator("联系人").setContent(contactIntent));
+        //
+        // Intent recordIntent = new Intent();
+        // recordIntent.setClass(this, MyRecordActivity.class);
+        // tabHost.addTab(tabHost.newTabSpec("通讯记录").setIndicator("通讯记录").setContent(recordIntent));
+        //
+        // // Intent jobIntent = new Intent();
+        // // jobIntent.setClass(this, MyJobActivity.class);
+        // //
+        // tabHost.addTab(tabHost.newTabSpec("我的任务").setIndicator("我的任务").setContent(jobIntent));
+        // //
+        //
+        // // Intent settingIntent = new Intent();
+        // // settingIntent.setClass(this, SettingActivity.class);
+        // //
         // tabHost.addTab(tabHost.newTabSpec("设置").setIndicator("设置").setContent(settingIntent));
-
-        for (int i = 0; i < getTabWidget().getChildCount(); i++) {
-            // 修改显示字体大小
-            TextView tv = (TextView) getTabWidget().getChildAt(i).findViewById(android.R.id.title);
-            tv.setTextSize(18);
-        }
+        //
+        // for (int i = 0; i < getTabWidget().getChildCount(); i++) {
+        // // 修改显示字体大小
+        // TextView tv = (TextView)
+        // getTabWidget().getChildAt(i).findViewById(android.R.id.title);
+        // tv.setTextSize(18);
+        // }
 
         if (!UserModel.getInstance().checkPhoneNumber(this)) {
             ToastUtil.showMsg("请更换sim卡，该卡不是公司分配的卡");
