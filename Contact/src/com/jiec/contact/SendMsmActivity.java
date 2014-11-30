@@ -30,7 +30,7 @@ import com.jiec.utils.ToastUtil;
 import com.umeng.analytics.MobclickAgent;
 
 /**
- * 描述:
+ * 描述:发送短信界面
  * 
  * @author jiec
  * @since 2014-10-27 下午4:46:28

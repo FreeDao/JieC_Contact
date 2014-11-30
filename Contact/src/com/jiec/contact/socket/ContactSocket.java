@@ -29,7 +29,7 @@ public class ContactSocket {
 
     // private static String SERVER_IP = "114.215.153.4";
 
-    private static int SERVER_PORT = 9999;
+    private static int SERVER_PORT = 9000;
 
     private Socket mSocket = null;
 

