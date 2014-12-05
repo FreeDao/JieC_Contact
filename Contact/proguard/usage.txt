@@ -1276,8 +1276,6 @@ com.jiec.contact.R$string
 com.jiec.contact.R$style
 com.jiec.contact.SaveFileService:
     private static final int NOTIFICATION_ID
-    66:82:private void deleteApp()
-com.jiec.contact.SaveFileService$2
 com.jiec.contact.core.AppException:
     private static final long serialVersionUID
     public static final byte TYPE_CONNECT
@@ -1303,9 +1301,10 @@ com.jiec.contact.model.Company:
     26:31:public Company(java.lang.String,java.lang.String,java.util.List)
     38:39:public void setId(java.lang.String)
     46:47:public void setName(java.lang.String)
+    54:55:public void setContacts(java.util.List)
 com.jiec.contact.model.CompanyModel:
-    53:56:public void addListener(com.jiec.contact.model.CompanyModel$OnCompanyDataChange)
-    59:62:public void removeListener(com.jiec.contact.model.CompanyModel$OnCompanyDataChange)
+    52:55:public void addListener(com.jiec.contact.model.CompanyModel$OnCompanyDataChange)
+    58:61:public void removeListener(com.jiec.contact.model.CompanyModel$OnCompanyDataChange)
 com.jiec.contact.model.Contact:
     61:62:public void setName(java.lang.String)
     69:70:public void setBgdh_1(java.lang.String)
@@ -1339,7 +1338,7 @@ com.jiec.contact.model.Job:
     34:34:public java.lang.String getOwner()
 com.jiec.contact.model.Protocal
 com.jiec.contact.model.UserModel:
-    55:56:public void setPhoneNumber(java.lang.String)
+    43:44:public void setPhoneNumber(java.lang.String)
 com.jiec.contact.socket.ContactSocket:
     116:116:public java.net.Socket getSocket()
 com.jiec.contact.widget.CompanyListDialog:
@@ -1385,7 +1384,6 @@ com.jiec.utils.AppUtil:
     539:543:public static long turnDatetoLong(java.lang.String,java.lang.String)
     554:565:public static android.graphics.Bitmap drawableToBitmap(android.graphics.drawable.Drawable)
     575:581:public static void changeFileRw(android.content.Context,java.lang.String)
-    590:598:public static int getNetworkType(android.content.Context)
     609:635:public static int get2gType(android.content.Context)
     648:656:public static void createShortcut(android.content.Context,java.lang.String,int,android.content.Intent)
     665:673:public static java.lang.String dealDownloadNum(long)
@@ -1399,18 +1397,16 @@ com.jiec.utils.LogUtil:
     11:11:public LogUtil()
     32:33:public static void setDebug(boolean)
     42:45:public static void d(java.lang.String,java.lang.String)
-com.jiec.utils.NetWorkUtil
+com.jiec.utils.NetWorkUtil:
+    17:18:private NetWorkUtil()
+    48:48:public static boolean isNetworkAvailable(android.content.Context)
+    106:125:public static boolean isCmwap(android.content.Context)
 com.jiec.utils.NetWorkUtil$NetworkType
 com.jiec.utils.PhoneNumUtils:
-    6:6:public PhoneNumUtils()
+    4:4:public PhoneNumUtils()
 com.jiec.utils.PhoneUtils:
     22:22:public PhoneUtils()
-com.jiec.utils.SIMCardInfo:
-    private java.lang.String IMSI
-    58:64:public java.lang.String getImsi(android.content.Context)
-    76:88:public java.lang.String getProvidersName()
-com.jiec.utils.ShellUtils
-com.jiec.utils.ShellUtils$CommandResult
+com.jiec.utils.SIMCardInfo
 com.jiec.utils.ToastUtil:
     private static final int MSG_SHOW_MESSAGE
     17:17:public ToastUtil()

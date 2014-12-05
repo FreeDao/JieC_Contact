@@ -2040,10 +2040,10 @@ com.jiec.contact.MainActivity -> com.jiec.contact.MainActivity:
     88:93:boolean dispatchKeyEvent(android.view.KeyEvent) -> dispatchKeyEvent
     99:100:boolean onCreateOptionsMenu(android.view.Menu) -> onCreateOptionsMenu
     105:117:boolean onMenuItemSelected(int,android.view.MenuItem) -> onMenuItemSelected
-    121:136:void loginUser() -> a
-    139:148:void logoutUser() -> b
-    152:155:void onResume() -> onResume
-    159:163:void onPause() -> onPause
+    121:132:void loginUser() -> a
+    135:144:void logoutUser() -> b
+    148:151:void onResume() -> onResume
+    155:159:void onPause() -> onPause
 com.jiec.contact.MyApplication -> com.jiec.contact.MyApplication:
     android.content.Context mContext -> a
     22:27:void onCreate() -> onCreate
@@ -2055,32 +2055,27 @@ com.jiec.contact.MyContactActivity -> com.jiec.contact.MyContactActivity:
     com.jiec.contact.widget.TreeViewAdapter mAdapter -> d
     com.jiec.contact.widget.SuperTreeViewAdapter mSuperAdapter -> e
     java.util.List mContacts -> f
-    java.util.List mSearchResultContacts -> g
-    boolean mShowSearchResult -> h
-    62:133:void onCreate(android.os.Bundle) -> onCreate
-    136:162:void updateView() -> b
-    165:175:java.lang.String getTitleName(com.jiec.contact.model.Company) -> a
-    180:189:void onDataChanged() -> a
-    194:196:void onDestroy() -> onDestroy
-    200:203:void onResume() -> onResume
-    207:211:void onPause() -> onPause
-    215:222:boolean dispatchKeyEvent(android.view.KeyEvent) -> dispatchKeyEvent
-    51:51:java.util.List access$0(com.jiec.contact.MyContactActivity) -> a
-    53:53:void access$1(com.jiec.contact.MyContactActivity,boolean) -> a
-    135:135:void access$2(com.jiec.contact.MyContactActivity) -> b
-    49:49:java.util.List access$3(com.jiec.contact.MyContactActivity) -> c
+    57:122:void onCreate(android.os.Bundle) -> onCreate
+    125:144:void updateView() -> b
+    147:157:java.lang.String getTitleName(com.jiec.contact.model.Company) -> a
+    162:171:void onDataChanged() -> a
+    176:178:void onDestroy() -> onDestroy
+    182:185:void onResume() -> onResume
+    189:193:void onPause() -> onPause
+    48:48:java.util.List access$0(com.jiec.contact.MyContactActivity) -> a
+    124:124:void access$1(com.jiec.contact.MyContactActivity) -> b
 com.jiec.contact.MyContactActivity$1 -> com.jiec.contact.MyContactActivity$1:
     com.jiec.contact.MyContactActivity this$0 -> a
-    77:94:void onClick(android.view.View) -> onClick
+    70:83:void onClick(android.view.View) -> onClick
 com.jiec.contact.MyContactActivity$2 -> com.jiec.contact.MyContactActivity$2:
     com.jiec.contact.MyContactActivity this$0 -> a
-    107:110:void onClick(android.view.View) -> onClick
+    96:99:void onClick(android.view.View) -> onClick
 com.jiec.contact.MyContactActivity$3 -> com.jiec.contact.MyContactActivity$3:
     com.jiec.contact.MyContactActivity this$0 -> a
-    120:124:boolean onChildClick(android.widget.ExpandableListView,android.view.View,int,int,long) -> onChildClick
+    109:113:boolean onChildClick(android.widget.ExpandableListView,android.view.View,int,int,long) -> onChildClick
 com.jiec.contact.MyContactActivity$4 -> com.jiec.contact.MyContactActivity$4:
     com.jiec.contact.MyContactActivity this$0 -> a
-    186:187:void run() -> run
+    168:169:void run() -> run
 com.jiec.contact.MyJobActivity -> com.jiec.contact.MyJobActivity:
     com.jiec.contact.MyJobActivity$JobAdapter mAdapter -> a
     android.content.Context mContext -> b
@@ -2110,66 +2105,67 @@ com.jiec.contact.MyJobActivity$JobAdapter -> com.jiec.contact.MyJobActivity$a:
 com.jiec.contact.MyRecordActivity -> com.jiec.contact.MyRecordActivity:
     com.jiec.contact.MyRecordActivity$RecordAdapter mAdapter -> a
     android.content.Context mContext -> b
-    50:136:void onCreate(android.os.Bundle) -> onCreate
-    140:142:void onDestroy() -> onDestroy
-    147:152:void onStart() -> onStart
-    156:167:void onDataChanged() -> a
-    249:254:void onActivityResult(int,int,android.content.Intent) -> onActivityResult
-    258:261:void onResume() -> onResume
-    265:269:void onPause() -> onPause
-    44:44:android.content.Context access$0(com.jiec.contact.MyRecordActivity) -> a
-    42:42:com.jiec.contact.MyRecordActivity$RecordAdapter access$1(com.jiec.contact.MyRecordActivity) -> b
+    android.widget.ListView mListView -> c
+    51:133:void onCreate(android.os.Bundle) -> onCreate
+    137:139:void onDestroy() -> onDestroy
+    144:149:void onStart() -> onStart
+    153:167:void onDataChanged() -> a
+    250:255:void onActivityResult(int,int,android.content.Intent) -> onActivityResult
+    259:262:void onResume() -> onResume
+    266:270:void onPause() -> onPause
+    43:43:android.content.Context access$0(com.jiec.contact.MyRecordActivity) -> a
+    41:41:com.jiec.contact.MyRecordActivity$RecordAdapter access$1(com.jiec.contact.MyRecordActivity) -> b
+    47:47:android.widget.ListView access$2(com.jiec.contact.MyRecordActivity) -> c
 com.jiec.contact.MyRecordActivity$1 -> com.jiec.contact.MyRecordActivity$1:
     com.jiec.contact.MyRecordActivity this$0 -> a
-    62:105:boolean onItemLongClick(android.widget.AdapterView,android.view.View,int,long) -> onItemLongClick
-    57:57:com.jiec.contact.MyRecordActivity access$0(com.jiec.contact.MyRecordActivity$1) -> a
+    65:103:boolean onItemLongClick(android.widget.AdapterView,android.view.View,int,long) -> onItemLongClick
+    60:60:com.jiec.contact.MyRecordActivity access$0(com.jiec.contact.MyRecordActivity$1) -> a
 com.jiec.contact.MyRecordActivity$1$1 -> com.jiec.contact.MyRecordActivity$1$1:
     com.jiec.contact.MyRecordActivity$1 this$1 -> a
     java.lang.String val$recordNum -> b
     int val$recordId -> c
-    82:101:void onClick(android.content.DialogInterface,int) -> onClick
+    85:99:void onClick(android.content.DialogInterface,int) -> onClick
 com.jiec.contact.MyRecordActivity$2 -> com.jiec.contact.MyRecordActivity$2:
     com.jiec.contact.MyRecordActivity this$0 -> a
-    117:132:void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
+    115:129:void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
 com.jiec.contact.MyRecordActivity$3 -> com.jiec.contact.MyRecordActivity$3:
     com.jiec.contact.MyRecordActivity this$0 -> a
-    160:165:void run() -> run
+    157:165:void run() -> run
 com.jiec.contact.MyRecordActivity$RecordAdapter -> com.jiec.contact.MyRecordActivity$a:
     java.util.List mRecords -> b
     com.jiec.contact.MyRecordActivity this$0 -> a
-    178:180:void setDatas(java.util.ArrayList) -> a
-    183:183:java.util.List getDatas() -> a
-    189:189:int getCount() -> getCount
-    195:195:java.lang.Object getItem(int) -> getItem
-    201:201:long getItemId(int) -> getItemId
-    206:242:android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
+    178:179:void setDatas(java.util.List) -> a
+    182:182:java.util.List getDatas() -> a
+    188:188:int getCount() -> getCount
+    194:194:java.lang.Object getItem(int) -> getItem
+    200:200:long getItemId(int) -> getItemId
+    205:243:android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
 com.jiec.contact.SaveFileService -> com.jiec.contact.SaveFileService:
     android.os.Handler mHandler -> a
-    41:41:android.os.IBinder onBind(android.content.Intent) -> onBind
-    47:51:void onCreate() -> onCreate
-    56:62:void createNotification() -> a
+    40:40:android.os.IBinder onBind(android.content.Intent) -> onBind
+    46:49:void onCreate() -> onCreate
+    54:60:void createNotification() -> a
 com.jiec.contact.SaveFileService$1 -> com.jiec.contact.SaveFileService$1:
     com.jiec.contact.SaveFileService this$0 -> a
-    25:35:void handleMessage(android.os.Message) -> handleMessage
+    25:34:void handleMessage(android.os.Message) -> handleMessage
 com.jiec.contact.SendMsmActivity -> com.jiec.contact.SendMsmActivity:
-    int sSystemId -> a
-    44:68:void onCreate(android.os.Bundle) -> onCreate
-    71:141:void send2(java.lang.String,java.lang.String) -> a
-    145:146:void onDestroy() -> onDestroy
-    150:153:void onResume() -> onResume
-    157:161:void onPause() -> onPause
-    70:70:void access$0(com.jiec.contact.SendMsmActivity,java.lang.String,java.lang.String) -> a
+    34:58:void onCreate(android.os.Bundle) -> onCreate
+    61:107:void send2(java.lang.String,java.lang.String) -> a
+    111:112:void onDestroy() -> onDestroy
+    116:119:void onResume() -> onResume
+    123:127:void onPause() -> onPause
+    60:60:void access$0(com.jiec.contact.SendMsmActivity,java.lang.String,java.lang.String) -> a
 com.jiec.contact.SendMsmActivity$1 -> com.jiec.contact.SendMsmActivity$1:
     com.jiec.contact.SendMsmActivity this$0 -> a
     android.widget.EditText val$etBodyEditText -> b
     java.lang.String val$numberString -> c
-    60:66:void onClick(android.view.View) -> onClick
+    50:56:void onClick(android.view.View) -> onClick
 com.jiec.contact.SendMsmActivity$2 -> com.jiec.contact.SendMsmActivity$2:
     com.jiec.contact.SendMsmActivity this$0 -> a
-    81:98:void onReceive(android.content.Context,android.content.Intent) -> onReceive
+    71:88:void onReceive(android.content.Context,android.content.Intent) -> onReceive
 com.jiec.contact.SendMsmActivity$3 -> com.jiec.contact.SendMsmActivity$3:
     com.jiec.contact.SendMsmActivity this$0 -> a
-    104:112:void onReceive(android.content.Context,android.content.Intent) -> onReceive
+    94:102:void onReceive(android.content.Context,android.content.Intent) -> onReceive
 com.jiec.contact.SettingActivity -> com.jiec.contact.SettingActivity:
     24:37:void onCreate(android.os.Bundle) -> onCreate
     41:44:void onResume() -> onResume
@@ -2184,10 +2180,10 @@ com.jiec.contact.core.AppReceiver -> com.jiec.contact.core.AppReceiver:
     java.lang.String number -> a
     boolean isRecord -> b
     android.media.MediaRecorder recorder -> c
-    34:95:void onReceive(android.content.Context,android.content.Intent) -> onReceive
-    98:104:void enterApp(android.content.Context) -> a
-    107:128:void startRecord() -> a
-    131:139:void stopRecord() -> b
+    33:94:void onReceive(android.content.Context,android.content.Intent) -> onReceive
+    97:103:void enterApp(android.content.Context) -> a
+    106:125:void startRecord() -> a
+    128:136:void stopRecord() -> b
 com.jiec.contact.core.AppUncaughtExceptionHandler -> com.jiec.contact.core.b:
     android.content.Context mContext -> a
     java.lang.Thread$UncaughtExceptionHandler mDefaultHandler -> b
@@ -2202,33 +2198,32 @@ com.jiec.contact.model.Company -> com.jiec.contact.model.a:
     34:34:java.lang.String getId() -> a
     42:42:java.lang.String getName() -> b
     50:50:java.util.List getContacts() -> c
-    54:55:void setContacts(java.util.List) -> a
 com.jiec.contact.model.CompanyModel -> com.jiec.contact.model.b:
     int mConnectTime -> a
     com.jiec.contact.model.CompanyModel sInstance -> b
     java.util.List mCompanies -> c
     java.util.List mListeners -> d
-    45:49:com.jiec.contact.model.CompanyModel getInstance() -> a
-    65:70:java.util.List getCompanies() -> b
-    74:82:java.lang.String getCompanyName(java.lang.String) -> a
-    86:140:void requestCompanies() -> c
-    143:176:void insertCompany(java.lang.String,com.jiec.contact.model.CompanyModel$OnInsertDataResult) -> a
-    32:32:void access$0(com.jiec.contact.model.CompanyModel,int) -> a
-    36:36:java.util.List access$1(com.jiec.contact.model.CompanyModel) -> a
-    38:38:java.util.List access$2(com.jiec.contact.model.CompanyModel) -> b
+    44:48:com.jiec.contact.model.CompanyModel getInstance() -> a
+    64:69:java.util.List getCompanies() -> b
+    73:81:java.lang.String getCompanyName(java.lang.String) -> a
+    85:139:void requestCompanies() -> c
+    142:171:void insertCompany(java.lang.String,com.jiec.contact.model.CompanyModel$OnInsertDataResult) -> a
+    31:31:void access$0(com.jiec.contact.model.CompanyModel,int) -> a
+    35:35:java.util.List access$1(com.jiec.contact.model.CompanyModel) -> a
+    37:37:java.util.List access$2(com.jiec.contact.model.CompanyModel) -> b
 com.jiec.contact.model.CompanyModel$1 -> com.jiec.contact.model.b$1:
     com.jiec.contact.model.CompanyModel this$0 -> a
-    99:132:void onSuccess(int,org.json.JSONObject) -> a
-    137:138:void onFailed(int,java.lang.String) -> a
-    94:94:com.jiec.contact.model.CompanyModel access$0(com.jiec.contact.model.CompanyModel$1) -> a
+    98:131:void onSuccess(int,org.json.JSONObject) -> a
+    136:137:void onFailed(int,java.lang.String) -> a
+    93:93:com.jiec.contact.model.CompanyModel access$0(com.jiec.contact.model.CompanyModel$1) -> a
 com.jiec.contact.model.CompanyModel$1$1 -> com.jiec.contact.model.b$1$1:
     com.jiec.contact.model.CompanyModel$1 this$1 -> a
-    126:129:void run() -> run
+    125:128:void run() -> run
 com.jiec.contact.model.CompanyModel$2 -> com.jiec.contact.model.b$2:
     com.jiec.contact.model.CompanyModel this$0 -> a
     com.jiec.contact.model.CompanyModel$OnInsertDataResult val$listener -> b
-    161:168:void onSuccess(int,org.json.JSONObject) -> a
-    173:174:void onFailed(int,java.lang.String) -> a
+    156:163:void onSuccess(int,org.json.JSONObject) -> a
+    168:169:void onFailed(int,java.lang.String) -> a
 com.jiec.contact.model.CompanyModel$OnCompanyDataChange -> com.jiec.contact.model.b$a:
     void onDataChanged() -> a
 com.jiec.contact.model.CompanyModel$OnInsertDataResult -> com.jiec.contact.model.b$b:
@@ -2288,47 +2283,45 @@ com.jiec.contact.model.ContactModel -> com.jiec.contact.model.c:
     55:58:com.jiec.contact.model.ContactModel getInstance() -> a
     62:63:java.util.List getContacts() -> b
     67:75:com.jiec.contact.model.Contact getContactById(int) -> a
-    79:91:java.lang.String getNumBH(java.lang.String) -> a
-    95:96:void finish() -> c
-    99:182:void requestContactData() -> d
-    185:271:boolean insertNewContact(org.json.JSONObject,com.jiec.contact.model.ContactModel$ContactInsertListener) -> a
-    275:362:boolean updateContact(org.json.JSONObject) -> a
-    366:382:java.lang.String getNameByPhoneNum(java.lang.String) -> b
-    386:396:com.jiec.contact.model.Contact getContactByNameOrPhoneNumber(java.lang.String) -> c
-    400:411:java.util.List getContactsByNameOrPhoneNumber(java.lang.String) -> d
+    79:80:void finish() -> c
+    83:166:void requestContactData() -> d
+    169:254:boolean insertNewContact(org.json.JSONObject,com.jiec.contact.model.ContactModel$ContactInsertListener) -> a
+    258:345:boolean updateContact(org.json.JSONObject) -> a
+    349:365:java.lang.String getNameByPhoneNum(java.lang.String) -> a
+    369:379:com.jiec.contact.model.Contact getContactByNameOrPhoneNumber(java.lang.String) -> b
     35:35:java.util.List access$0(com.jiec.contact.model.ContactModel) -> a
     37:37:java.util.List access$1(com.jiec.contact.model.ContactModel) -> b
 com.jiec.contact.model.ContactModel$1 -> com.jiec.contact.model.c$1:
     com.jiec.contact.model.ContactModel this$0 -> a
-    113:174:void onSuccess(int,org.json.JSONObject) -> a
-    179:180:void onFailed(int,java.lang.String) -> a
-    108:108:com.jiec.contact.model.ContactModel access$0(com.jiec.contact.model.ContactModel$1) -> a
+    97:158:void onSuccess(int,org.json.JSONObject) -> a
+    163:164:void onFailed(int,java.lang.String) -> a
+    92:92:com.jiec.contact.model.ContactModel access$0(com.jiec.contact.model.ContactModel$1) -> a
 com.jiec.contact.model.ContactModel$1$1 -> com.jiec.contact.model.c$1$1:
     com.jiec.contact.model.ContactModel$1 this$1 -> a
-    168:172:void run() -> run
+    152:156:void run() -> run
 com.jiec.contact.model.ContactModel$2 -> com.jiec.contact.model.c$2:
     com.jiec.contact.model.ContactModel this$0 -> a
     org.json.JSONObject val$contact -> b
     com.jiec.contact.model.ContactModel$ContactInsertListener val$listener -> c
-    198:263:void onSuccess(int,org.json.JSONObject) -> a
-    267:268:void onFailed(int,java.lang.String) -> a
-    194:194:com.jiec.contact.model.ContactModel access$0(com.jiec.contact.model.ContactModel$2) -> a
+    182:246:void onSuccess(int,org.json.JSONObject) -> a
+    250:251:void onFailed(int,java.lang.String) -> a
+    178:178:com.jiec.contact.model.ContactModel access$0(com.jiec.contact.model.ContactModel$2) -> a
 com.jiec.contact.model.ContactModel$2$1 -> com.jiec.contact.model.c$2$1:
     com.jiec.contact.model.ContactModel$2 this$1 -> a
     com.jiec.contact.model.ContactModel$ContactInsertListener val$listener -> b
-    242:243:void run() -> run
+    225:226:void run() -> run
 com.jiec.contact.model.ContactModel$2$2 -> com.jiec.contact.model.c$2$2:
     com.jiec.contact.model.ContactModel$2 this$1 -> a
-    257:261:void run() -> run
+    240:244:void run() -> run
 com.jiec.contact.model.ContactModel$3 -> com.jiec.contact.model.c$3:
     com.jiec.contact.model.ContactModel this$0 -> a
     org.json.JSONObject val$contact -> b
-    288:354:void onSuccess(int,org.json.JSONObject) -> a
-    358:359:void onFailed(int,java.lang.String) -> a
-    284:284:com.jiec.contact.model.ContactModel access$0(com.jiec.contact.model.ContactModel$3) -> a
+    271:337:void onSuccess(int,org.json.JSONObject) -> a
+    341:342:void onFailed(int,java.lang.String) -> a
+    267:267:com.jiec.contact.model.ContactModel access$0(com.jiec.contact.model.ContactModel$3) -> a
 com.jiec.contact.model.ContactModel$3$1 -> com.jiec.contact.model.c$3$1:
     com.jiec.contact.model.ContactModel$3 this$1 -> a
-    346:352:void run() -> run
+    329:335:void run() -> run
 com.jiec.contact.model.ContactModel$ContactChangeListener -> com.jiec.contact.model.c$a:
     void onDataChanged() -> a
 com.jiec.contact.model.ContactModel$ContactInsertListener -> com.jiec.contact.model.c$b:
@@ -2393,76 +2386,72 @@ com.jiec.contact.model.Record -> com.jiec.contact.model.g:
     int state -> g
     java.lang.String msg -> h
     int type -> i
-    java.lang.String system_id -> j
-    27:27:java.lang.String getSystem_id() -> a
-    31:32:void setSystem_id(java.lang.String) -> a
-    35:35:int getType() -> b
-    39:40:void setType(int) -> a
-    43:43:java.lang.String getMsg() -> c
-    47:48:void setMsg(java.lang.String) -> b
-    51:51:int getId() -> d
-    55:56:void setId(int) -> b
-    59:59:java.lang.String getName() -> e
-    63:64:void setName(java.lang.String) -> c
-    67:67:java.lang.String getNum() -> f
-    71:72:void setNum(java.lang.String) -> d
-    75:75:java.lang.String getDate() -> g
-    79:80:void setDate(java.lang.String) -> e
-    83:83:java.lang.String getTime() -> h
-    87:88:void setTime(java.lang.String) -> f
-    91:91:java.lang.String getInfo() -> i
-    95:96:void setInfo(java.lang.String) -> g
-    99:99:int getState() -> j
-    103:104:void setState(int) -> c
+    25:25:int getType() -> a
+    29:30:void setType(int) -> a
+    33:33:java.lang.String getMsg() -> b
+    37:38:void setMsg(java.lang.String) -> a
+    41:41:int getId() -> c
+    45:46:void setId(int) -> b
+    49:49:java.lang.String getName() -> d
+    53:54:void setName(java.lang.String) -> b
+    57:57:java.lang.String getNum() -> e
+    61:62:void setNum(java.lang.String) -> c
+    65:65:java.lang.String getDate() -> f
+    69:70:void setDate(java.lang.String) -> d
+    73:73:java.lang.String getTime() -> g
+    77:78:void setTime(java.lang.String) -> e
+    81:81:java.lang.String getInfo() -> h
+    85:86:void setInfo(java.lang.String) -> f
+    89:89:int getState() -> i
+    93:94:void setState(int) -> c
 com.jiec.contact.model.RecordModel -> com.jiec.contact.model.h:
     java.util.List mChangeListeners -> a
     com.jiec.contact.model.RecordModel sInstance -> b
-    java.util.ArrayList mRecords -> c
+    java.util.List mRecords -> c
     30:32:void addListener(com.jiec.contact.model.RecordModel$OnDataChangeListener) -> a
     35:38:void removeListener(com.jiec.contact.model.RecordModel$OnDataChangeListener) -> b
-    49:56:void scanSystemRecord() -> a
-    59:70:void pushRecordToServer(java.util.List) -> a
-    73:73:java.util.ArrayList getRecords() -> b
-    77:80:com.jiec.contact.model.RecordModel getInstance() -> c
-    84:85:void finish() -> d
-    88:145:void requestData() -> e
-    148:193:void updateRecord(java.lang.String,int) -> a
-    196:259:void insertRecord(java.util.List) -> b
-    262:278:void refreshRecord() -> f
-    281:290:boolean isRecordExist(java.lang.String) -> a
-    42:42:java.util.ArrayList access$0() -> g
+    49:59:void scanSystemRecord() -> a
+    62:73:void pushRecordToServer(java.util.List) -> a
+    76:76:java.util.List getRecords() -> b
+    80:83:com.jiec.contact.model.RecordModel getInstance() -> c
+    87:88:void finish() -> d
+    91:146:void requestData() -> e
+    149:194:void updateRecord(java.lang.String,int) -> a
+    197:250:void insertRecord(java.util.List) -> b
+    253:269:void refreshRecord() -> f
+    42:42:java.util.List access$0() -> g
     27:27:java.util.List access$1(com.jiec.contact.model.RecordModel) -> a
 com.jiec.contact.model.RecordModel$1 -> com.jiec.contact.model.h$1:
     com.jiec.contact.model.RecordModel this$0 -> a
     java.util.List val$list -> b
-    65:66:void run() -> run
+    68:69:void run() -> run
 com.jiec.contact.model.RecordModel$2 -> com.jiec.contact.model.h$2:
     com.jiec.contact.model.RecordModel this$0 -> a
-    103:136:void onSuccess(int,org.json.JSONObject) -> a
-    142:142:void onFailed(int,java.lang.String) -> a
-    98:98:com.jiec.contact.model.RecordModel access$0(com.jiec.contact.model.RecordModel$2) -> a
+    105:137:void onSuccess(int,org.json.JSONObject) -> a
+    143:143:void onFailed(int,java.lang.String) -> a
+    100:100:com.jiec.contact.model.RecordModel access$0(com.jiec.contact.model.RecordModel$2) -> a
 com.jiec.contact.model.RecordModel$2$1 -> com.jiec.contact.model.h$2$1:
     com.jiec.contact.model.RecordModel$2 this$1 -> a
-    129:133:void run() -> run
+    130:134:void run() -> run
 com.jiec.contact.model.RecordModel$3 -> com.jiec.contact.model.h$3:
     com.jiec.contact.model.RecordModel this$0 -> a
-    163:184:void onSuccess(int,org.json.JSONObject) -> a
-    189:190:void onFailed(int,java.lang.String) -> a
-    158:158:com.jiec.contact.model.RecordModel access$0(com.jiec.contact.model.RecordModel$3) -> a
+    164:185:void onSuccess(int,org.json.JSONObject) -> a
+    190:191:void onFailed(int,java.lang.String) -> a
+    159:159:com.jiec.contact.model.RecordModel access$0(com.jiec.contact.model.RecordModel$3) -> a
 com.jiec.contact.model.RecordModel$3$1 -> com.jiec.contact.model.h$3$1:
     com.jiec.contact.model.RecordModel$3 this$1 -> a
-    177:181:void run() -> run
+    178:182:void run() -> run
 com.jiec.contact.model.RecordModel$4 -> com.jiec.contact.model.h$4:
     com.jiec.contact.model.RecordModel this$0 -> a
-    235:252:void onSuccess(int,org.json.JSONObject) -> a
-    256:257:void onFailed(int,java.lang.String) -> a
-    230:230:com.jiec.contact.model.RecordModel access$0(com.jiec.contact.model.RecordModel$4) -> a
+    226:243:void onSuccess(int,org.json.JSONObject) -> a
+    247:248:void onFailed(int,java.lang.String) -> a
+    221:221:com.jiec.contact.model.RecordModel access$0(com.jiec.contact.model.RecordModel$4) -> a
 com.jiec.contact.model.RecordModel$4$1 -> com.jiec.contact.model.h$4$1:
     com.jiec.contact.model.RecordModel$4 this$1 -> a
-    245:249:void run() -> run
+    236:240:void run() -> run
 com.jiec.contact.model.RecordModel$5 -> com.jiec.contact.model.h$5:
     com.jiec.contact.model.RecordModel this$0 -> a
-    272:276:void run() -> run
+    263:267:void run() -> run
 com.jiec.contact.model.RecordModel$OnDataChangeListener -> com.jiec.contact.model.h$a:
     void onDataChanged() -> a
 com.jiec.contact.model.UserModel -> com.jiec.contact.model.i:
@@ -2472,24 +2461,21 @@ com.jiec.contact.model.UserModel -> com.jiec.contact.model.i:
     boolean mUserLogined -> d
     java.lang.String mPhoneNumber -> e
     boolean mIsNotAllowBlackCall -> f
-    boolean mIsCheckingPhoneNumber -> g
-    34:34:boolean isCheckingPhoneNumber() -> a
-    38:39:void setIsCheckingPhoneNumber(boolean) -> a
-    42:42:boolean isIsNotAllowBlackCall() -> b
-    46:52:void setIsNotAllowBlackCall(boolean) -> b
-    59:59:java.lang.String getPhoneNumber() -> c
-    63:64:void setPhoneLogined(boolean) -> c
-    67:67:boolean isPhoneLogined() -> d
-    71:71:boolean isUserLogined() -> e
-    75:79:void setUserLogined(boolean) -> d
-    89:130:boolean checkPhoneNumber(android.content.Context) -> a
-    134:138:com.jiec.contact.model.UserModel getInstance() -> f
-    142:144:void setUserId(java.lang.String) -> a
-    147:147:java.lang.String getUserId() -> g
+    30:30:boolean isIsNotAllowBlackCall() -> a
+    34:40:void setIsNotAllowBlackCall(boolean) -> a
+    47:47:java.lang.String getPhoneNumber() -> b
+    51:52:void setPhoneLogined(boolean) -> b
+    55:55:boolean isPhoneLogined() -> c
+    59:59:boolean isUserLogined() -> d
+    63:67:void setUserLogined(boolean) -> c
+    77:113:boolean checkPhoneNumber(android.content.Context) -> a
+    117:121:com.jiec.contact.model.UserModel getInstance() -> e
+    125:127:void setUserId(java.lang.String) -> a
+    130:130:java.lang.String getUserId() -> f
 com.jiec.contact.model.UserModel$1 -> com.jiec.contact.model.i$1:
     com.jiec.contact.model.UserModel this$0 -> a
-    117:120:void onSuccess(int,org.json.JSONObject) -> a
-    125:127:void onFailed(int,java.lang.String) -> a
+    102:104:void onSuccess(int,org.json.JSONObject) -> a
+    109:110:void onFailed(int,java.lang.String) -> a
 com.jiec.contact.socket.ContactSocket -> com.jiec.contact.a.a:
     java.lang.String SERVER_IP -> b
     int SERVER_PORT -> c
@@ -2556,19 +2542,17 @@ com.jiec.contact.widget.CorverCallScreen -> com.jiec.contact.widget.b:
     android.view.WindowManager$LayoutParams mParams -> b
     com.jiec.contact.widget.CorverCallScreen$CorverScreen mCorverScreen -> c
     com.jiec.contact.widget.CorverCallScreen sInstance -> e
-    boolean mIsShow -> f
-    40:44:com.jiec.contact.widget.CorverCallScreen getInstance() -> a
-    74:86:void addCorverScreen(java.lang.String) -> a
-    90:101:void removeCorverScreen() -> b
+    38:42:com.jiec.contact.widget.CorverCallScreen getInstance() -> a
+    72:81:void addCorverScreen(java.lang.String) -> a
+    84:94:void removeCorverScreen() -> b
     27:27:android.content.Context access$0(com.jiec.contact.widget.CorverCallScreen) -> a
-    37:37:void access$1(com.jiec.contact.widget.CorverCallScreen,boolean) -> a
 com.jiec.contact.widget.CorverCallScreen$1 -> com.jiec.contact.widget.b$1:
     com.jiec.contact.widget.CorverCallScreen this$0 -> a
     java.lang.String val$number -> b
-    81:83:void run() -> run
+    76:78:void run() -> run
 com.jiec.contact.widget.CorverCallScreen$2 -> com.jiec.contact.widget.b$2:
     com.jiec.contact.widget.CorverCallScreen this$0 -> a
-    94:98:void run() -> run
+    88:91:void run() -> run
 com.jiec.contact.widget.CorverCallScreen$CorverScreen -> com.jiec.contact.widget.b$a:
     com.jiec.contact.widget.CorverCallScreen this$0 -> a
 com.jiec.contact.widget.JiecEditText -> com.jiec.contact.widget.JiecEditText:
@@ -2636,36 +2620,34 @@ com.jiec.contact.widget.TreeViewAdapter$TreeNode -> com.jiec.contact.widget.e$a:
     java.util.List childs -> b
 com.jiec.utils.AppUtil -> com.jiec.a.a:
     61:66:int[] getScreenSize(android.content.Context) -> a
+    590:598:int getNetworkType(android.content.Context) -> b
 com.jiec.utils.FTPClientUtils -> com.jiec.a.b:
     org.apache.commons.net.ftp.FTPClient ftp -> a
-    android.content.Context mContext -> b
-    21:34:boolean connect(java.lang.String,java.lang.String,int,java.lang.String,java.lang.String) -> a
-    38:61:void upload(java.io.File) -> a
-    64:94:void updateFile(android.content.Context) -> a
-    19:19:boolean access$0(com.jiec.utils.FTPClientUtils,java.lang.String,java.lang.String,int,java.lang.String,java.lang.String) -> a
-    37:37:void access$1(com.jiec.utils.FTPClientUtils,java.io.File) -> a
+    18:31:boolean connect(java.lang.String,java.lang.String,int,java.lang.String,java.lang.String) -> a
+    35:57:void upload(java.io.File) -> a
+    60:89:void updateFile() -> a
+    16:16:boolean access$0(com.jiec.utils.FTPClientUtils,java.lang.String,java.lang.String,int,java.lang.String,java.lang.String) -> a
+    34:34:void access$1(com.jiec.utils.FTPClientUtils,java.io.File) -> a
 com.jiec.utils.FTPClientUtils$1 -> com.jiec.a.b$1:
-    69:91:void run() -> run
+    64:86:void run() -> run
 com.jiec.utils.LogUtil -> com.jiec.a.c:
     boolean isDebug -> a
     23:23:boolean isDebug() -> a
     36:39:void d(java.lang.String) -> a
     48:51:void e(java.lang.String) -> b
     54:57:void e(java.lang.String,java.lang.String) -> a
-com.jiec.utils.PhoneNumUtils -> com.jiec.a.d:
-    8:20:java.lang.String toStarPhoneNumber(java.lang.String) -> a
-    24:27:java.lang.String standard(java.lang.String) -> b
-com.jiec.utils.PhoneUtils -> com.jiec.a.e:
+com.jiec.utils.NetWorkUtil -> com.jiec.a.d:
+    58:96:java.lang.String getNetworkType(android.content.Context) -> a
+com.jiec.utils.PhoneNumUtils -> com.jiec.a.e:
+    6:14:java.lang.String toStarPhoneNumber(java.lang.String) -> a
+    18:21:java.lang.String standard(java.lang.String) -> b
+com.jiec.utils.PhoneUtils -> com.jiec.a.f:
     25:30:void callPhone(android.content.Context,java.lang.String) -> a
     33:45:void sendSMS(android.content.Context,java.lang.String) -> b
     48:50:void deleteContactRecord(android.content.Context) -> a
     54:72:void deleteSMSRecord(android.content.Context) -> b
-    75:136:java.util.List getSmsInPhone(android.content.Context) -> c
-    140:183:java.util.List getRecordsFromContact(android.content.Context) -> d
-com.jiec.utils.SIMCardInfo -> com.jiec.a.f:
-    android.telephony.TelephonyManager telephonyManager -> a
-    android.content.Context mContext -> b
-    44:46:java.lang.String getNativePhoneNumber() -> a
+    75:129:java.util.List getSmsInPhone(android.content.Context) -> c
+    133:175:java.util.List getRecordsFromContact(android.content.Context) -> d
 com.jiec.utils.ToastUtil -> com.jiec.a.g:
     android.os.Handler mHandler -> a
     39:40:void showMsg(java.lang.String) -> a
