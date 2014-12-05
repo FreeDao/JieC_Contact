@@ -33,15 +33,15 @@ public class SqlHelper {
 
     private ResultSet mResultSet = null;
 
-    private static final String DRIVER_STR = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+    private static final String DRIVER_STR = "com.mysql.jdbc.Driver";
 
-    private static final String SQL_URL = "jdbc:sqlserver://120.24.58.159:1433;databaseName=contact";
+    private static final String SQL_URL = "jdbc:mysql://114.215.153.4:3306/contact";
 
     public SqlHelper() {
 
         try {
             Class.forName(DRIVER_STR);
-            mConnection = (Connection) DriverManager.getConnection(SQL_URL, "sa", "123456");
+            mConnection = (Connection) DriverManager.getConnection(SQL_URL, "root", "woshiwbjso");
 
         } catch (Exception e) {
             e.printStackTrace();

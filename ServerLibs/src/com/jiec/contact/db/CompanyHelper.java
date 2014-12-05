@@ -14,7 +14,7 @@ public class CompanyHelper {
         JSONObject object = new JSONObject();
 
         SqlHelper sh = new SqlHelper();
-        String sql = "SELECT BH,ZZ_MC FROM Lxr;";
+        String sql = "SELECT company_id,company_name FROM contact_company;";
         ResultSet rs = sh.queryExecute(sql);
 
         if (rs == null) {
@@ -57,8 +57,8 @@ public class CompanyHelper {
             return object;
         }
 
-        String sql = "insert into Lxr(ZZ_MC, SJLRR, XGSJ) values('" + name + "', '" + creator
-                + "', '" + createTime + "');";
+        String sql = "insert into contact_company(company_name, company_creator, company_create_time) values('"
+                + name + "', '" + creator + "', '" + createTime + "');";
         LogUtil.e("sql = " + sql);
         SqlHelper sh = new SqlHelper();
 
@@ -70,7 +70,7 @@ public class CompanyHelper {
             return object;
         }
 
-        sql = "select BH from Lxr where ZZ_MC = '" + name + "';";
+        sql = "select company_id from contact_company where company_name = '" + name + "';";
         ResultSet rs = sh.queryExecute(sql);
 
         if (rs == null) {
@@ -96,7 +96,7 @@ public class CompanyHelper {
     }
 
     private static boolean isNameExist(String name) {
-        String sql = "select BH from Lxr where ZZ_MC = '" + name + "';";
+        String sql = "select company_id from contact_company where company_name = '" + name + "';";
         SqlHelper sh = new SqlHelper();
         ResultSet rs = sh.queryExecute(sql);
         try {

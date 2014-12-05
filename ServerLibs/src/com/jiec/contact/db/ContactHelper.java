@@ -11,9 +11,11 @@ import com.jiec.contact.utils.LogUtil;
 
 public class ContactHelper {
     public static JSONObject getContact(String userId) {
-        String sql = "select Lxr.BH,Lxr.ZZ_MC," + "Lxr_Detail.* from Lxr_Detail,Lxr "
-                + "where Lxr_Detail.CC = " + userId + " "
-                + "and Lxr_Detail.BH = Lxr.BH ORDER BY Lxr.BH";
+        String sql = "select contact_company.company_id, contact_company.company_name,"
+                + "contact_detail.* from contact_detail, contact_company "
+                + "where contact_detail.contact_own_id = "
+                + userId
+                + " and contact_detail.contact_company_id = contact_company.company_id ORDER BY contact_company.company_id";
 
         SqlHelper sh = new SqlHelper();
         ResultSet rs = sh.queryExecute(sql);
@@ -41,7 +43,7 @@ public class ContactHelper {
                 lastCompanyName = rs.getString(2);
 
                 perContact = new JSONObject();
-                perContact.put("contact_id", rs.getString(19));
+                perContact.put("contact_id", rs.getString(3));
                 perContact.put("contact_name", rs.getString(4));
                 perContact.put("contact_bgdh_1", rs.getString(5));
                 perContact.put("contact_bgdh_2", rs.getString(6));
@@ -49,14 +51,14 @@ public class ContactHelper {
                 perContact.put("contact_yddh_1", rs.getString(8));
                 perContact.put("contact_yddh_2", rs.getString(9));
                 perContact.put("contact_yddh_3", rs.getString(10));
-                perContact.put("contact_company_id", rs.getString(3));
+                perContact.put("contact_company_id", rs.getString(11));
                 perContact.put("contact_qq", rs.getString(12));
                 perContact.put("contact_msn", rs.getString(13));
                 perContact.put("contact_email_1", rs.getString(14));
                 perContact.put("contact_email_2", rs.getString(15));
                 perContact.put("contact_email_3", rs.getString(16));
-                perContact.put("contact_edit_user_id", rs.getString(11));
-                perContact.put("contact_last_edit_time", rs.getString(17));
+                perContact.put("contact_edit_user_id", rs.getString(18));
+                perContact.put("contact_last_edit_time", rs.getString(19));
                 perContact.put("contact_type", rs.getInt(20));
 
                 companyArray.add(perContact);
@@ -92,8 +94,9 @@ public class ContactHelper {
 
     public static void insertContact(JSONObject object, JSONObject replayObject) {
 
-        String sql = "insert into Lxr_Detail (XM, BGDH1, BGDH2, BGDH3,"
-                + "YDDH1, YDDH2, YDDH3, BH, QQHM, " + "DZYS1, DZYS2, DZYS3, SJLLR, XGSJ, Type) "
+        String sql = "insert into contact_detail (contact_name, contact_bgdh_1, contact_bgdh_2, contact_bgdh_3,"
+                + "contact_yddh_1, contact_yddh_2, contact_yddh_3, contact_company_id, contact_qq, "
+                + "contact_email_1, contact_email_2, contact_email_3, contact_own_id, contact_last_edit_time, contact_type) "
                 + "values('"
                 + object.getString("contact_name")
                 + "', '"
@@ -129,15 +132,16 @@ public class ContactHelper {
         if (sh.upExecute(sql)) {
             replayObject.put("result", 1);
 
-            updateCompanyInfo(object.getString("contact_company_id"),
-                    object.getString("contact_name"));
+            // updateCompanyInfo(object.getString("contact_company_id"),
+            // object.getString("contact_name"));
         } else {
             replayObject.put("result", -1);
             return;
         }
 
-        sql = "select ID from Lxr_Detail where BH = '" + object.getString("contact_company_id")
-                + "' and XM = '" + object.getString("contact_name") + "';";
+        sql = "select contact_id from contact_detail where contact_company_id = '"
+                + object.getString("contact_company_id") + "' and contact_name = '"
+                + object.getString("contact_name") + "';";
 
         ResultSet rs = sh.queryExecute(sql);
         try {
@@ -155,7 +159,7 @@ public class ContactHelper {
      * 
      * @param name
      */
-    public static void updateCompanyInfo(final String companyId, final String name) {
+    private static void updateCompanyInfo(final String companyId, final String name) {
         new Thread(new Runnable() {
 
             @Override
@@ -194,18 +198,19 @@ public class ContactHelper {
     }
 
     public static void udpateContact(JSONObject object, JSONObject replayObject) {
-        String sql = "UPDATE Lxr_Detail SET XM = '" + object.getString("contact_name")
-                + "', BGDH1 = '" + object.getString("contact_bgdh_1") + "', BGDH2 = '"
-                + object.getString("contact_bgdh_2") + "', BGDH3 = '"
-                + object.getString("contact_bgdh_3") + "', YDDH1 = '"
-                + object.getString("contact_yddh_1") + "', YDDH2 = '"
-                + object.getString("contact_yddh_2") + "', YDDH3 = '"
-                + object.getString("contact_yddh_3") + "', BH = '"
-                + object.getString("contact_company_id") + "', QQHM = '"
-                + object.getString("contact_qq") + "', DZYS1 = '"
-                + object.getString("contact_email_1") + "', DZYS2 = '"
-                + object.getString("contact_email_2") + "', DZYS3 = '"
-                + object.getString("contact_email_3") + "', CallPerson = '"
+        String sql = "UPDATE contact_detail SET contact_name = '"
+                + object.getString("contact_name") + "', contact_bgdh_1 = '"
+                + object.getString("contact_bgdh_1") + "', contact_bgdh_2 = '"
+                + object.getString("contact_bgdh_2") + "', contact_bgdh_3 = '"
+                + object.getString("contact_bgdh_3") + "', contact_yddh_1 = '"
+                + object.getString("contact_yddh_1") + "', contact_yddh_2 = '"
+                + object.getString("contact_yddh_2") + "', contact_yddh_3 = '"
+                + object.getString("contact_yddh_3") + "', contact_company_id = '"
+                + object.getString("contact_company_id") + "', contact_qq = '"
+                + object.getString("contact_qq") + "', contact_email_1 = '"
+                + object.getString("contact_email_1") + "', contact_email_2 = '"
+                + object.getString("contact_email_2") + "', contact_email_3 = '"
+                + object.getString("contact_email_3") + "', contact_last_edit_time = '"
                 + object.getString("contact_last_edit_time") + "' WHERE ID = "
                 + object.getInt("contact_id") + ";";
         System.out.println(sql);

@@ -16,17 +16,14 @@ public class LoginHelper {
 
     public static boolean checkLoginPhone(String phoneNum, String passwd) {
         sPhone = phoneNum;
-        return checkPasswd("SELECT PhoneIdNum FROM App_Check where PhoneIdNum = " + phoneNum,
+        return checkPasswd("SELECT phone_num FROM contact_phone where phone_num = " + phoneNum,
                 phoneNum);
     }
 
     public static boolean checkLoginUser(String userName, String passwd) {
         sUser = userName;
-        if (checkPasswd("select MM from Czz where CZZBH=" + userName, passwd)) {
-            insertLoginInfo();
-            return true;
-        }
-        return false;
+        return (checkPasswd("select user_passwd from contact_user where user_id=" + userName,
+                passwd));
     }
 
     private static boolean checkPasswd(String sql, String passwd) {
