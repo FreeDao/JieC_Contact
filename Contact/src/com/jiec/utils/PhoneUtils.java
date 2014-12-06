@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -18,7 +19,9 @@ import android.util.Log;
 import com.jiec.contact.SendMsmActivity;
 import com.jiec.contact.model.ContactModel;
 import com.jiec.contact.model.Record;
+import com.jiec.contact.model.UserModel;
 
+@SuppressLint("SimpleDateFormat")
 public class PhoneUtils {
 
     public static void callPhone(Context context, String number) {
@@ -45,11 +48,18 @@ public class PhoneUtils {
     }
 
     public static void deleteContactRecord(Context context) {
+        if (UserModel.getInstance().isManager()) {
+            return;
+        }
+
         ContentResolver resolver = context.getContentResolver();
         resolver.delete(CallLog.Calls.CONTENT_URI, null, null);
     }
 
     public static void deleteSMSRecord(Context context) {
+        if (UserModel.getInstance().isManager()) {
+            return;
+        }
         try {
             ContentResolver CR = context.getContentResolver();
             // Query SMS

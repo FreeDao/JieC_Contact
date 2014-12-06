@@ -9,6 +9,7 @@
 	<classpathentry kind="lib" path="libs/ezmorph-1.0.6.jar"/>
 	<classpathentry kind="lib" path="libs/sqljdbc4.jar"/>
 	<classpathentry kind="lib" path="libs/json-lib-2.4-jdk15.jar"/>
-	<classpathentry kind="lib" path="libs/command-net.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ServerLibs"/>
+	<classpathentry kind="lib" path="libs/mysql-connector-java-5.0.8-bin.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

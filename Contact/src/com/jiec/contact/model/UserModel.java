@@ -18,7 +18,7 @@ import com.jiec.utils.ToastUtil;
 public class UserModel {
     private static UserModel sInstance = null;
 
-    private String mUserId = "999999";
+    private String mUserId = "888888";
 
     private boolean mPhoneLogined = false;
 
@@ -29,6 +29,16 @@ public class UserModel {
     private boolean mIsNotAllowBlackCall = true;
 
     private boolean mIsCheckingPhoneNumber = true;
+
+    private boolean mIsManager = false;
+
+    public boolean isManager() {
+        return mIsManager;
+    }
+
+    public void setIsManager(boolean isManager) {
+        this.mIsManager = isManager;
+    }
 
     public boolean isCheckingPhoneNumber() {
         return mIsCheckingPhoneNumber;
@@ -74,7 +84,7 @@ public class UserModel {
     public void setUserLogined(boolean userLogined) {
         this.mUserLogined = userLogined;
         if (!mUserLogined) {
-            mUserId = "999999";
+            mUserId = "888888";
         }
     }
 
@@ -141,6 +151,9 @@ public class UserModel {
     public void setUserId(String id) {
         mUserId = id;
         setUserLogined(true);
+        if (mUserId.equals("8888")) {
+            mIsManager = true;
+        }
     }
 
     public String getUserId() {
