@@ -129,7 +129,7 @@ public class PhoneUtils {
 
                     int typeId = cur.getInt(typeColumn);
                     record.setState(typeId);
-                    record.setSystem_id(record.getDate() + "_" + cur.getInt(id));
+                    record.setSystem_id(record.getDate() + "_1_" + cur.getInt(id));
                     records.add(record);
 
                 } while (cur.moveToNext());
@@ -166,6 +166,8 @@ public class PhoneUtils {
             sfd = new SimpleDateFormat("yyyy-MM-dd");
             String date = sfd.format(new Date(cursor.getLong(cursor
                     .getColumnIndex(CallLog.Calls.DATE))));
+            record.setSystem_id(date + "_0_"
+                    + cursor.getLong(cursor.getColumnIndex(CallLog.Calls._ID)));
             record.setDate(date);
             record.setTime(time);
             record.setMsg("");
@@ -183,7 +185,6 @@ public class PhoneUtils {
                     .getColumnIndex(CallLog.Calls.NUMBER))));
 
             record.setName(ContactModel.getInstance().getNameByPhoneNum(record.getNum()));
-            record.setSystem_id(date);
 
             records.add(record);
         } while (cursor.moveToNext());

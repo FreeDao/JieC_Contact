@@ -200,7 +200,7 @@ public class RecordModel {
             object.put("id", UserModel.getInstance().getUserId());
             JSONArray recordArray = new JSONArray();
             for (int i = 0; i < records.size(); i++) {
-                if (isRecordExist(records.get(i).getSystem_id()) && records.get(i).getType() == 1) {
+                if (isRecordExist(records.get(i).getSystem_id())) {
                     continue;
                 }
                 JSONObject recordJsonObject = new JSONObject();
