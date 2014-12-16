@@ -110,7 +110,7 @@ public class UserModel {
             e.printStackTrace();
         }
 
-        new ContactSocket().send(object, new RespondListener() {
+        ContactSocket.getInstance().send(object, new RespondListener() {
 
             @Override
             public void onSuccess(int cmd, JSONObject object) {

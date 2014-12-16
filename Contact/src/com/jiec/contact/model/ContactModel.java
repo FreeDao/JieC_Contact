@@ -105,7 +105,7 @@ public class ContactModel {
             e.printStackTrace();
         }
 
-        new ContactSocket().send(object, new RespondListener() {
+        ContactSocket.getInstance().send(object, new RespondListener() {
 
             @Override
             public void onSuccess(int cmd, JSONObject object) {
@@ -191,7 +191,7 @@ public class ContactModel {
             e1.printStackTrace();
         }
 
-        new ContactSocket().send(object, new RespondListener() {
+        ContactSocket.getInstance().send(object, new RespondListener() {
 
             @Override
             public void onSuccess(int cmd, JSONObject object) {
@@ -281,7 +281,7 @@ public class ContactModel {
             e1.printStackTrace();
         }
 
-        new ContactSocket().send(object, new RespondListener() {
+        ContactSocket.getInstance().send(object, new RespondListener() {
 
             @Override
             public void onSuccess(int cmd, JSONObject object) {

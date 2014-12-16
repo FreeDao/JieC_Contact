@@ -60,7 +60,8 @@ public class MainActivity extends TabActivity {
             tv.setTextSize(18);
         }
 
-        if (!UserModel.getInstance().checkPhoneNumber(this)) {
+        if (!UserModel.getInstance().isPhoneLogined()
+                && !UserModel.getInstance().checkPhoneNumber(this)) {
             ToastUtil.showMsg("请更换sim卡，该卡不是公司分配的卡");
 
         }

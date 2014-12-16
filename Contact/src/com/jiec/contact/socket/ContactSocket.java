@@ -1,17 +1,16 @@
 
 package com.jiec.contact.socket;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
+import java.net.InetSocketAddress;
 
+import org.apache.mina.core.filterchain.DefaultIoFilterChainBuilder;
+import org.apache.mina.core.future.ConnectFuture;
+import org.apache.mina.filter.codec.ProtocolCodecFilter;
+import org.apache.mina.filter.codec.textline.TextLineCodecFactory;
+import org.apache.mina.filter.logging.LoggingFilter;
+import org.apache.mina.transport.socket.nio.NioSocketConnector;
+import org.json.JSONException;
 import org.json.JSONObject;
-
-import android.util.Log;
-
-import com.jiec.utils.LogUtil;
-import com.jiec.utils.ToastUtil;
 
 public class ContactSocket {
 
@@ -31,21 +30,24 @@ public class ContactSocket {
 
     private static int SERVER_PORT = 9000;
 
-    private Socket mSocket = null;
-
-    private boolean mConnected = false;
-
-    private RespondListener mListener = null;
-
-    private int mSeq = 0;
-
     private static int sSeq = 0;
+
+    private MinaClientHandler mMinaClientHandler;
+
+    private static ContactSocket sContactSocket = null;
+
+    public static ContactSocket getInstance() {
+        if (sContactSocket == null) {
+            sContactSocket = new ContactSocket();
+        }
+        return sContactSocket;
+    }
 
     public static int getSeq() {
         return sSeq++;
     }
 
-    public ContactSocket() {
+    private ContactSocket() {
         new Thread(new Runnable() {
 
             @Override
@@ -56,112 +58,38 @@ public class ContactSocket {
     }
 
     public void send(final JSONObject object, final RespondListener listener) {
-        new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-                    while (mSocket == null || !mSocket.isConnected()) {
-                    }
-                    Log.i("test", object.toString());
-                    ObjectOutputStream oos = new ObjectOutputStream(mSocket.getOutputStream());
-                    oos.writeObject(object.toString());
-
-                    mSeq = object.getInt("seq");
-
-                    mListener = listener;
-
-                    ObjectInputStream ois = new ObjectInputStream(mSocket.getInputStream());
-                    String o = (String) ois.readObject();
-                    JSONObject jo = new JSONObject(o);
-
-                    if (mListener != null) {
-                        if (jo.getInt("seq") == mSeq) {
-                            if (jo.getInt("result") == 1) {
-                                mListener.onSuccess(mSeq, jo);
-                            } else {
-                                mListener.onFailed(mSeq, jo.getString("reason"));
-                            }
-                        }
-                    }
-
-                    ois.close();
-                    oos.close();
-                    mSocket.close();
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        try {
+            while (mMinaClientHandler == null) {
             }
-        }).start();
+            mMinaClientHandler.send(object, listener, object.getInt("seq"));
+        } catch (JSONException e1) {
+            e1.printStackTrace();
+        }
 
     }
 
     public void connect() {
-        try {
-            LogUtil.e("ip = " + SERVER_IP + ", port = " + SERVER_PORT);
-            mSocket = new Socket(SERVER_IP, SERVER_PORT);
 
-            if (mSocket.isConnected()) {
-                mConnected = true;
-            }
+        NioSocketConnector connector = new NioSocketConnector();
+        // 创建接收数据的过滤器
+        DefaultIoFilterChainBuilder chain = connector.getFilterChain();
 
-        } catch (Exception e) {
-            ToastUtil.showMsg("本地网络出现问题或者服务器中断，请确定本地网络！如果本地正常请联系负责人");
-            e.printStackTrace();
-        }
+        TextLineCodecFactory lineCodec = new TextLineCodecFactory();
+        lineCodec.setDecoderMaxLineLength(1024 * 1024); // 1M
+        lineCodec.setEncoderMaxLineLength(1024 * 1024); // 1M
+
+        chain.addLast("codec", new ProtocolCodecFilter(lineCodec)); // 行文本解析 //
+                                                                    // 设定这个过滤器将一行一行读数据
+        chain.addLast("log", new LoggingFilter()); // 日志拦截
+
+        mMinaClientHandler = new MinaClientHandler();
+        connector.setHandler(mMinaClientHandler);
+        connector.setConnectTimeout(30);
+        // 连接到服务器
+        ConnectFuture cf = connector.connect(new InetSocketAddress(SERVER_IP, SERVER_PORT));
+        // wait for the connection attempt to be finished
+        cf.awaitUninterruptibly();
+        cf.getSession().getCloseFuture().awaitUninterruptibly();
+        connector.dispose();
     }
-
-    public Socket getSocket() {
-        return mSocket;
-    }
-
-    public void closeSocket() {
-        mConnected = false;
-        if (mSocket != null) {
-            try {
-                mSocket.close();
-                mSocket = null;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    Thread mThread = new Thread(new Runnable() {
-
-        public void run() {
-            while (mConnected) {
-                // 不停的读取从服务器端发来的消息
-                try {
-                    if (mSocket == null || mSocket.isClosed()) {
-                        closeSocket();
-                        return;
-                    } else {
-                        ObjectInputStream ois = new ObjectInputStream(mSocket.getInputStream());
-                        String o = (String) ois.readObject();
-                        JSONObject jo = new JSONObject(o);
-
-                        if (mListener != null) {
-                            if (jo.getInt("seq") == mSeq) {
-                                if (jo.getInt("result") == 1) {
-                                    mListener.onSuccess(mSeq, jo.getJSONObject("contacts"));
-                                } else {
-                                    mListener.onFailed(mSeq, "密码错误");
-                                }
-                            }
-                        }
-
-                        ois.close();
-                        closeSocket();
-                    }
-
-                    Thread.sleep(1000);
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    });
 }
