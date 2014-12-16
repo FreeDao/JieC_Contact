@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -18,7 +19,9 @@ import android.util.Log;
 import com.jiec.contact.SendMsmActivity;
 import com.jiec.contact.model.ContactModel;
 import com.jiec.contact.model.Record;
+import com.jiec.contact.model.UserModel;
 
+@SuppressLint("SimpleDateFormat")
 public class PhoneUtils {
 
     public static void callPhone(Context context, String number) {
@@ -45,11 +48,18 @@ public class PhoneUtils {
     }
 
     public static void deleteContactRecord(Context context) {
+        if (UserModel.getInstance().isManager()) {
+            return;
+        }
+
         ContentResolver resolver = context.getContentResolver();
         resolver.delete(CallLog.Calls.CONTENT_URI, null, null);
     }
 
     public static void deleteSMSRecord(Context context) {
+        if (UserModel.getInstance().isManager()) {
+            return;
+        }
         try {
             ContentResolver CR = context.getContentResolver();
             // Query SMS
@@ -119,7 +129,7 @@ public class PhoneUtils {
 
                     int typeId = cur.getInt(typeColumn);
                     record.setState(typeId);
-                    record.setSystem_id(record.getDate() + "_" + cur.getInt(id));
+                    record.setSystem_id(record.getDate() + "_1_" + cur.getInt(id));
                     records.add(record);
 
                 } while (cur.moveToNext());
@@ -156,6 +166,8 @@ public class PhoneUtils {
             sfd = new SimpleDateFormat("yyyy-MM-dd");
             String date = sfd.format(new Date(cursor.getLong(cursor
                     .getColumnIndex(CallLog.Calls.DATE))));
+            record.setSystem_id(date + "_0_"
+                    + cursor.getLong(cursor.getColumnIndex(CallLog.Calls._ID)));
             record.setDate(date);
             record.setTime(time);
             record.setMsg("");
@@ -173,7 +185,6 @@ public class PhoneUtils {
                     .getColumnIndex(CallLog.Calls.NUMBER))));
 
             record.setName(ContactModel.getInstance().getNameByPhoneNum(record.getNum()));
-            record.setSystem_id(date);
 
             records.add(record);
         } while (cursor.moveToNext());

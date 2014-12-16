@@ -20,13 +20,13 @@ public class ContactSocket {
         public void onFailed(int cmd, String reason);
     }
 
-    // private static String SERVER_IP = "192.168.0.102";
+    // private static String SERVER_IP = "192.168.0.123";
 
-    private static String SERVER_IP = "192.168.1.138";
+    // private static String SERVER_IP = "192.168.1.138";
 
     // private static String SERVER_IP = "120.24.58.159";
 
-    // private static String SERVER_IP = "114.215.153.4";
+    private static String SERVER_IP = "114.215.153.4";
 
     private static int SERVER_PORT = 9000;
 
