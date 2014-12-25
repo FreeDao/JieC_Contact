@@ -38,6 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/et_phone_passwd"
+        android:background="@drawable/selector_common_btn"
         android:text="登陆" />
     
     <TextView

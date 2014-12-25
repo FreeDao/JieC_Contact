@@ -13,11 +13,16 @@ import android.widget.AbsListView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
+import com.jiec.contact.MyApplication;
+
 public class TreeViewAdapter extends BaseExpandableListAdapter {
 
-    public static final int ItemHeight = 70;
+    public static final float sDesity = MyApplication.getContext().getResources()
+            .getDisplayMetrics().density;
 
-    public static final int PaddingLeft = 60;
+    public static final int sItemHeight = (int) (45 * sDesity);
+
+    public static final int sPaddingLeft = (int) (20 * sDesity);
 
     private int myPaddingLeft = 0;
 
@@ -33,7 +38,7 @@ public class TreeViewAdapter extends BaseExpandableListAdapter {
 
     public TreeViewAdapter(Context context, int myPaddingLeft) {
         parentContext = context;
-        this.myPaddingLeft = myPaddingLeft;
+        this.myPaddingLeft = (int) (myPaddingLeft * sDesity);
 
     }
 
@@ -63,7 +68,7 @@ public class TreeViewAdapter extends BaseExpandableListAdapter {
 
     static public TextView getTextView(Context context) {
         AbsListView.LayoutParams lp = new AbsListView.LayoutParams(
-                ViewGroup.LayoutParams.FILL_PARENT, ItemHeight);
+                ViewGroup.LayoutParams.FILL_PARENT, sItemHeight);
         TextView textView = new TextView(context);
         textView.setLayoutParams(lp);
         textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
@@ -76,7 +81,7 @@ public class TreeViewAdapter extends BaseExpandableListAdapter {
         // TODO Auto-generated method stub
         TextView textView = getTextView(this.parentContext);
         textView.setText(getChild(groupPosition, childPosition).toString());
-        textView.setPadding(myPaddingLeft + PaddingLeft / 3, 0, 0, 0);
+        textView.setPadding(myPaddingLeft + sPaddingLeft / 3, 0, 0, 0);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
         return textView;
     }
@@ -111,7 +116,7 @@ public class TreeViewAdapter extends BaseExpandableListAdapter {
         // TODO Auto-generated method stub
         TextView textView = getTextView(this.parentContext);
         textView.setText(getGroup(groupPosition).toString());
-        textView.setPadding(myPaddingLeft + (PaddingLeft >> 1), 0, 0, 0);
+        textView.setPadding(myPaddingLeft + (sPaddingLeft >> 1), 0, 0, 0);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
         return textView;
     }

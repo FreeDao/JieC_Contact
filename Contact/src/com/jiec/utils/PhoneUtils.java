@@ -48,6 +48,7 @@ public class PhoneUtils {
     }
 
     public static void deleteContactRecord(Context context) {
+
         if (UserModel.getInstance().isManager()) {
             return;
         }

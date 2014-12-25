@@ -12,6 +12,8 @@ import org.apache.mina.transport.socket.nio.NioSocketConnector;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.jiec.utils.ToastUtil;
+
 public class ContactSocket {
 
     public interface RespondListener {
@@ -22,11 +24,11 @@ public class ContactSocket {
 
     // private static String SERVER_IP = "192.168.0.123";
 
-    // private static String SERVER_IP = "192.168.1.138";
+    private static String SERVER_IP = "192.168.1.138";
 
     // private static String SERVER_IP = "120.24.58.159";
 
-    private static String SERVER_IP = "114.215.153.4";
+    // private static String SERVER_IP = "114.215.153.4";
 
     private static int SERVER_PORT = 9000;
 
@@ -69,27 +71,33 @@ public class ContactSocket {
     }
 
     public void connect() {
+        try {
+            NioSocketConnector connector = new NioSocketConnector();
+            // 创建接收数据的过滤器
+            DefaultIoFilterChainBuilder chain = connector.getFilterChain();
 
-        NioSocketConnector connector = new NioSocketConnector();
-        // 创建接收数据的过滤器
-        DefaultIoFilterChainBuilder chain = connector.getFilterChain();
+            TextLineCodecFactory lineCodec = new TextLineCodecFactory();
+            lineCodec.setDecoderMaxLineLength(10 * 1024 * 1024); // 10M
+            lineCodec.setEncoderMaxLineLength(10 * 1024 * 1024); // 10M
 
-        TextLineCodecFactory lineCodec = new TextLineCodecFactory();
-        lineCodec.setDecoderMaxLineLength(1024 * 1024); // 1M
-        lineCodec.setEncoderMaxLineLength(1024 * 1024); // 1M
+            chain.addLast("codec", new ProtocolCodecFilter(lineCodec)); // 行文本解析
+                                                                        // //
+                                                                        // 设定这个过滤器将一行一行读数据
+            chain.addLast("log", new LoggingFilter()); // 日志拦截
 
-        chain.addLast("codec", new ProtocolCodecFilter(lineCodec)); // 行文本解析 //
-                                                                    // 设定这个过滤器将一行一行读数据
-        chain.addLast("log", new LoggingFilter()); // 日志拦截
+            mMinaClientHandler = new MinaClientHandler();
+            connector.setHandler(mMinaClientHandler);
+            connector.setConnectTimeout(30);
+            // 连接到服务器
+            ConnectFuture cf = connector.connect(new InetSocketAddress(SERVER_IP, SERVER_PORT));
+            // wait for the connection attempt to be finished
+            cf.awaitUninterruptibly();
+            cf.getSession().getCloseFuture().awaitUninterruptibly();
+            connector.dispose();
+        } catch (Exception e) {
+            ToastUtil.showMsg("网络异常，请设置你的网络！！");
+            e.printStackTrace();
+        }
 
-        mMinaClientHandler = new MinaClientHandler();
-        connector.setHandler(mMinaClientHandler);
-        connector.setConnectTimeout(30);
-        // 连接到服务器
-        ConnectFuture cf = connector.connect(new InetSocketAddress(SERVER_IP, SERVER_PORT));
-        // wait for the connection attempt to be finished
-        cf.awaitUninterruptibly();
-        cf.getSession().getCloseFuture().awaitUninterruptibly();
-        connector.dispose();
     }
 }

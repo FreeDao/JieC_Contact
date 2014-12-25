@@ -8,50 +8,80 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
-    <TextView
-        android:id="@+id/tv_user_id"
+    <RelativeLayout android:id="@+id/rl_id"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="50dp"
-        android:text="账号:" />
-
-    <EditText
-        android:id="@+id/et_user_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:ems="10"
-        android:inputType="phone" >
-        <requestFocus />
-    </EditText>
-    
-    <TextView
-        android:id="@+id/tv_user_passwd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv_user_id"
-        android:layout_marginTop="30dp"
-        android:text="密码:" />
-
-    <EditText
-        android:id="@+id/et_user_passwd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/tv_user_id"
+        android:layout_height="@dimen/common_btn_height"
         android:layout_marginTop="20dp"
-        android:ems="10"
-        android:inputType="numberPassword" >
-    </EditText>
+        android:background="@drawable/selector_common_btn"
+        android:layout_centerHorizontal="true"
+        >
+        
+		<TextView
+	        android:id="@+id/tv_user_id"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:textColor="@color/kg_common_blue"
+	        android:textSize="@dimen/common_font_size"
+	        android:text="账号:" />
+	
+	    <EditText
+	        android:id="@+id/et_user_id"
+	        android:layout_width="@dimen/common_btn_width"
+	        android:layout_height="@dimen/common_btn_height"
+	        android:layout_toRightOf="@+id/tv_user_id"
+	        android:layout_marginLeft="10dp"
+	        android:layout_centerVertical="true"
+	        android:ems="10"
+	        android:background="@null"
+	        android:textSize="@dimen/common_font_size"
+	        android:inputType="phone" >
+	        <requestFocus />
+	    </EditText>        
+    </RelativeLayout>
+    
+    <RelativeLayout android:id="@+id/rl_passwd"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/common_btn_height"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/selector_common_btn"
+        android:layout_below="@id/rl_id"
+        >
+	    <TextView
+	        android:id="@+id/tv_user_passwd"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:textColor="@color/kg_common_blue"
+	        android:textSize="@dimen/common_font_size"
+	        android:text="密码:" />
+	
+	    <EditText
+	        android:id="@+id/et_user_passwd"
+	        android:layout_width="@dimen/common_btn_width"
+	        android:layout_height="@dimen/common_btn_height"
+	        android:layout_toRightOf="@+id/tv_user_passwd"
+	        android:layout_marginLeft="10dp"
+	        android:layout_centerVertical="true"
+	        android:background="@null"
+	        android:ems="10"
+	        android:textSize="@dimen/common_font_size"
+	        android:inputType="numberPassword" >
+	    </EditText>        
+    </RelativeLayout>
+    
 
     <Button
         android:id="@+id/login_btn"
         android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/et_user_passwd"
+        android:layout_height="@dimen/common_btn_height"
+        android:layout_marginTop="15dp"
+        android:layout_below="@id/rl_passwd"
         android:layout_centerHorizontal="true"
+        android:textColor="@color/kg_common_blue"
+        android:textSize="@dimen/common_font_size"
+        android:background="@drawable/selector_common_btn"
         android:text="登陆" />
 
 </RelativeLayout>

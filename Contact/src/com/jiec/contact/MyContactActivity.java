@@ -96,7 +96,7 @@ public class MyContactActivity extends Activity implements ContactChangeListener
 
         mExpandableListView = (ExpandableListView) findViewById(R.id.expandablelistview);
 
-        mAdapter = new TreeViewAdapter(this, 38);
+        mAdapter = new TreeViewAdapter(this, 20);
         mSuperAdapter = new SuperTreeViewAdapter(this, null);
 
         Button btnNewContact = (Button) findViewById(R.id.btn_new_contact);

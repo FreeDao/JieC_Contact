@@ -85,6 +85,8 @@ public class UserModel {
         this.mUserLogined = userLogined;
         if (!mUserLogined) {
             mUserId = "888888";
+        } else if (mUserId == "8888") {
+            setIsManager(true);
         }
     }
 

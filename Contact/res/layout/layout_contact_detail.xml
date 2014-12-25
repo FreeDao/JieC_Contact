@@ -19,16 +19,18 @@
             <RelativeLayout
                 android:id="@+id/widget205"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_height="@dimen/common_contact_item_height"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 >
 
                 <ImageButton
                     android:id="@+id/image_button"
-                    android:layout_width="100px"
-                    android:layout_height="100px"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:adjustViewBounds="false"
                     android:scaleType="centerCrop"
+                    android:background="@drawable/kg_sp_bg"
                     android:src="@drawable/ic_launcher" >
                 </ImageButton>
 
@@ -56,10 +58,17 @@
 
             </RelativeLayout>
             
+            <View
+		        android:id="@+id/kg_dialog_btn_diver"
+		        android:layout_width="match_parent"
+		        android:layout_height="1px"
+		        android:background="@color/kg_common_gray_normal" />
+            
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_height="@dimen/common_contact_item_height"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:orientation="horizontal" >
 
                 <TextView
@@ -67,26 +76,35 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
                     android:text="公司编号  : "
-                    android:textSize="15dp" />
+                    android:layout_gravity="center_vertical"
+                    android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/tv_company_id"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="top"
+                    android:layout_gravity="center_vertical"
                     android:scrollbars="vertical" />
             </LinearLayout>
             
+            <View
+		        android:id="@+id/kg_dialog_btn_diver"
+		        android:layout_width="match_parent"
+		        android:layout_height="1px"
+		        android:background="@color/kg_common_gray_normal" />    
+		                
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_height="@dimen/common_contact_item_height"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:orientation="horizontal" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
+                    android:layout_gravity="center_vertical"
                     android:text="公司名称 : "
                     android:textSize="15dp" />
 
@@ -94,17 +112,23 @@
                     android:id="@+id/tv_company_name"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="top"
+                    android:layout_gravity="center_vertical"
                     android:scrollbars="vertical" />
             </LinearLayout>
-
+            
+            <View
+		        android:id="@+id/kg_dialog_btn_diver"
+		        android:layout_width="match_parent"
+		        android:layout_height="1px"
+		        android:background="@color/kg_common_gray_normal" />    
+		                
+            
             <RelativeLayout
                 android:id="@+id/rl_phone_1"
                 android:layout_width="fill_parent"
-                android:layout_height="40dp"
+                android:layout_height="@dimen/common_contact_item_height"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
                 android:orientation="horizontal" >
 
                 <TextView
@@ -112,6 +136,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
+                    android:layout_gravity="center_vertical"
                     android:layout_centerVertical="true"
                     android:text="办公号码:"
                     android:textSize="15dp" />
@@ -121,32 +146,43 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
                     android:gravity="top"
                     android:layout_toRightOf="@+id/tv_phone_1"/>
                 
                 <ImageButton 
                     android:id="@+id/ib_phone_chat_1"
                     android:layout_width="40dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="40dp"
                     android:layout_alignParentRight="true"
+                    android:background="@drawable/kg_sp_bg"
+                    android:layout_gravity="center_vertical"
                     android:src="@android:drawable/sym_action_chat"/>
                 
                 <ImageButton 
                     android:id="@+id/ib_phone_call_1"
                     android:layout_width="40dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="40dp"
                     android:layout_toLeftOf="@+id/ib_phone_chat_1"
                     android:layout_marginRight="10dp"
+                    android:background="@drawable/kg_sp_bg"
+                    android:layout_centerVertical="true"
                     android:src="@android:drawable/sym_action_call"/>
             </RelativeLayout>
-
+            
+            <View
+		        android:id="@+id/kg_dialog_btn_diver"
+		        android:layout_width="match_parent"
+		        android:layout_height="1px"
+		        android:background="@color/kg_common_gray_normal" />    
+		                
+            
             <RelativeLayout
                 android:id="@+id/rl_phone_2"
                 android:layout_width="fill_parent"
-                android:layout_height="40dp"
+                android:layout_height="@dimen/common_contact_item_height"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
                 android:orientation="horizontal" >
 
                 <TextView
@@ -169,26 +205,36 @@
                 <ImageButton 
                     android:id="@+id/ib_phone_chat_2"
                     android:layout_width="40dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="40dp"
                     android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/kg_sp_bg"
                     android:src="@android:drawable/sym_action_chat"/>
                 
                 <ImageButton 
                     android:id="@+id/ib_phone_call_2"
                     android:layout_width="40dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="40dp"
                     android:layout_toLeftOf="@+id/ib_phone_chat_2"
                     android:layout_marginRight="10dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/kg_sp_bg"
                     android:src="@android:drawable/sym_action_call"/>
             </RelativeLayout>
-
+            
+            <View
+		        android:id="@+id/kg_dialog_btn_diver"
+		        android:layout_width="match_parent"
+		        android:layout_height="1px"
+		        android:background="@color/kg_common_gray_normal" />    
+		                
+            
             <RelativeLayout
                 android:id="@+id/rl_phone_3"
                 android:layout_width="fill_parent"
-                android:layout_height="40dp"
+                android:layout_height="@dimen/common_contact_item_height"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
                 android:orientation="horizontal" >
 
                 <TextView
@@ -196,6 +242,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginRight="10dp"
                     android:text="办公号码:"
                     android:textSize="15dp" />
@@ -211,26 +258,36 @@
                 <ImageButton 
                     android:id="@+id/ib_phone_chat_3"
                     android:layout_width="40dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="40dp"
                     android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/kg_sp_bg"
                     android:src="@android:drawable/sym_action_chat"/>
                 
                 <ImageButton 
                     android:id="@+id/ib_phone_call_3"
                     android:layout_width="40dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
                     android:layout_toLeftOf="@+id/ib_phone_chat_3"
                     android:layout_marginRight="10dp"
+                    android:background="@drawable/kg_sp_bg"
                     android:src="@android:drawable/sym_action_call"/>
             </RelativeLayout>
+            
+            <View
+		        android:id="@+id/kg_dialog_btn_diver"
+		        android:layout_width="match_parent"
+		        android:layout_height="1px"
+		        android:background="@color/kg_common_gray_normal" />    
+		                
             
             <RelativeLayout
                 android:id="@+id/rl_yd_phone_1"
                 android:layout_width="fill_parent"
-                android:layout_height="40dp"
+                android:layout_height="@dimen/common_contact_item_height"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
                 android:orientation="horizontal" >
 
                 <TextView
@@ -253,26 +310,36 @@
                 <ImageButton 
                     android:id="@+id/ib_yd_phone_chat_1"
                     android:layout_width="40dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="40dp"
                     android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/kg_sp_bg"
                     android:src="@android:drawable/sym_action_chat"/>
                 
                 <ImageButton 
                     android:id="@+id/ib_yd_phone_call_1"
                     android:layout_width="40dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="40dp"
                     android:layout_toLeftOf="@+id/ib_yd_phone_chat_1"
                     android:layout_marginRight="10dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/kg_sp_bg"
                     android:src="@android:drawable/sym_action_call"/>
             </RelativeLayout>
+            
+            <View
+		        android:id="@+id/kg_dialog_btn_diver"
+		        android:layout_width="match_parent"
+		        android:layout_height="1px"
+		        android:background="@color/kg_common_gray_normal" />    
+		                
             
             <RelativeLayout
                 android:id="@+id/rl_yd_phone_2"
                 android:layout_width="fill_parent"
-                android:layout_height="40dp"
+                android:layout_height="@dimen/common_contact_item_height"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
                 android:orientation="horizontal" >
 
                 <TextView
@@ -295,26 +362,36 @@
                 <ImageButton 
                     android:id="@+id/ib_yd_phone_chat_2"
                     android:layout_width="40dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="40dp"
                     android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/kg_sp_bg"
                     android:src="@android:drawable/sym_action_chat"/>
                 
                 <ImageButton 
                     android:id="@+id/ib_yd_phone_call_2"
                     android:layout_width="40dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="40dp"
                     android:layout_toLeftOf="@+id/ib_yd_phone_chat_2"
                     android:layout_marginRight="10dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/kg_sp_bg"
                     android:src="@android:drawable/sym_action_call"/>
             </RelativeLayout>
             
+            <View
+		        android:id="@+id/kg_dialog_btn_diver"
+		        android:layout_width="match_parent"
+		        android:layout_height="1px"
+		        android:background="@color/kg_common_gray_normal" />    
+		                
+           
             <RelativeLayout
                 android:id="@+id/rl_yd_phone_3"
                 android:layout_width="fill_parent"
-                android:layout_height="40dp"
+                android:layout_height="@dimen/common_contact_item_height"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
                 android:orientation="horizontal" >
 
                 <TextView
@@ -337,20 +414,31 @@
                 <ImageButton 
                     android:id="@+id/ib_yd_phone_chat_3"
                     android:layout_width="40dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="40dp"
                     android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/kg_sp_bg"
                     android:src="@android:drawable/sym_action_chat"/>
                 
                 <ImageButton 
                     android:id="@+id/ib_yd_phone_call_3"
                     android:layout_width="40dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="40dp"
                     android:layout_toLeftOf="@+id/ib_yd_phone_chat_3"
                     android:layout_marginRight="10dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/kg_sp_bg"
                     android:src="@android:drawable/sym_action_call"/>
             </RelativeLayout>
 
-
+            
+            <View
+		        android:id="@+id/kg_dialog_btn_diver"
+		        android:layout_width="match_parent"
+		        android:layout_height="1px"
+		        android:background="@color/kg_common_gray_normal" />    
+		                
+            
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -371,6 +459,13 @@
                     android:gravity="top"
                     android:scrollbars="vertical" />
             </LinearLayout>
+            
+            <View
+		        android:id="@+id/kg_dialog_btn_diver"
+		        android:layout_width="match_parent"
+		        android:layout_height="1px"
+		        android:background="@color/kg_common_gray_normal" />    
+		                
             
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -393,6 +488,13 @@
                     android:scrollbars="vertical" />
             </LinearLayout>
             
+            <View
+		        android:id="@+id/kg_dialog_btn_diver"
+		        android:layout_width="match_parent"
+		        android:layout_height="1px"
+		        android:background="@color/kg_common_gray_normal" />    
+		                
+            
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -414,7 +516,14 @@
                     android:scrollbars="vertical" />
             </LinearLayout>
 
-           
+            
+            <View
+		        android:id="@+id/kg_dialog_btn_diver"
+		        android:layout_width="match_parent"
+		        android:layout_height="1px"
+		        android:background="@color/kg_common_gray_normal" />    
+		                
+            
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -436,6 +545,13 @@
                     android:scrollbars="vertical" />
             </LinearLayout>
             
+            <View
+		        android:id="@+id/kg_dialog_btn_diver"
+		        android:layout_width="match_parent"
+		        android:layout_height="1px"
+		        android:background="@color/kg_common_gray_normal" />    
+		                
+            
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -456,6 +572,13 @@
                     android:gravity="top"
                     android:scrollbars="vertical" />
             </LinearLayout>
+            
+            <View
+		        android:id="@+id/kg_dialog_btn_diver"
+		        android:layout_width="match_parent"
+		        android:layout_height="1px"
+		        android:background="@color/kg_common_gray_normal" />    
+		                
             
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -480,10 +603,19 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
+            
+    <View
+	    android:id="@+id/kg_dialog_btn_diver"
+	    android:layout_width="match_parent"
+	    android:layout_height="1px"
+	    android:background="@color/kg_common_gray_normal" />    
+		                
+    
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:orientation="horizontal" >
 
         <Button
@@ -491,8 +623,9 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/selector_common_btn"
             android:text="编辑" />
 
         <Button
@@ -500,8 +633,9 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/selector_common_btn"
             android:text="返回" />
     </LinearLayout>
 

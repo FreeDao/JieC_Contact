@@ -54,7 +54,7 @@ public class SuperTreeViewAdapter extends BaseExpandableListAdapter {
 
     public ExpandableListView getExpandableListView() {
         AbsListView.LayoutParams lp = new AbsListView.LayoutParams(
-                ViewGroup.LayoutParams.FILL_PARENT, TreeViewAdapter.ItemHeight);
+                ViewGroup.LayoutParams.FILL_PARENT, TreeViewAdapter.sItemHeight);
         ExpandableListView superTreeView = new ExpandableListView(parentContext);
         superTreeView.setLayoutParams(lp);
         return superTreeView;
