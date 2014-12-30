@@ -60,7 +60,7 @@ public class FTPClientUtils {
         }
     }
 
-    public static void updateFile(Context context) {
+    public static void updateFile(Context context, final String ip) {
         mContext = context;
         new Thread(new Runnable() {
 
@@ -69,7 +69,7 @@ public class FTPClientUtils {
                 FTPClientUtils t = new FTPClientUtils();
 
                 try {
-                    t.connect("contact/", "114.215.153.4", 21, "pwftp", "woshiwbjso");
+                    t.connect("contact/", ip, 21, "pwftp", "woshiwbjso");
                     File contactPath = new File(Environment.getExternalStorageDirectory(),
                             "contact");
                     if (contactPath.exists()) {

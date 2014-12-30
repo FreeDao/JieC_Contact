@@ -1,0 +1,2 @@
+int dimen common_tree_height 0x7f020000
+int dimen common_tree_left_margin 0x7f020001

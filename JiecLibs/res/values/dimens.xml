@@ -1,0 +1,6 @@
+<resources>
+
+    <dimen name="common_tree_height">48dp</dimen>
+    <dimen name="common_tree_left_margin">40dp</dimen>
+
+</resources>

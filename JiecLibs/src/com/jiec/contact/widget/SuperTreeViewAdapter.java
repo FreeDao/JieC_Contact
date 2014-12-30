@@ -12,7 +12,11 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 
+import com.example.contactlib.R;
+
 public class SuperTreeViewAdapter extends BaseExpandableListAdapter {
+
+    private float mItemHeight = 40;
 
     static public class SuperTreeNode {
         Object parent;
@@ -30,6 +34,8 @@ public class SuperTreeViewAdapter extends BaseExpandableListAdapter {
     public SuperTreeViewAdapter(Context view, OnChildClickListener stvClickEvent) {
         parentContext = view;
         this.stvClickEvent = stvClickEvent;
+
+        this.mItemHeight = view.getResources().getDimension(R.dimen.common_tree_height);
     }
 
     public List<SuperTreeNode> GetTreeNode() {
@@ -54,7 +60,7 @@ public class SuperTreeViewAdapter extends BaseExpandableListAdapter {
 
     public ExpandableListView getExpandableListView() {
         AbsListView.LayoutParams lp = new AbsListView.LayoutParams(
-                ViewGroup.LayoutParams.FILL_PARENT, TreeViewAdapter.ItemHeight);
+                ViewGroup.LayoutParams.MATCH_PARENT, (int) mItemHeight);
         ExpandableListView superTreeView = new ExpandableListView(parentContext);
         superTreeView.setLayoutParams(lp);
         return superTreeView;

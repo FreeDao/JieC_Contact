@@ -25,11 +25,12 @@
 
                 <ImageButton
                     android:id="@+id/image_button"
-                    android:layout_width="100px"
-                    android:layout_height="100px"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:adjustViewBounds="false"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ic_launcher" >
+                    android:background="@drawable/kg_sp_bg"
+                    android:src="@drawable/img_app_icon" >
                 </ImageButton>
 
                 <TextView
@@ -401,6 +402,7 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         android:orientation="horizontal" >
 
         <Button
@@ -408,8 +410,9 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/selector_common_btn"
             android:text="保存" />
 
         <Button
@@ -417,8 +420,9 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/selector_common_btn"
             android:text="返回" />
     </LinearLayout>
 

@@ -35,7 +35,7 @@
         android:name="com.jiec.contact.MyApplication"
         android:allowBackup="true"
         android:persistent="true"  
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/img_app_icon"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
@@ -95,6 +95,10 @@
         
         <meta-data android:value="54223b67fd98c5857502a636" android:name="UMENG_APPKEY"></meta-data>
 		<meta-data android:value="1" android:name="UMENG_CHANNEL"/>
+		
+		<meta-data android:value="120.24.58.159" android:name="SERVER_IP"/>
+		<meta-data android:value="9000" android:name="SERVER_PORT"/>
+		<meta-data android:value="120.24.58.159" android:name="FTP_IP"/>
     </application>
 
 </manifest>

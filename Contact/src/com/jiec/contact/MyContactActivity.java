@@ -38,7 +38,7 @@ public class MyContactActivity extends Activity implements ContactChangeListener
 
     EditText mPhoneNumET;
 
-    Button mCallBtn;
+    Button mSearchBtn;
 
     ExpandableListView mExpandableListView;
 
@@ -69,8 +69,8 @@ public class MyContactActivity extends Activity implements ContactChangeListener
 
         mPhoneNumET = (EditText) findViewById(R.id.et_phone_num);
 
-        mCallBtn = (Button) findViewById(R.id.btn_call);
-        mCallBtn.setOnClickListener(new OnClickListener() {
+        mSearchBtn = (Button) findViewById(R.id.btn_search);
+        mSearchBtn.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
@@ -96,7 +96,7 @@ public class MyContactActivity extends Activity implements ContactChangeListener
 
         mExpandableListView = (ExpandableListView) findViewById(R.id.expandablelistview);
 
-        mAdapter = new TreeViewAdapter(this, 38);
+        mAdapter = new TreeViewAdapter(this, 25);
         mSuperAdapter = new SuperTreeViewAdapter(this, null);
 
         Button btnNewContact = (Button) findViewById(R.id.btn_new_contact);

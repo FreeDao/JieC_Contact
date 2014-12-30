@@ -1,0 +1,15 @@
+<resources>
+
+    <!-- 基本颜色 -->
+    <color name="kg_common_white">#ffffffff</color>
+    <color name="kg_common_black">#ff000000</color>
+    <color name="kg_common_red">#f32525</color>
+    <color name="kg_common_green">#ff00ff00</color>
+    <color name="kg_common_blue_lighter">#249EF4</color>
+    <color name="kg_common_orange">#fd9526</color>
+    <color name="kg_common_blue_deep">#259EF7</color>
+    <color name="kg_common_green_light">#26B134</color>
+    <color name="kg_common_red_light">#A10000</color>
+    <color name="kg_common_blue">#1E90FF</color>
+    <color name="kg_common_gray_normal">#cccccc</color>
+</resources>

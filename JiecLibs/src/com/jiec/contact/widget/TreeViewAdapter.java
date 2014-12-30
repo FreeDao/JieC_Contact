@@ -13,15 +13,15 @@ import android.widget.AbsListView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
+import com.example.contactlib.R;
+
 public class TreeViewAdapter extends BaseExpandableListAdapter {
 
-    public static final int ItemHeight = 70;
+    private float mItemHeight = 40;
 
-    public static final int PaddingLeft = 60;
+    private float mPaddingLeft = 20;
 
-    private int myPaddingLeft = 0;
-
-    static public class TreeNode {
+    public static class TreeNode {
         public Object parent;
 
         public List<Object> childs = new ArrayList<Object>();
@@ -33,8 +33,9 @@ public class TreeViewAdapter extends BaseExpandableListAdapter {
 
     public TreeViewAdapter(Context context, int myPaddingLeft) {
         parentContext = context;
-        this.myPaddingLeft = myPaddingLeft;
 
+        this.mItemHeight = context.getResources().getDimension(R.dimen.common_tree_height);
+        this.mPaddingLeft = context.getResources().getDimension(R.dimen.common_tree_left_margin);
     }
 
     public List<TreeNode> getTreeNode() {
@@ -61,9 +62,9 @@ public class TreeViewAdapter extends BaseExpandableListAdapter {
         return childPosition;
     }
 
-    static public TextView getTextView(Context context) {
+    public TextView getTextView(Context context) {
         AbsListView.LayoutParams lp = new AbsListView.LayoutParams(
-                ViewGroup.LayoutParams.FILL_PARENT, ItemHeight);
+                ViewGroup.LayoutParams.MATCH_PARENT, (int) mItemHeight);
         TextView textView = new TextView(context);
         textView.setLayoutParams(lp);
         textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
@@ -76,7 +77,7 @@ public class TreeViewAdapter extends BaseExpandableListAdapter {
         // TODO Auto-generated method stub
         TextView textView = getTextView(this.parentContext);
         textView.setText(getChild(groupPosition, childPosition).toString());
-        textView.setPadding(myPaddingLeft + PaddingLeft / 3, 0, 0, 0);
+        textView.setPadding((int) mPaddingLeft, 0, 0, 0);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
         return textView;
     }
@@ -111,7 +112,7 @@ public class TreeViewAdapter extends BaseExpandableListAdapter {
         // TODO Auto-generated method stub
         TextView textView = getTextView(this.parentContext);
         textView.setText(getGroup(groupPosition).toString());
-        textView.setPadding(myPaddingLeft + (PaddingLeft >> 1), 0, 0, 0);
+        textView.setPadding((int) (mPaddingLeft / 3 * 2), 0, 0, 0);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
         return textView;
     }

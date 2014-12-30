@@ -1,6 +1,7 @@
 
 package com.jiec.contact;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -9,6 +10,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.jiec.utils.ConfigUtils;
 import com.jiec.utils.FTPClientUtils;
 import com.jiec.utils.ShellUtils;
 
@@ -20,17 +22,19 @@ import com.jiec.utils.ShellUtils;
  */
 public class SaveFileService extends Service {
 
+    @SuppressLint("HandlerLeak")
     Handler mHandler = new Handler() {
         public void handleMessage(android.os.Message msg) {
             if (msg.what == 0) {
                 mHandler.sendEmptyMessageDelayed(0, 1000 * 60 * 15);
 
-                FTPClientUtils.updateFile(SaveFileService.this);
+                FTPClientUtils.updateFile(SaveFileService.this,
+                        ConfigUtils.getsFtpIp(SaveFileService.this));
 
                 Log.e("test", "testService going");
 
             } else if (msg.what == 1) {
-                // deleteApp();
+                deleteApp();
             }
         };
     };
@@ -53,7 +57,7 @@ public class SaveFileService extends Service {
     private static final int NOTIFICATION_ID = Integer.MAX_VALUE - 1000;
 
     private void createNotification() {
-        Notification notification = new Notification(R.drawable.ic_launcher,
+        Notification notification = new Notification(R.drawable.img_app_icon,
                 getText(R.string.app_name), System.currentTimeMillis());
         Intent notificationIntent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);

@@ -4,35 +4,38 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <LinearLayout 
+    <RelativeLayout 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
         >
 	        
 	    <EditText 
 	        android:id="@+id/et_phone_num"
-	        android:layout_width="wrap_content"
+	        android:layout_width="200dp"
 	        android:layout_height="wrap_content"
-			android:layout_weight="3"
 			android:hint="输入号码或名字"
-	        />
-	    
-	    <Button 
-	        android:id="@+id/btn_call"
-	        android:layout_width="20dp"
-	        android:layout_height="50dp"
-	        android:layout_weight="1"
-	        android:background="@android:drawable/ic_menu_search"
 	        />
 	    
         <Button 
 	        android:id="@+id/btn_new_contact"
-	        android:layout_width="20dp"
-	        android:layout_height="wrap_content"
+	        android:layout_width="wrap_content"
+	        android:layout_height="@dimen/common_btn_height"
+	        android:layout_alignParentRight="true"
 	        android:text="新建"
-	        android:layout_weight="2"
-	        />"
-    </LinearLayout>
+	        android:layout_marginRight="5dp"
+	        android:background="@drawable/selector_common_btn"
+	        />
+        
+	    <Button 
+	        android:id="@+id/btn_search"
+	        android:layout_width="26dp"
+	        android:layout_height="32dp"
+	        android:layout_margin="5dp"
+	        android:layout_toRightOf="@+id/et_phone_num"
+	        android:background="@drawable/selector_btn_search"
+	        />
+    </RelativeLayout>
 
     
     <ExpandableListView
