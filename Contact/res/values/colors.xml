@@ -12,4 +12,7 @@
     <color name="kg_common_red_light">#A10000</color>
     <color name="kg_common_blue">#1E90FF</color>
     <color name="kg_common_gray_normal">#cccccc</color>
+    
+    <color name="btn_blue">#ff4b8bd8</color>
+    <color name="color_btn_blue">#ff4b8bd8</color>
 </resources>

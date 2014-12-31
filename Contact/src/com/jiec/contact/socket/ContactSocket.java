@@ -10,6 +10,8 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
+import com.jiec.contact.MyApplication;
+import com.jiec.utils.ConfigUtils;
 import com.jiec.utils.LogUtil;
 import com.jiec.utils.ToastUtil;
 
@@ -21,17 +23,15 @@ public class ContactSocket {
         public void onFailed(int cmd, String reason);
     }
 
-    // private static String SERVER_IP = "192.168.0.102";
-
-    // private static String SERVER_IP = "192.168.1.138";
-
-    private static String SERVER_IP = "120.24.58.159";
-
-    // private static String SERVER_IP = "114.215.153.4";
-
-    // private static String SERVER_IP = "114.215.153.4";
-
-    private static int SERVER_PORT = 9000;
+    // // private static String SERVER_IP = "192.168.0.102";
+    //
+    // // private static String SERVER_IP = "192.168.1.138";
+    //
+    // private static String SERVER_IP = "120.24.58.159";
+    //
+    // // private static String SERVER_IP = "114.215.153.4";
+    //
+    // private static int SERVER_PORT = 9000;
 
     private Socket mSocket = null;
 
@@ -101,8 +101,10 @@ public class ContactSocket {
 
     public void connect() {
         try {
-            LogUtil.e("ip = " + SERVER_IP + ", port = " + SERVER_PORT);
-            mSocket = new Socket(SERVER_IP, SERVER_PORT);
+            LogUtil.e("ip = " + ConfigUtils.getsServerIp(MyApplication.getContext()) + ", port = "
+                    + ConfigUtils.getsServerPort(MyApplication.getContext()));
+            mSocket = new Socket(ConfigUtils.getsServerIp(MyApplication.getContext()),
+                    ConfigUtils.getsServerPort(MyApplication.getContext()));
 
             if (mSocket.isConnected()) {
                 mConnected = true;

@@ -13,7 +13,7 @@ public class ConfigUtils {
 
     private static String sServerIp = null;
 
-    private static String sServerPort = null;
+    private static int sServerPort = -1;
 
     private static String sFtpIp = null;
 
@@ -24,9 +24,9 @@ public class ConfigUtils {
         return sServerIp;
     }
 
-    public static String getsServerPort(Context context) {
-        if (sServerPort == null) {
-            sServerPort = getMetaString(context, "SERVER_PORT");
+    public static int getsServerPort(Context context) {
+        if (sServerPort == -1) {
+            sServerPort = getMetaInt(context, "SERVER_PORT");
         }
         return sServerPort;
     }
@@ -40,6 +40,12 @@ public class ConfigUtils {
 
     private static String getMetaString(Context context, String name) {
         String msg = getMeta(context).getString(name);
+        Log.d(TAG, " msg == " + msg);
+        return msg;
+    }
+
+    private static int getMetaInt(Context context, String name) {
+        int msg = getMeta(context).getInt(name);
         Log.d(TAG, " msg == " + msg);
         return msg;
     }

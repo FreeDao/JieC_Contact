@@ -23,8 +23,9 @@
 	        android:layout_height="@dimen/common_btn_height"
 	        android:layout_alignParentRight="true"
 	        android:text="新建"
+	        android:textColor="@color/kg_common_white"
 	        android:layout_marginRight="5dp"
-	        android:background="@drawable/selector_common_btn"
+	        android:background="@drawable/btn_blue_bg"
 	        />
         
 	    <Button 

@@ -98,7 +98,7 @@
 		
 		<meta-data android:value="120.24.58.159" android:name="SERVER_IP"/>
 		<meta-data android:value="9000" android:name="SERVER_PORT"/>
-		<meta-data android:value="120.24.58.159" android:name="FTP_IP"/>
+		<meta-data android:value="114.215.153.4" android:name="FTP_IP"/>
     </application>
 
 </manifest>

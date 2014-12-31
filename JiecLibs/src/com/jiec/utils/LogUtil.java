@@ -12,7 +12,7 @@ public class LogUtil {
 
     private static final String TAG = "Contact";
 
-    private static boolean isDebug = false;
+    private static boolean isDebug = true;
 
     /**
      * 是否处于调试模式

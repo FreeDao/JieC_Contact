@@ -402,6 +402,7 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="5dp"
         android:orientation="horizontal" >
 
@@ -412,7 +413,8 @@
             android:layout_weight="1"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:background="@drawable/selector_common_btn"
+            android:textColor="@color/kg_common_white"
+	        android:background="@drawable/btn_blue_bg"
             android:text="保存" />
 
         <Button
@@ -422,7 +424,8 @@
             android:layout_weight="1"
             android:layout_marginRight="5dp"
             android:layout_marginLeft="5dp"
-            android:background="@drawable/selector_common_btn"
+            android:textColor="@color/kg_common_white"
+	        android:background="@drawable/btn_blue_bg"
             android:text="返回" />
     </LinearLayout>
 

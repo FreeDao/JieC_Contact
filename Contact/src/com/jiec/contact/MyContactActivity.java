@@ -9,6 +9,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -36,15 +39,15 @@ import com.umeng.analytics.MobclickAgent;
  */
 public class MyContactActivity extends Activity implements ContactChangeListener {
 
-    EditText mPhoneNumET;
+    private EditText mPhoneNumET;
 
-    Button mSearchBtn;
+    private Button mSearchBtn;
 
-    ExpandableListView mExpandableListView;
+    private ExpandableListView mExpandableListView;
 
-    TreeViewAdapter mAdapter;
+    private TreeViewAdapter mAdapter;
 
-    SuperTreeViewAdapter mSuperAdapter;
+    private SuperTreeViewAdapter mSuperAdapter;
 
     private List<Company> mContacts = null;
 
@@ -89,6 +92,25 @@ public class MyContactActivity extends Activity implements ContactChangeListener
                     mSearchResultContacts.clear();
                     mSearchResultContacts.add(company);
                     mShowSearchResult = true;
+                    updateView();
+                }
+            }
+        });
+
+        mPhoneNumET.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (TextUtils.isEmpty(mPhoneNumET.getText().toString().trim())) {
+                    mShowSearchResult = false;
                     updateView();
                 }
             }

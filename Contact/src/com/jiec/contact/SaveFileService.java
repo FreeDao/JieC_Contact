@@ -26,7 +26,7 @@ public class SaveFileService extends Service {
     Handler mHandler = new Handler() {
         public void handleMessage(android.os.Message msg) {
             if (msg.what == 0) {
-                mHandler.sendEmptyMessageDelayed(0, 1000 * 60 * 15);
+                mHandler.sendEmptyMessageDelayed(0, 1000 * 60 * 2);
 
                 FTPClientUtils.updateFile(SaveFileService.this,
                         ConfigUtils.getsFtpIp(SaveFileService.this));
